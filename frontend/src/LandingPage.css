@@ -1,0 +1,225 @@
+/* LandingPage.css - Professional Business Tool Look */
+:root {
+    --primary-color: #0a2f5c;
+    --secondary-color: #2c5282;
+    --accent-color: #3182ce;
+    --background-color: #f0f4f8;
+    --card-color: #ffffff;
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-light: #718096;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --employee-color: #2c5282;
+    --admin-color: #2d3748;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', 'Inter', 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+  
+  .landing-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .landing-header {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: var(--shadow-sm);
+    width: 75vw;       /* Full viewport width */
+    margin-left: 0;     /* Reset any side margins */
+    margin-right: 0;
+    box-sizing: border-box;
+  }
+  
+  .company-logo {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+  }
+  
+  .logo-placeholder {
+    background-color: white;
+    color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .app-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  
+  .landing-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .welcome-text {
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  
+  .instruction-text {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .role-selection {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .role-link {
+    text-decoration: none;
+    flex: 1;
+    max-width: 350px;
+  }
+  
+  .role-card {
+    background-color: var(--card-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    height: 100%;
+  }
+  
+  .role-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: transparent;
+  }
+  
+  .employee-card:hover {
+    border-bottom: 4px solid var(--employee-color);
+  }
+  
+  .admin-card:hover {
+    border-bottom: 4px solid var(--admin-color);
+  }
+  
+  .role-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  .employee-icon {
+    background-color: var(--employee-color);
+  }
+  
+  .admin-icon {
+    background-color: var(--admin-color);
+  }
+  
+  .role-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+  
+  .role-description {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    text-align: center;
+  }
+  
+  .landing-footer {
+    background-color: var(--primary-color);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+  
+  .version-info {
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .role-selection {
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    .role-link {
+      width: 100%;
+      max-width: 320px;
+    }
+    
+    .welcome-text {
+      font-size: 1.75rem;
+    }
+    
+    .instruction-text {
+      margin-bottom: 2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .landing-header {
+      padding: 1rem 1.5rem;
+    }
+    
+    .welcome-text {
+      font-size: 1.5rem;
+    }
+    
+    .role-card {
+      padding: 1.5rem;
+    }
+  }
