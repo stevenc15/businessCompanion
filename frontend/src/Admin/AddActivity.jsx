@@ -1,9 +1,9 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
-import './EmployeeForm.css';
+import './AddActivity.css';
 
 //employee form for employees to log their activities
-function EmployeeForm() {
+function AddActivity() {
 
   //define form data object
   const [formData, setFormData] = useState({EmployeeName: '', Community: '', Address: '', DoorCode: '', Service: ''});
@@ -16,10 +16,11 @@ function EmployeeForm() {
   //log submission function
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5001/api/activities', {
+    const res = await fetch('http://localhost:5001/admin/addActivity', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(formData),
+      credentials: 'include',
     });
 
     const data = await res.json();
@@ -128,6 +129,10 @@ function EmployeeForm() {
               <button type="submit" className="submit-button">
                 Submit Activity
               </button>
+              {/*going back button*/} 
+              <Link to='/activityDashboard' className="back-link">
+                <button className="back-button">Return to Activity Dashboard</button>
+              </Link>
             </div>
 
           </form> 
@@ -146,4 +151,4 @@ function EmployeeForm() {
   );
 };
     
-export default EmployeeForm;
+export default AddActivity;

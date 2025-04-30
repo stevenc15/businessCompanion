@@ -142,15 +142,14 @@
     margin-top: 2rem;
   }
   
-  .submit-button{
-    padding: 1.5rem 1.5rem;
+  .submit-button, .back-button {
+    padding: 0.75rem 1.5rem;
     font-size: 1rem;
     font-weight: 500;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-left: 4rem !important;
   }
   
   .submit-button {
@@ -160,6 +159,19 @@
   
   .submit-button:hover {
     background-color: var(--button-primary-hover);
+  }
+  
+  .back-button {
+    background-color: var(--button-secondary);
+    color: white;
+  }
+  
+  .back-button:hover {
+    background-color: var(--button-secondary-hover);
+  }
+  
+  .back-link {
+    text-decoration: none;
   }
   
   .employee-footer {

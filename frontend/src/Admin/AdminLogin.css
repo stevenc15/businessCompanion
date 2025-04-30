@@ -120,50 +120,67 @@
     text-align: center;
   }
   
-  .login-form {
-    width: 100%;
-  }
-  
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-  
-  label {
-    display: block;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: 0.5rem;
-  }
-  
-  .form-input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    border: 1px solid var(--input-border);
-    border-radius: 6px;
-    background-color: white;
-    transition: all 0.2s ease;
-    color: black;
-  }
-  
-  .form-input:focus {
-    outline: none;
-    border-color: var(--input-focus);
-    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
-  }
-  
-  .form-input::placeholder {
-    color: var(--text-light);
-    opacity: 0.7;
-  }
-  
-  .form-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
+  /* Google Sign-in Button Styling */
+.google-signin-container {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.google-signin-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  background-color: white;
+  color: var(--text-primary);
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.google-signin-button:hover {
+  background-color: #f8f9fa;
+  box-shadow: var(--shadow-md);
+}
+
+.google-signin-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.3);
+}
+
+.google-signin-button:active {
+  transform: translateY(1px);
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+}
+
+/* Google "G" logo colors */
+.google-icon .blue {
+  fill: #4285F4;
+}
+
+.google-icon .green {
+  fill: #34A853;
+}
+
+.google-icon .yellow {
+  fill: #FBBC05;
+}
+
+.google-icon .red {
+  fill: #EA4335;
+}
   
   .login-button, .back-button {
     padding: 0.75rem 1.5rem;
@@ -218,6 +235,22 @@
   .help-divider {
     margin: 0 0.5rem;
     color: var(--text-light);
+  }
+  
+  .contact-button {
+    padding: 0.5rem 1rem;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: 600;
+    transition: background-color 0.3s;
+  }
+  
+  .contact-button:hover {
+    background-color: #0056b3;
+    color: white;
   }
   
   .admin-footer {

@@ -1,12 +1,12 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
-import './EmployeeForm.css';
+import './AddClient.css';
 
 //employee form for employees to log their activities
-function EmployeeForm() {
+function AddClient() {
 
   //define form data object
-  const [formData, setFormData] = useState({EmployeeName: '', Community: '', Address: '', DoorCode: '', Service: ''});
+  const [formData, setFormData] = useState({ClientName: '', Address: '', Email: ''});
 
   //function to change form data
   const handleChange = (e) => {
@@ -16,20 +16,19 @@ function EmployeeForm() {
   //log submission function
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5001/api/activities', {
+    const res = await fetch('http://localhost:5001/admin/addClient', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(formData),
+      credentials: 'include',
     });
 
     const data = await res.json();
     alert(data.message || 'Submitted!');
     setFormData({
-      EmployeeName: '',
-      Community: '',
+      ClientName: '',
       Address: '',
-      DoorCode: '',
-      Service: '',
+      Email: '',
     });
   };
 
@@ -52,33 +51,20 @@ function EmployeeForm() {
         <div className="form-card">
 
           {/*heading*/}
-          <h2 className="form-title">Employee Activity Log</h2>
+          <h2 className="form-title">Add Client to Database</h2>
 
           {/*logging form*/} 
           <form className="activity-form" onSubmit={handleSubmit}>
             
             {/*name*/}
             <div className="form-group">
-              <label htmlFor="name">Employee Name</label>
+              <label htmlFor="name">Client Name</label>
               <input 
-                id="EmployeeName"
-                name="EmployeeName" 
-                placeholder="Enter your full name" 
+                id="ClientName"
+                name="ClientName" 
+                placeholder="Enter client name" 
                 onChange={handleChange}
-                value={formData.EmployeeName}
-                className="form-input"
-              />
-            </div>
-
-            {/*Community*/}    
-            <div className="form-group">
-              <label htmlFor="task">Community</label>
-              <input 
-                id="Community"
-                name="Community" 
-                placeholder="Enter Community Name" 
-                onChange={handleChange}
-                value={formData.Community}
+                value={formData.ClientName}
                 className="form-input"
               />
             </div>
@@ -96,28 +82,15 @@ function EmployeeForm() {
               />
             </div>
 
-            {/*DoorCode*/}    
+            {/*Email*/}    
             <div className="form-group">
-              <label htmlFor="task">Door Code</label>
+              <label htmlFor="task">Email</label>
               <input 
-                id="DoorCode"
-                name="DoorCode" 
-                placeholder="Enter Door Code" 
+                id="Email"
+                name="Email" 
+                placeholder="Enter Email" 
                 onChange={handleChange}
-                value={formData.DoorCode}
-                className="form-input"
-              />
-            </div>
-
-            {/*Service*/}    
-            <div className="form-group">
-              <label htmlFor="task">Service</label>
-              <input 
-                id="Service"
-                name="Service" 
-                placeholder="Describe Service" 
-                onChange={handleChange}
-                value={formData.Service}
+                value={formData.Email}
                 className="form-input"
               />
             </div>
@@ -126,8 +99,12 @@ function EmployeeForm() {
             <div className="form-actions">
               {/*submit button*/} 
               <button type="submit" className="submit-button">
-                Submit Activity
+                Submit
               </button>
+              {/*going back button*/} 
+              <Link to='/clientDashboard' className="back-link">
+                <button className="back-button">Return to Client Dashboard</button>
+              </Link>
             </div>
 
           </form> 
@@ -146,4 +123,4 @@ function EmployeeForm() {
   );
 };
     
-export default EmployeeForm;
+export default AddClient;
