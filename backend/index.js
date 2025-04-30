@@ -8,6 +8,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
 const PORT = process.env.PORT || 5001;
 const Admin = require('./Schemas/adminSchema.js');
+const Client = require('./Schemas/clientSchema.js');
 const Activity = require('./Schemas/activitySchema.js');
 const ALLOWED_EMAILS = ['stevenacamachoperez@gmail.com'];
 
@@ -116,6 +117,25 @@ app.post('/api/activities', async(req, res) => {
         console.error(err);
         res.status(500).json({error: 'Failed to save activity'});
     }     
+});
+
+//get single client
+app.get('/api/getSingleClient', async(req, res) => {
+    const  {ClientId} = req.params;
+
+    try{
+        const client = await Client.findByPk(ClientId);
+
+        if (!client){
+            return res.status(401).json({message: 'no client found by that id'});
+        }
+
+        res.json(client);
+
+    }catch(error){
+        console.error('Error fetching client: ', error);
+        res.status(500).json({message: 'Server Error'});
+    }
 });
 
 //start server

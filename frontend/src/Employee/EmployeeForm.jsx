@@ -1,9 +1,23 @@
-import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {useState, useEffect} from 'react';
+import {Link, useSearchParams} from 'react-router-dom';
 import './EmployeeForm.css';
 
 //employee form for employees to log their activities
 function EmployeeForm() {
+
+  const [searchparams] = useSearchParams();
+  const [clientData, setClientData] = useState(null);
+
+  const ClientId = searchParams.get('ClientId');
+
+  useEffect (() => {
+    if (ClientId) {
+      fetch(`https://businesscompanion.onrender.com/api/getSingleClient`)
+        .then(res => res.json())
+        .then(data => setClient(data))
+        .catch(err => console.error("Error fetching the client: ", err));
+    }
+  }, [ClientId]);
 
   //define form data object
   const [formData, setFormData] = useState({EmployeeName: '', Community: '', Address: '', DoorCode: '', Service: ''});
@@ -65,7 +79,7 @@ function EmployeeForm() {
                 name="EmployeeName" 
                 placeholder="Enter your full name" 
                 onChange={handleChange}
-                value={formData.EmployeeName}
+                value={clientData?.EmployeeName || formData.EmployeeName}
                 className="form-input"
               />
             </div>
@@ -78,7 +92,7 @@ function EmployeeForm() {
                 name="Community" 
                 placeholder="Enter Community Name" 
                 onChange={handleChange}
-                value={formData.Community}
+                value={clientData?.Community || formData.Community}
                 className="form-input"
               />
             </div>
@@ -91,7 +105,7 @@ function EmployeeForm() {
                 name="Address" 
                 placeholder="Enter full Address" 
                 onChange={handleChange}
-                value={formData.Address}
+                value={clientData?.Address || formData.Address}
                 className="form-input"
               />
             </div>
@@ -104,7 +118,7 @@ function EmployeeForm() {
                 name="DoorCode" 
                 placeholder="Enter Door Code" 
                 onChange={handleChange}
-                value={formData.DoorCode}
+                value={clientData?.DoorCode || formData.DoorCode}
                 className="form-input"
               />
             </div>
@@ -117,7 +131,7 @@ function EmployeeForm() {
                 name="Service" 
                 placeholder="Describe Service" 
                 onChange={handleChange}
-                value={formData.Service}
+                value={clientData?.Service || formData.Service}
                 className="form-input"
               />
             </div>

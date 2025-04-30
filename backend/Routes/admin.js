@@ -208,6 +208,7 @@ router.get('/getClients', ensureAuthenticated, async (req, res)=>{
     }
 })
 
+
 //add client
 router.post('/addClient', ensureAuthenticated, async (req, res)=> {
 
@@ -231,7 +232,12 @@ router.post('/addClient', ensureAuthenticated, async (req, res)=> {
 router.post('/getQR', ensureAuthenticated, async (req, res)=> {
     try{
         const {ClientId} = req.body;
-        const qrLink = `https://yourwebsite.com/userform?id=${ClientId}`;
+
+        if (!ClientId){
+            return res.status(401).json({ message:'Client ID missing '});
+        }
+
+        const qrLink = `https://business-companion-seven.vercel.app/employee?ClientId=${ClientId}`;
 
         const qrCodeDataURL = await QRCode.toDataURL(qrLink);
 
