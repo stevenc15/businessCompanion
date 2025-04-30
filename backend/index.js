@@ -28,7 +28,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy ({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/auth/google/callback',
+    callbackURL: 'https://business-companion-seven.vercel.app/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) => {
     if (ALLOWED_EMAILS.includes(profile.emails[0].value)){
         return done(null, profile); //allow login
@@ -54,7 +54,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
     passport.authenticate('google', {failureRedirect: '/unauthorized' }),
     (req, res) => {
-        res.redirect('http://localhost:5173/activityDashboard');
+        res.redirect('https://business-companion-seven.vercel.app/activityDashboard');
     }
 );
 
@@ -80,10 +80,13 @@ async function initializeDatabase() {
 }
 
 initializeDatabase();
-
+const allowedOrigins = [
+    'http://localhost:5173', 
+    'https://business-companion-seven.vercel.app/'
+]
 //allow ports connection from frontend to backend
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: allowedOrigins,
     credentials:true
 }));
 
