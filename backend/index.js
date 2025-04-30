@@ -28,7 +28,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy ({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'https://business-companion-seven.vercel.app/auth/google/callback',
+    callbackURL: 'https://businesscompanion.onrender.com/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) => {
     if (ALLOWED_EMAILS.includes(profile.emails[0].value)){
         return done(null, profile); //allow login
