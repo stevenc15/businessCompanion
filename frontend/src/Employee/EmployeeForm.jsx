@@ -5,7 +5,7 @@ import './EmployeeForm.css';
 //employee form for employees to log their activities
 function EmployeeForm() {
 
-  const [searchparams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [clientData, setClientData] = useState(null);
 
   const ClientId = searchParams.get('ClientId');
