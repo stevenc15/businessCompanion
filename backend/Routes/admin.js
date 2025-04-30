@@ -241,6 +241,10 @@ router.post('/getQR', ensureAuthenticated, async (req, res)=> {
 
         const qrCodeDataURL = await QRCode.toDataURL(qrLink);
 
+        if (!qrCodeDataURL){
+            return res.status(405).json({message: 'unsuccessful qr code generation'});
+        }
+        
         res.status(200).json({qrCode: qrCodeDataURL});
     }catch(error){
         console.error(error);
