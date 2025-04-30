@@ -5,7 +5,6 @@ const Activity = require('../Schemas/activitySchema.js'); //activity model
 const Client = require('../Schemas/clientSchema.js'); //activity model
 const {Op} = require('sequelize'); //operator from sequelize module
 const saltRounds=10; //how many times password gets hashed
-const jwt = require('jsonwebtoken'); //incorporate json webtokens for authentication
 require('dotenv').config();
 const jwtKey = process.env.JWT_SECRET; //jwt key
 const {sendPchange} = require('./Route_utils/password_change'); //send password change option
