@@ -4,7 +4,6 @@ const Admin = require('../Schemas/adminSchema.js'); //admin model
 const Activity = require('../Schemas/activitySchema.js'); //activity model
 const Client = require('../Schemas/clientSchema.js'); //activity model
 const {Op} = require('sequelize'); //operator from sequelize module
-const bcrypt = require('bcrypt'); //for password hashing
 const saltRounds=10; //how many times password gets hashed
 const jwt = require('jsonwebtoken'); //incorporate json webtokens for authentication
 require('dotenv').config();
