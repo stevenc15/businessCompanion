@@ -7,8 +7,6 @@ const {Op} = require('sequelize'); //operator from sequelize module
 const saltRounds=10; //how many times password gets hashed
 require('dotenv').config();
 const jwtKey = process.env.JWT_SECRET; //jwt key
-const {sendPchange} = require('./Route_utils/password_change'); //send password change option
-const {genToken} = require('./Route_utils/verification'); //generate verification tokens
 const ensureAuthenticated = require ('./Route_utils/authentication'); //create helper function `for jwts
 const QRCode = require('qrcode');
 
