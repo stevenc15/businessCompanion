@@ -16,7 +16,7 @@ function AddClient() {
   //log submission function
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5001/admin/addClient', {
+    const res = await fetch('https://businesscompanion.onrender.com/admin/addClient', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(formData),

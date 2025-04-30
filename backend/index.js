@@ -11,10 +11,15 @@ const Admin = require('./Schemas/adminSchema.js');
 const Activity = require('./Schemas/activitySchema.js');
 const ALLOWED_EMAILS = ['stevenacamachoperez@gmail.com'];
 
+app.set('trust proxy', 1);
 app.use(session ({
     secret: process.env.GOOGLE_CLIENT_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+        sameSite: 'none',
+        secure: true
+    }
 }));
 
 app.use(passport.initialize());
@@ -112,5 +117,5 @@ app.post('/api/activities', async(req, res) => {
 
 //start server
 app.listen(PORT, () => {
-    console.log(`Server running on port http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 })

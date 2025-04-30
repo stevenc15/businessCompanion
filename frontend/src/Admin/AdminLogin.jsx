@@ -8,7 +8,7 @@ const AdminLogin = () => {
 
     //function to call login endpoint
     const handleGoogleLogin = async(event)=> {
-      window.location.href='http://localhost:5001/auth/google';
+      window.location.href='https://businesscompanion.onrender.com/auth/google';
   };
 
     return (

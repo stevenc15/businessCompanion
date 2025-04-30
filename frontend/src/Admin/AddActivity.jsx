@@ -16,7 +16,7 @@ function AddActivity() {
   //log submission function
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5001/admin/addActivity', {
+    const res = await fetch('https://businesscompanion.onrender.com/admin/addActivity', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(formData),

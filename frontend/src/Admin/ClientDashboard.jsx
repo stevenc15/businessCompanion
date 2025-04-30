@@ -39,7 +39,7 @@ function ClientDashboard() {
   const fetchClients = useCallback(async () => {
     setLoading(true);
     try{
-    const res = await fetch('http://localhost:5001/admin/getClients', {
+    const res = await fetch('https://businesscompanion.onrender.com/admin/getClients', {
       credentials: 'include',
     });
     const data = await res.json();
@@ -70,7 +70,7 @@ function ClientDashboard() {
       ClientId: editClientID, // add your editClientId here
     };
 
-    const res = await fetch('http://localhost:5001/admin/editClient', {
+    const res = await fetch('https://businesscompanion.onrender.com/admin/editClient', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(updatedData),
@@ -92,7 +92,7 @@ function ClientDashboard() {
   };
 
   const handleDelete = async () => {
-    const res = await fetch('http://localhost:5001/admin/deleteClient', {
+    const res = await fetch('https://businesscompanion.onrender.com/admin/deleteClient', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ClientId: deleteClientID}),
@@ -109,7 +109,7 @@ function ClientDashboard() {
   };
 
   const handleQR = async (ClientId) => {
-    const res = await fetch('http://localhost:5001/admin/getQR', {
+    const res = await fetch('https://businesscompanion.onrender.com/admin/getQR', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

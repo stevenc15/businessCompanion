@@ -18,7 +18,7 @@ function ActivityDashboard() {
   const fetchActivities = useCallback(async () => {
     setLoading(true);
     try{
-    const res = await fetch('http://localhost:5001/admin/getActivities', {
+    const res = await fetch('https://businesscompanion.onrender.com/admin/getActivities', {
       credentials: 'include',
     });
     const data = await res.json();
@@ -66,7 +66,7 @@ function ActivityDashboard() {
 
   //function to set activity to approved state
   const handleApprove = async (ActivityId) => {
-      const res = await fetch(`http://localhost:5001/admin/approve`, {
+      const res = await fetch(`https://businesscompanion.onrender.com/admin/approve`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ function ActivityDashboard() {
 
   //function to set activity to unapproved state
   const handleUnapprove = async (ActivityId) => {
-      await fetch(`http://localhost:5001/admin/unapprove`, {
+      await fetch(`https://businesscompanion.onrender.com/admin/unapprove`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ function ActivityDashboard() {
       ...formData, 
       ActivityId:editActivityID
     };
-    const res = await fetch('http://localhost:5001/admin/editActivity', {
+    const res = await fetch('https://businesscompanion.onrender.com/admin/editActivity', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(updatedData),
@@ -121,7 +121,7 @@ function ActivityDashboard() {
   };
 
   const handleDelete = async (e) => {
-    const res = await fetch('http://localhost:5001/admin/deleteActivity', {
+    const res = await fetch('https://businesscompanion.onrender.com/admin/deleteActivity', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ActivityId: deleteActivityID}),
