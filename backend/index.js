@@ -82,7 +82,7 @@ async function initializeDatabase() {
 initializeDatabase();
 const allowedOrigins = [
     'http://localhost:5173', 
-    'https://business-companion-seven.vercel.app/'
+    'https://business-companion-seven.vercel.app'
 ]
 //allow ports connection from frontend to backend
 app.use(cors({
