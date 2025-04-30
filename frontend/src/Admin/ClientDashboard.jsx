@@ -110,7 +110,7 @@ function ClientDashboard() {
 
   const handleQR = async (ClientId) => {
     const res = await fetch('https://businesscompanion.onrender.com/admin/getQR', {
-      method: 'PATCH',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       }, 
