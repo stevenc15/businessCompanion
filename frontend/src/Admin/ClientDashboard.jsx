@@ -340,7 +340,7 @@ function ClientDashboard() {
             </table>
             
             {qrModal && (
-              <div className="modal-overlay">
+              <div className="option-container">            
               <>
               <img src={qrCode} alt="Scan me!" />
               <button onClick={ () => setQRModal(false)}>Close QR Code</button> 
