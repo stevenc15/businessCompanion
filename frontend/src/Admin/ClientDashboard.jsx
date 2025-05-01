@@ -1,6 +1,7 @@
 import {useState, useEffect, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import './ClientDashboard.css';
+import {jsPDF} from 'jspdf';
 
 //Admin Dashboard
 function ClientDashboard() {
@@ -125,6 +126,17 @@ function ClientDashboard() {
       const errorData = await res.text();
       console.error('error getting qrcode: ', errorData);
     }
+  };
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+    
+    doc.setFontSize(18);
+    doc.text("Scan this QR Code for the employee log form", 20, 20);
+
+    doc.addImage(qrCode, 'PNG', 20, 30, 100, 100);
+
+    doc.save('qr-code.pdf');
   };
 
   return (
@@ -324,6 +336,7 @@ function ClientDashboard() {
               <>
               <img src={qrCode} alt="Scan me!" />
               <button onClick={ () => setQRCode(null)}>Close QR Code</button> 
+              <button onClick={handleDownloadPDF}>Download QR Code PDF</button>
               </>
             )}
 
