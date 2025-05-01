@@ -13,6 +13,7 @@ function ClientDashboard() {
   const [clients, setClients] = useState([]);
   const [allClients, setAllClients] = useState([]);
   const [qrCode, setQRCode] = useState(null);
+  const [qrModal, setQRModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [qrCodeAddress, setQRCodeAddress] = useState(null);
@@ -135,10 +136,10 @@ function ClientDashboard() {
     doc.setFontSize(18);
     doc.text(`Scan this QR Code for the employee log form.`, 20, 20);
     doc.text(`Address: ${qrCodeAddress}`, 20, 30);
-    
+
     doc.addImage(qrCode, 'PNG', 20, 30, 100, 100);
 
-    doc.save('qr-code.pdf');
+    doc.save(`qr-code-${qrCodeAddress}.pdf`);
   };
 
   return (
@@ -300,6 +301,7 @@ function ClientDashboard() {
                       <div className="action-buttons-container">
                         
                         <button className="action-button action-button-qr" onClick={() => {
+                          setQRModal(true)
                           handleQR(client.ClientId)
                           setQRCodeAddress(client.Address)
                           }}>QR code</button>
@@ -337,12 +339,14 @@ function ClientDashboard() {
               </tbody>
             </table>
             
-            {qrCode && (
+            {qrModal && (
+              <div className="modal-overlay">
               <>
               <img src={qrCode} alt="Scan me!" />
-              <button onClick={ () => setQRCode(null)}>Close QR Code</button> 
+              <button onClick={ () => setQRModal(false)}>Close QR Code</button> 
               <button onClick={handleDownloadPDF}>Download QR Code PDF</button>
               </>
+              </div>
             )}
 
             {editModal && (
