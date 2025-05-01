@@ -345,8 +345,8 @@ function ClientDashboard() {
               <>
               <img src={qrCode} alt="Scan me!" />
               <div className="modal-buttons">
-              <button onClick={ () => setQRModal(false)}>Close QR Code</button> 
               <button onClick={handleDownloadPDF}>Download QR Code PDF</button>
+              <button onClick={ () => setQRModal(false)}>Close QR Code</button> 
               </div>
               </>
               </div>
