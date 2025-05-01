@@ -15,6 +15,7 @@ function ClientDashboard() {
   const [qrCode, setQRCode] = useState(null);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [qrCodeAddress, setQRCodeAddress] = useState(null);
   const [editClientID, setEditClientID] = useState(null);
   const [deleteClientID, setDeleteClientID] = useState(null);
   const [query, setQuery] = useState('');
@@ -132,8 +133,9 @@ function ClientDashboard() {
     const doc = new jsPDF();
     
     doc.setFontSize(18);
-    doc.text("Scan this QR Code for the employee log form", 20, 20);
-
+    doc.text(`Scan this QR Code for the employee log form.`, 20, 20);
+    doc.text(`Address: ${qrCodeAddress}`, 20, 30);
+    
     doc.addImage(qrCode, 'PNG', 20, 30, 100, 100);
 
     doc.save('qr-code.pdf');
@@ -297,7 +299,10 @@ function ClientDashboard() {
 
                       <div className="action-buttons-container">
                         
-                        <button className="action-button action-button-qr" onClick={() => handleQR(client.ClientId)}>QR code</button>
+                        <button className="action-button action-button-qr" onClick={() => {
+                          handleQR(client.ClientId)
+                          setQRCodeAddress(client.Address)
+                          }}>QR code</button>
                         
                         <button className="action-button action-button-modify" onClick={()=> {
                           setEditModal(true) 
