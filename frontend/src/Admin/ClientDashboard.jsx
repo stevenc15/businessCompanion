@@ -267,7 +267,7 @@ function ClientDashboard() {
                 <tr>
                   <th>Client Name</th>
                   <th>Address</th>
-                  <th>Email</th>
+                  <th>Community</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -293,7 +293,7 @@ function ClientDashboard() {
                       <td>{client.Address}</td>
                       
                       {/*Email*/}
-                      <td>{client.Email}</td>
+                      <td>{client.Community}</td>
 
                       {/*actions*/}
                       <td>
@@ -364,7 +364,7 @@ function ClientDashboard() {
                 {/*logging form*/} 
                 <form className="activity-form" onSubmit={(e) => {
                   handleEdit(e);
-                  setFormData({ ClientName: '', Address: '', Email: '' });
+                  setFormData({ ClientName: '', Address: '', Community: '' });
                   setEditClientID(null);
                 }}>
           
@@ -394,11 +394,11 @@ function ClientDashboard() {
 
                   {/*Email*/}    
                   <div className="form-group">
-                    <label htmlFor="task">Email</label>
+                    <label htmlFor="task">Community</label>
                     <input 
                       id="Email"
                       name="Email" 
-                      value={formData.Email}
+                      value={formData.Community}
                       onChange={handleChange}
                       className="form-input"
                     />
@@ -413,7 +413,7 @@ function ClientDashboard() {
                     {/*cancel*/} 
                     <button type="button" className="back-button" onClick={()=>{
                       setEditModal(false)
-                      setFormData({ClientName: '', Address: '', Email: ''});
+                      setFormData({ClientName: '', Address: '', Community: ''});
                       setEditClientID(null);
                       }}>Cancel</button>
                   </div>
