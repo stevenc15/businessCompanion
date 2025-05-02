@@ -54,15 +54,42 @@ function ActivityDashboard() {
   const [deleteActivityID, setDeleteActivityID] = useState(null);
 
   //define form data object
-  const [formData, setFormData] = useState({EmployeeName: '', Community: '', ClientName: '', Address: '', Service: ''});
+  const [formData, setFormData] = useState({
+    EmployeeName: '', 
+    Community: '', 
+    ClientName: '', 
+    Address: '',  
+    Service: '',
+    ReviewWeeklySchedule: false,
+    CheckMailbox: false,
+    ViewFrontOfTheHouse: false,
+    TurnOnMainWater: false,
+    BugsInsideOutsideFrontDoor: false,
+    Ceilings: false,
+    Floors: false,
+    CloseClosets: false,
+    TurnToiletsOnOff: false,
+    GarageCeiling: false,
+    GarageFloor: false,
+    AnyGarageFridge: false,
+    AcAirHandlerDrainLine: false,
+    TurnOnOffWaterHeaterInElectricalPanel: false,
+    TurnOnOffIceMachine: false,
+    ThermostatSetTo78ForClose72ForOpening: false,
+    ViewRearOfTheHouse: false,
+  });
 
   //function to change form data
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value});
+    const {name, value, type, checked} = e.target;
+
+    setFormData((prev) => ({
+       ...formData, 
+       [name]: type === 'checkbox' ? checked:value
+      })
+    );
   };
-
   
-
 
   //function to set activity to approved state
   const handleApprove = async (ActivityId) => {
@@ -179,7 +206,7 @@ function ActivityDashboard() {
           <button 
             className="add-button"
             onClick={() => {
-              navigate('/addActivity');
+              navigate('/addActivity'); 
             }}
           >
             Add Activity
@@ -275,10 +302,11 @@ function ActivityDashboard() {
                 <tr>
                   <th>Employee Name</th>
                   <th>Community</th>
+                  <th>Client Name</th>
                   <th>Address</th>
-                  <th>Door Code</th>
                   <th>Service</th>
                   <th>Status</th>
+                  <th>Checklist</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -304,15 +332,37 @@ function ActivityDashboard() {
                       {/*Community*/}
                       <td>{activity.Community}</td>
 
+                      {/*Client Name*/}
+                      <td>{activity.ClientName}</td>
+
                       {/*Address*/}
                       <td>{activity.Address}</td>
                       
-                      {/*DoorCode*/}
-                      <td>{activity.DoorCode}</td>
-
                       {/*Service*/}
                       <td>{activity.Service}</td>
                       
+                      {/*Checklist*/}
+                      <td>
+                        <div className="checklist-status">
+                          <span title="Review Weekly Schedule">{activity.ReviewWeeklySchedule ? '✅' : '❌'}</span>
+                          <span title="Check Mail box">{activity.CheckMailbox ? '✅' : '❌'}</span>
+                          <span title="View Front Of The House">{activity.ViewFrontOfTheHouse ? '✅' : '❌'}</span>
+                          <span title="Turn On Main Water">{activity.TurnOnMainWater ? '✅' : '❌'}</span>
+                          <span title="Bugs Inside/Outside Front Door">{activity.BugsInsideOutsideFrontDoor ? '✅' : '❌'}</span>
+                          <span title="Ceilings">{activity.Ceilings ? '✅' : '❌'}</span>
+                          <span title="Floors">{activity.Floors ? '✅' : '❌'}</span>
+                          <span title="Close Closets">{activity.CloseClosets ? '✅' : '❌'}</span>
+                          <span title="Turn Toilets On/Off">{activity.TurnToiletsOnOff ? '✅' : '❌'}</span>
+                          <span title="Garage Ceiling">{activity.GarageCeiling ? '✅' : '❌'}</span>
+                          <span title="Garage Floor">{activity.GarageFloor ? '✅' : '❌'}</span>
+                          <span title="Any Garage Fridge">{activity.AnyGarageFridge ? '✅' : '❌'}</span>
+                          <span title="AC Air Handler Drain Line">{activity.AcAirHandlerDrainLine ? '✅' : '❌'}</span>
+                          <span title="Turn On/Off Water Heater In Electrical Panel">{activity.TurnOnOffWaterHeaterInElectricalPanel ? '✅' : '❌'}</span>
+                          <span title="Turn On/Off Ice Machine">{activity.TurnOnOffIceMachine ? '✅' : '❌'}</span>
+                          <span title="Thermostat Set To 78 For Close 72 For Opening">{activity.ThermostatSetTo78ForClose72ForOpening ? '✅' : '❌'}</span>
+                          <span title="View Rear Of The House">{activity.ViewRearOfTheHouse ? '✅' : '❌'}</span>
+                        </div>
+                      </td>
                       {/*status*/}
                       <td>
                         <span className={`status-badge ${activity.Status ? 'approved' : 'pending'}`}>

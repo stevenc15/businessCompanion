@@ -100,7 +100,7 @@ function AddActivity() {
         <div className="form-card">
 
           {/*heading*/}
-          <h2 className="form-title">Employee Activity Log</h2>
+          <h2 className="form-title">Activity Log</h2>
 
           {/*logging form*/} 
           <form className="activity-form" onSubmit={handleSubmit}>
@@ -367,6 +367,14 @@ function AddActivity() {
               {/*submit button*/} 
               <button type="submit" className="submit-button">
                 Submit Activity
+              </button>
+              <button 
+                className="back-button"
+                onClick={() => {
+                  navigate('/activityDashboard');
+                }}
+              >
+                Go to Activity Dashboard
               </button>
             </div>
 

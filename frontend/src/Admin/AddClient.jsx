@@ -6,7 +6,7 @@ import './AddClient.css';
 function AddClient() {
 
   //define form data object
-  const [formData, setFormData] = useState({ClientName: '', Address: '', Email: ''});
+  const [formData, setFormData] = useState({ClientName: '', Address: '', Community: ''});
 
   //function to change form data
   const handleChange = (e) => {
@@ -28,7 +28,7 @@ function AddClient() {
     setFormData({
       ClientName: '',
       Address: '',
-      Email: '',
+      Community: '',
     });
   };
 
@@ -82,15 +82,15 @@ function AddClient() {
               />
             </div>
 
-            {/*Email*/}    
+            {/*Community*/}    
             <div className="form-group">
-              <label htmlFor="task">Email</label>
+              <label htmlFor="task">Community</label>
               <input 
-                id="Email"
-                name="Email" 
-                placeholder="Enter Email" 
+                id="Community"
+                name="Community" 
+                placeholder="Enter Community" 
                 onChange={handleChange}
-                value={formData.Email}
+                value={formData.Community}
                 className="form-input"
               />
             </div>
