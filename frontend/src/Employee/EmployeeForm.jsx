@@ -138,7 +138,7 @@ function EmployeeForm() {
                 name="Community" 
                 placeholder="Enter Community Name" 
                 onChange={handleChange}
-                value={clientData.Community || formData.Community}
+                value={clientData?.Community || formData.Community}
                 className="form-input"
               />
             </div>
@@ -151,7 +151,7 @@ function EmployeeForm() {
                 name="ClientName" 
                 placeholder="Enter Client Name" 
                 onChange={handleChange}
-                value={clientData.ClientName || formData.ClientName}
+                value={clientData?.ClientName || formData.ClientName}
                 className="form-input"
               />
             </div>
@@ -164,7 +164,7 @@ function EmployeeForm() {
                 name="Address" 
                 placeholder="Enter full Address" 
                 onChange={handleChange}
-                value={clientData.Address || formData.Address}
+                value={clientData?.Address || formData.Address}
                 className="form-input"
               />
             </div>
@@ -177,7 +177,7 @@ function EmployeeForm() {
                 name="Service" 
                 placeholder="Describe Service" 
                 onChange={handleChange}
-                value={clientData?.Service || formData.Service}
+                value={formData.Service}
                 className="form-input"
               />
             </div>
