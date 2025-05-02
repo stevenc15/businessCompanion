@@ -54,7 +54,7 @@ function ActivityDashboard() {
   const [deleteActivityID, setDeleteActivityID] = useState(null);
 
   //define form data object
-  const [formData, setFormData] = useState({EmployeeName: '', Community: '', Address: '', DoorCode: '', Service: ''});
+  const [formData, setFormData] = useState({EmployeeName: '', Community: '', ClientName: '', Address: '', Service: ''});
 
   //function to change form data
   const handleChange = (e) => {

@@ -72,7 +72,7 @@ async function initializeDatabase() {
         await sequelize.authenticate();
         console.log('Database successfully connected');
 
-        await sequelize.sync({alter:true});
+        await sequelize.sync({alter:true, force:true});
 
         console.log('Tables were adjusted successfully');
     }catch(error){
