@@ -18,7 +18,7 @@ function EmployeeForm() {
         .catch(err => console.error("Error fetching the client: ", err));
     }
   }, [ClientId]);
-
+ 
   //define form data object
   const [formData, setFormData] = useState({
     EmployeeName: '', 
@@ -138,7 +138,7 @@ function EmployeeForm() {
                 name="Community" 
                 placeholder="Enter Community Name" 
                 onChange={handleChange}
-                value={clientData?.Community || formData.Community}
+                value={clientData.Community || formData.Community}
                 className="form-input"
               />
             </div>
@@ -151,7 +151,7 @@ function EmployeeForm() {
                 name="ClientName" 
                 placeholder="Enter Client Name" 
                 onChange={handleChange}
-                value={clientData?.ClientName || formData.ClientName}
+                value={clientData.ClientName || formData.ClientName}
                 className="form-input"
               />
             </div>
@@ -164,7 +164,7 @@ function EmployeeForm() {
                 name="Address" 
                 placeholder="Enter full Address" 
                 onChange={handleChange}
-                value={clientData?.Address || formData.Address}
+                value={clientData.Address || formData.Address}
                 className="form-input"
               />
             </div>

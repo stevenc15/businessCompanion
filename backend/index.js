@@ -172,7 +172,7 @@ app.get('/api/getSingleClient', async(req, res) => {
             return res.status(401).json({message: 'no client found by that id'});
         }
 
-        res.json(client);
+        res.status(200).json(client);
 
     }catch(error){
         console.error('Error fetching client: ', error);
