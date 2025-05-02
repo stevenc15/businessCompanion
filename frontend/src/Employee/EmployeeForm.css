@@ -177,6 +177,38 @@
     color: rgba(255, 255, 255, 0.6);
   }
   
+  .checklist-group {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .checklist-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .checkbox-item input[type="checkbox"] {
+    margin-right: 0.5rem;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+  
+  .checkbox-item label {
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .form-card {

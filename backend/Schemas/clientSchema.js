@@ -16,7 +16,7 @@ const Client = sequelize.define( 'Client', {
         type: DataTypes.STRING,
         allowNull:false
     },
-    Email:{
+    Community:{
         type: DataTypes.STRING,
         allowNull:false
     }

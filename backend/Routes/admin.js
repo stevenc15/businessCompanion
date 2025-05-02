@@ -213,12 +213,12 @@ router.get('/getClients', ensureAuthenticated, async (req, res)=>{
 router.post('/addClient', ensureAuthenticated, async (req, res)=> {
 
     try{
-        const {ClientName, Address, Email} = req.body;
+        const {ClientName, Address, Community} = req.body;
 
         await Client.create({
             ClientName: ClientName,
             Address: Address,
-            Email: Email
+            Community: Community
         });
 
         res.status(200).json({message: 'successfully added client to database'});
@@ -255,7 +255,7 @@ router.post('/getQR', ensureAuthenticated, async (req, res)=> {
 //modify client
 router.post('/editClient', ensureAuthenticated, async (req, res)=> {
     try{
-        const {ClientId, ClientName, Address, Email} = req.body;
+        const {ClientId, ClientName, Address, Community} = req.body;
 
         const client = await Client.findOne({
             where: {ClientId: ClientId}
@@ -267,7 +267,7 @@ router.post('/editClient', ensureAuthenticated, async (req, res)=> {
 
         client.ClientName=ClientName;
         client.Address=Address;
-        client.Email=Email;
+        client.Community=Community;
 
         await client.save();
         
@@ -357,14 +357,56 @@ router.post('/deleteActivity', ensureAuthenticated, async (req, res)=> {
 
 router.post('/addActivity', ensureAuthenticated, async (req, res)=> {
     try{
-        const {Community, Address, DoorCode, Service, EmployeeName} = req.body;
+        const {
+            Community, 
+            ClientName, 
+            Address, 
+            DoorCode, 
+            Service, 
+            EmployeeName,
+            ReviewWeeklySchedule,
+            CheckMailbox,
+            ViewFrontOfTheHouse,
+            TurnOnMainWater,
+            BugsInsideOutsideFrontDoor,
+            Ceilings,
+            Floors, 
+            CloseClosets,
+            TurnToiletsOnOff,
+            GarageCeiling, 
+            GarageFloor,
+            AnyGarageFridge,
+            AcAirHandlerDrainLine,
+            TurnOnOffWaterHeaterInElectricalPanel,
+            TurnOnOffIceMachine,
+            ThermostatSetTo78ForClose72ForOpening,
+            ViewRearOfTheHouse,
+        } = req.body;
 
         await Activity.create({
             EmployeeName: EmployeeName,
             Community: Community,
+            ClientName: ClientName,
             Address: Address,
             DoorCode: DoorCode,
-            Service: Service
+            Service: Service,
+            ReviewWeeklySchedule: ReviewWeeklySchedule === true || ReviewWeeklySchedule === 'true',
+            CheckMailbox: CheckMailbox === true || CheckMailbox === 'true',
+            ViewFrontOfTheHouse: ViewFrontOfTheHouse === true || ViewFrontOfTheHouse === 'true',
+            TurnOnMainWater: TurnOnMainWater === true || TurnOnMainWater === 'true',
+            BugsInsideOutsideFrontDoor: BugsInsideOutsideFrontDoor === true || BugsInsideOutsideFrontDoor === 'true',
+            Ceilings: Ceilings === true || Ceilings === 'true',
+            Floors: Floors === true || Floors === 'true',
+            CloseClosets: CloseClosets === true || CloseClosets === 'true',
+            TurnToiletsOnOff: TurnToiletsOnOff === true || TurnToiletsOnOff === 'true',
+            GarageCeiling: GarageCeiling === true || GarageCeiling === 'true',
+            GarageFloor: GarageFloor === true || GarageFloor === 'true',
+            AnyGarageFridge: AnyGarageFridge === true || AnyGarageFridge === 'true',
+            AcAirHandlerDrainLine: AcAirHandlerDrainLine === true || AcAirHandlerDrainLine === 'true',
+            TurnOnOffWaterHeaterInElectricalPanel: TurnOnOffWaterHeaterInElectricalPanel === true || TurnOnOffWaterHeaterInElectricalPanel === 'true',
+            TurnOnOffIceMachine: TurnOnOffIceMachine === true || TurnOnOffIceMachine === 'true',
+            ThermostatSetTo78ForClose72ForOpening: ThermostatSetTo78ForClose72ForOpening === true || ThermostatSetTo78ForClose72ForOpening === 'true',
+            ViewRearOfTheHouse: ViewRearOfTheHouse === true || ViewRearOfTheHouse === 'true',
         });
 
         res.status(200).json({message: 'successfully logged activity'});
