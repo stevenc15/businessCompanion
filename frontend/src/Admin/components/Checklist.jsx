@@ -35,12 +35,12 @@ const ChecklistCell = ({activity}) => {
                             {expanded ? 'Hide Checklist' : 'Show Checklist'}
                           </button>
                           {expanded && (
-                            <div className="overflow-x-auto whitespace-nowrap bg-gray-50 p-2 rounded border border-gray-300 max-w-full">
+                            <div className="bg-gray-50 p-2 rounded border border-gray-300 w-full space-y-1">
                               {checklistItems.map((items, idx) => (
                                 <span
                                   key={idx}
                                   title={items.label}
-                                  className="inline-block px-2 py-1 text-sm"
+                                  className="text-sm"
                                 >
                                   {items.label}: {items.value ? '✅' : '❌'}
                                 </span>
