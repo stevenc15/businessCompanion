@@ -1,10 +1,13 @@
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import './AddActivity.css';
 
 //employee form for employees to log their activities
 function AddActivity() {
 
+  //navigate functionality
+  const navigate = useNavigate();
+  
   //define form data object
   const [formData, setFormData] = useState({
     EmployeeName: '', 
