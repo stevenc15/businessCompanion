@@ -27,7 +27,7 @@ const ChecklistCell = ({activity}) => {
 
     return (
 
-        <div className="flex flex-col items-start w-full max-w-3xl">
+        <div className="flex flex-col gap-1 max-w-xs md:max-w-sm lg:max-w-md">
                           <button
                             className="text-blue-600 underline text-sm mb-1"
                             onClick={() => setExpanded(!expanded)}
