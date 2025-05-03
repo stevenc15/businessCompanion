@@ -1,6 +1,7 @@
 import {useState, useEffect, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import './ActivityDashboard.css';
+import ChecklistCell from './components/Checklist';
 
 //Admin Dashboard
 function ActivityDashboard() {
@@ -88,8 +89,7 @@ function ActivityDashboard() {
        [name]: type === 'checkbox' ? checked:value
       })
     );
-  };
-  
+  };  
 
   //function to set activity to approved state
   const handleApprove = async (ActivityId) => {
@@ -119,7 +119,6 @@ function ActivityDashboard() {
       });
       await fetchActivities();
   };
-
 
   //log submission function
   const handleEdit = async (e) => {
@@ -343,26 +342,9 @@ function ActivityDashboard() {
                       
                       {/*Checklist*/}
                       <td>
-                        <div className="checklist-status">
-                          <span title="Review Weekly Schedule">Review Weekly Schedule {activity.ReviewWeeklySchedule ? '✅' : '❌'}</span>
-                          <span title="Check Mail box">{activity.CheckMailbox ? '✅' : '❌'}</span>
-                          <span title="View Front Of The House">{activity.ViewFrontOfTheHouse ? '✅' : '❌'}</span>
-                          <span title="Turn On Main Water">{activity.TurnOnMainWater ? '✅' : '❌'}</span>
-                          <span title="Bugs Inside/Outside Front Door">{activity.BugsInsideOutsideFrontDoor ? '✅' : '❌'}</span>
-                          <span title="Ceilings">{activity.Ceilings ? '✅' : '❌'}</span>
-                          <span title="Floors">{activity.Floors ? '✅' : '❌'}</span>
-                          <span title="Close Closets">{activity.CloseClosets ? '✅' : '❌'}</span>
-                          <span title="Turn Toilets On/Off">{activity.TurnToiletsOnOff ? '✅' : '❌'}</span>
-                          <span title="Garage Ceiling">{activity.GarageCeiling ? '✅' : '❌'}</span>
-                          <span title="Garage Floor">{activity.GarageFloor ? '✅' : '❌'}</span>
-                          <span title="Any Garage Fridge">{activity.AnyGarageFridge ? '✅' : '❌'}</span>
-                          <span title="AC Air Handler Drain Line">{activity.AcAirHandlerDrainLine ? '✅' : '❌'}</span>
-                          <span title="Turn On/Off Water Heater In Electrical Panel">{activity.TurnOnOffWaterHeaterInElectricalPanel ? '✅' : '❌'}</span>
-                          <span title="Turn On/Off Ice Machine">{activity.TurnOnOffIceMachine ? '✅' : '❌'}</span>
-                          <span title="Thermostat Set To 78 For Close 72 For Opening">{activity.ThermostatSetTo78ForClose72ForOpening ? '✅' : '❌'}</span>
-                          <span title="View Rear Of The House">{activity.ViewRearOfTheHouse ? '✅' : '❌'}</span>
-                        </div>
+                        <ChecklistCell activity={activity}/>
                       </td>
+
                       {/*status*/}
                       <td>
                         <span className={`status-badge ${activity.Status ? 'approved' : 'pending'}`}>
