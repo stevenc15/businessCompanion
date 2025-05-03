@@ -304,7 +304,7 @@ function ActivityDashboard() {
                   <th>Client Name</th>
                   <th>Address</th>
                   <th>Service</th>
-                  <th>ChecklistStatus</th>
+                  <th>Checklist</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
