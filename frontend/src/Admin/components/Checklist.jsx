@@ -26,28 +26,29 @@ const ChecklistCell = ({activity}) => {
 
 
     return (
-
-        <div className="flex flex-col gap-1 max-w-xs md:max-w-sm lg:max-w-md">
-                          <button
-                            className="text-blue-600 underline text-sm mb-1"
-                            onClick={() => setExpanded(!expanded)}
-                          >
-                            {expanded ? 'Hide Checklist' : 'Show Checklist'}
-                          </button>
-                          {expanded && (
-                            <div className="bg-gray-50 p-8 rounded border border-gray-300 w-full space-y-1">
-                              {checklistItems.map((items, idx) => (
-                                <div
-                                  key={idx}
-                                  title={items.label}
-                                  className="text-sm"
-                                >
-                                  {items.label}: {items.value ? '✅' : '❌'}
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
+      <div className="flex flex-col max-w-md">
+        <button
+          className="text-blue-600 underline text-sm mb-1 text-left"
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? 'Hide Checklist' : 'Show Checklist'}
+        </button>
+  
+        {expanded && (
+          <div className="bg-gray-50 p-4 rounded border border-gray-300 w-full">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+              {checklistItems.map((item, idx) => (
+                <div key={idx} title={item.label} className="flex items-start gap-1">
+                  <span className="whitespace-nowrap text-ellipsis overflow-hidden max-w-[10rem]">
+                    {item.label}
+                  </span>
+                  <span>{item.value ? '✅' : '❌'}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     );
 
   };
