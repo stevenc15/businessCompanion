@@ -26,20 +26,20 @@ const ChecklistCell = ({activity}) => {
 
 
     return (
-      <div className="flex flex-col max-w-md">
+      <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '500px' }}>
         <button
-          className="text-blue-600 underline text-sm mb-1 text-left"
+          style={{ color: '#2563eb', textDecoration: 'underline', fontSize: '14px', marginBottom: '8px', textAlign: 'left', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
           onClick={() => setExpanded(!expanded)}
         >
           {expanded ? 'Hide Checklist' : 'Show Checklist'}
         </button>
   
         {expanded && (
-          <div className="bg-gray-50 p-4 rounded border border-gray-300 w-full">
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+          <div style={{ backgroundColor: '#f9fafb', padding: '16px', borderRadius: '6px', border: '1px solid #d1d5db' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', columnGap: '16px', rowGap: '8px', fontSize: '14px' }}>
               {checklistItems.map((item, idx) => (
-                <div key={idx} title={item.label} className="flex items-start gap-1">
-                  <span className="whitespace-nowrap text-ellipsis overflow-hidden max-w-[10rem]">
+                <div key={idx} title={item.label} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '180px' }}>
                     {item.label}
                   </span>
                   <span>{item.value ? '✅' : '❌'}</span>
