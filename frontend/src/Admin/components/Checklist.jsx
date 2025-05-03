@@ -37,13 +37,13 @@ const ChecklistCell = ({activity}) => {
                           {expanded && (
                             <div className="bg-gray-50 p-2 rounded border border-gray-300 w-full space-y-1">
                               {checklistItems.map((items, idx) => (
-                                <span
+                                <div
                                   key={idx}
                                   title={items.label}
                                   className="text-sm"
                                 >
                                   {items.label}: {items.value ? '✅' : '❌'}
-                                </span>
+                                </div>
                               ))}
                             </div>
                           )}
