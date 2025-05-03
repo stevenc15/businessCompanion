@@ -370,6 +370,7 @@ function AddActivity() {
               </button>
               <button 
                 className="back-button"
+                type="button"
                 onClick={() => {
                   navigate('/activityDashboard');
                 }}
