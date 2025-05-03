@@ -137,7 +137,7 @@ function EmployeeForm() {
                 id="Community"
                 name="Community" 
                 placeholder="Enter Community Name" 
-                //onChange={handleChange}
+                readOnly
                 value={clientData?.Community || formData.Community}
                 className="form-input"
               />
@@ -150,7 +150,7 @@ function EmployeeForm() {
                 id="ClientName"
                 name="ClientName" 
                 placeholder="Enter Client Name" 
-                //onChange={handleChange}
+                readOnly
                 value={clientData?.ClientName || formData.ClientName}
                 className="form-input"
               />
@@ -163,7 +163,7 @@ function EmployeeForm() {
                 id="Address"
                 name="Address" 
                 placeholder="Enter full Address" 
-                //onChange={handleChange}
+                readOnly
                 value={clientData?.Address || formData.Address}
                 className="form-input"
               />
