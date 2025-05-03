@@ -344,7 +344,7 @@ function ActivityDashboard() {
                       {/*Checklist*/}
                       <td>
                         <div className="checklist-status">
-                          <span title="Review Weekly Schedule">{activity.ReviewWeeklySchedule ? '✅' : '❌'}</span>
+                          <span title="Review Weekly Schedule">Review Weekly Schedule {activity.ReviewWeeklySchedule ? '✅' : '❌'}</span>
                           <span title="Check Mail box">{activity.CheckMailbox ? '✅' : '❌'}</span>
                           <span title="View Front Of The House">{activity.ViewFrontOfTheHouse ? '✅' : '❌'}</span>
                           <span title="Turn On Main Water">{activity.TurnOnMainWater ? '✅' : '❌'}</span>
