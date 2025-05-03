@@ -35,7 +35,7 @@ const ChecklistCell = ({activity}) => {
                             {expanded ? 'Hide Checklist' : 'Show Checklist'}
                           </button>
                           {expanded && (
-                            <div className="bg-gray-50 p-2 rounded border border-gray-300 w-full space-y-1">
+                            <div className="bg-gray-50 p-8 rounded border border-gray-300 w-full space-y-1">
                               {checklistItems.map((items, idx) => (
                                 <div
                                   key={idx}
