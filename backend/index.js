@@ -163,7 +163,7 @@ app.post('/api/activities', async(req, res) => {
 
 //get single client
 app.get('/api/getSingleClient', async(req, res) => {
-    const  {ClientId} = req.query;
+    const {ClientId} = req.query;
 
     try{
         const client = await Client.findByPk(ClientId);
