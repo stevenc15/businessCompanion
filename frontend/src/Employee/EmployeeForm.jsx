@@ -19,6 +19,17 @@ function EmployeeForm() {
     }
   }, [ClientId]);
  
+  useEffect (() => {
+    if (clientData) {
+      setFormData((prev) => ({
+        ...prev, 
+        Community: clientData.Community || '',
+        ClientName: clientData.ClientName || '',
+        Address: clientData.Address || '',
+      }));
+    }
+  }, [clientData]);
+  
   //define form data object
   const [formData, setFormData] = useState({
     EmployeeName: '', 
