@@ -294,7 +294,7 @@ function ActivityDashboard() {
           {/*actual table*/}   
           <div className="table-responsive">
                 
-            <table className="data-table">
+            <table className="data-table w-full table-auto">
                   
               {/*table columns*/} 
               <thead>
