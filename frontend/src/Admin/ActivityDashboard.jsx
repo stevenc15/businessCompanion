@@ -305,6 +305,22 @@ function ActivityDashboard() {
                   <th>Address</th>
                   <th>Service</th>
                   <th>Review Weekly Schedule</th>
+                  <th>Check Mailbox</th>
+                  <th>View Front Of The House</th>
+                  <th>Turn On Main Water</th>
+                  <th>Bugs Inside Outside Front Door</th>
+                  <th>Ceilings</th>
+                  <th>Floors</th>
+                  <th>Close Closets</th>
+                  <th>Turn Toilets On/Off</th>
+                  <th>Garage Ceiling</th>
+                  <th>Garage Floor</th>
+                  <th>Any Garage Fridge</th>
+                  <th>AC Air Handler Drain Line</th>
+                  <th>Turn On/Off Water Heater In Electrical Panel</th>
+                  <th>Turn On/Off Ice Machine</th>
+                  <th>Thermostat Set To 78 For Close 72 For Opening</th>
+                  <th>View Rear Of The House</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -344,6 +360,118 @@ function ActivityDashboard() {
                       <td>
                         <span className="check-icon">
                           {activity.ReviewWeeklySchedule ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.CheckMailbox ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.ViewFrontOfTheHouse ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.TurnOnMainWater ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.BugsInsideOutsideFrontDoor ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.Ceilings ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.Floors ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.CloseClosets ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.TurnToiletsOnOff ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.GarageCeiling ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.GarageFloor ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.AnyGarageFridge ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.AcAirHandlerDrainLine ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.TurnOnOffWaterHeaterInElectricalPanel ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.TurnOnOffIceMachine ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.ThermostatSetTo78ForClose72ForOpening ? '✓' : '☐'}
+                        </span>
+                      </td>
+
+                      {/*Checklist*/}
+                      <td>
+                        <span className="check-icon">
+                          {activity.ViewRearOfTheHouse ? '✓' : '☐'}
                         </span>
                       </td>
 
