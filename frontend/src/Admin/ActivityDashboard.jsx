@@ -304,7 +304,7 @@ function ActivityDashboard() {
                   <th>Client Name</th>
                   <th>Address</th>
                   <th>Service</th>
-                  <th>Checklist</th>
+                  <th>Review Weekly Schedule</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -341,9 +341,7 @@ function ActivityDashboard() {
                       <td>{activity.Service}</td>
                       
                       {/*Checklist*/}
-                      <td>
-                        <ChecklistCell activity={activity}/>
-                      </td>
+                      <td>{activity.ReviewWeeklySchedule}</td>
 
                       {/*status*/}
                       <td>
