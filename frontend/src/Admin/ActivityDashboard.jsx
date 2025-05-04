@@ -341,7 +341,11 @@ function ActivityDashboard() {
                       <td>{activity.Service}</td>
                       
                       {/*Checklist*/}
-                      <td>{activity.ReviewWeeklySchedule ? '✅' : '⬜'}</td>
+                      <td>
+                        <span className="check-icon">
+                          {activity.ReviewWeeklySchedule ? '✓' : '☐'}
+                        </span>
+                      </td>
 
                       {/*status*/}
                       <td>
