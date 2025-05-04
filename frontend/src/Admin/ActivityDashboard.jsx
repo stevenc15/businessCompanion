@@ -572,7 +572,7 @@ function ActivityDashboard() {
                     TurnOnOffWaterHeaterInElectricalPanel: false,
                     TurnOnOffIceMachine: false,
                     ThermostatSetTo78ForClose72ForOpening: false,
-                    ViewRearOfTheHouse: false, 
+                    ViewRearOfTheHouse: false,  
                   });
                   setEditActivityID(null);
                 }}>
