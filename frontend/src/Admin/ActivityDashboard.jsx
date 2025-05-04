@@ -555,65 +555,261 @@ function ActivityDashboard() {
                 }}>
            
                   {/*name*/}
-                  <div className="form-group">
-                    <label htmlFor="name">Employee Name</label>
-                    <input 
-                      id="EmployeeName"
-                      name="EmployeeName" 
-                      value={formData.EmployeeName}
-                      onChange={handleChange}
-                      className="form-input"
-                    />
-                  </div>
+            <div className="form-group">
+              <label htmlFor="name">Employee Name</label>
+              <input 
+                id="EmployeeName"
+                name="EmployeeName" 
+                placeholder="Enter your full name" 
+                onChange={handleChange}
+                value={formData.EmployeeName}
+                className="form-input"
+              />
+            </div>
 
-                  {/*Community*/}    
-                  <div className="form-group">
-                    <label htmlFor="task">Community</label>
-                    <input 
-                      id="Community"
-                      name="Community" 
-                      value={formData.Community}
-                      onChange={handleChange}
-                      className="form-input"
-                    />
-                  </div>
+            {/*Community*/}    
+            <div className="form-group">
+              <label htmlFor="task">Community</label>
+              <input 
+                id="Community"
+                name="Community" 
+                placeholder="Enter Community Name" 
+                onChange={handleChange}
+                value={formData.Community}
+                className="form-input"
+              />
+            </div>
 
-                  {/*Address*/}    
-                  <div className="form-group">
-                    <label htmlFor="task">Address</label>
-                    <input 
-                      id="Address"
-                      name="Address" 
-                      value={formData.Address}
-                      onChange={handleChange}
-                      className="form-input"
-                    />
-                  </div>
+            {/*Client Name*/}    
+            <div className="form-group">
+              <label htmlFor="task">ClientName</label>
+              <input 
+                id="ClientName"
+                name="ClientName" 
+                placeholder="Enter Client Name" 
+                onChange={handleChange}
+                value={formData.ClientName}
+                className="form-input"
+              />
+            </div>
 
-                  {/*Door Code*/}    
-                  <div className="form-group">
-                    <label htmlFor="task">Door Code</label>
-                    <input 
-                      id="DoorCode"
-                      name="DoorCode" 
-                      value={formData.DoorCode}
-                      onChange={handleChange}
-                      className="form-input"
-                    />
-                  </div>
+            {/*Address*/}    
+            <div className="form-group">
+              <label htmlFor="task">Address</label>
+              <input 
+                id="Address"
+                name="Address" 
+                placeholder="Enter full Address" 
+                onChange={handleChange}
+                value={formData.Address}
+                className="form-input"
+              />
+            </div>
 
-                  {/*Service*/}    
-                  <div className="form-group">
-                    <label htmlFor="task">Service</label>
-                    <input 
-                      id="Service"
-                      name="Service" 
-                      value={formData.Service}
-                      onChange={handleChange}
-                      className="form-input"
-                    />
-                  </div>
+            {/*Service*/}    
+            <div className="form-group">
+              <label htmlFor="task">Service</label>
+              <input 
+                id="Service"
+                name="Service" 
+                placeholder="Describe Service" 
+                onChange={handleChange}
+                value={formData.Service}
+                className="form-input"
+              />
+            </div>
 
+            <div className="form-group checklist-group">
+              <label>Checklist</label>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="ReviewWeeklySchedule"
+                  name="ReviewWeeklySchedule"
+                  checked={formData.ReviewWeeklySchedule}
+                  onChange={handleChange}
+                />
+                <label htmlFor="ReviewWeeklySchedule">Review Weekly Schedule</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="CheckMailbox"
+                  name="CheckMailbox"
+                  checked={formData.CheckMailbox}
+                  onChange={handleChange}
+                />
+                <label htmlFor="CheckMailbox">Check Mailbox</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="ViewFrontOfTheHouse"
+                  name="ViewFrontOfTheHouse"
+                  checked={formData.ViewFrontOfTheHouse}
+                  onChange={handleChange}
+                />
+                <label htmlFor="ViewFrontOfTheHouse">View Front Of The House</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="TurnOnMainWater"
+                  name="TurnOnMainWater"
+                  checked={formData.TurnOnMainWater}
+                  onChange={handleChange}
+                />
+                <label htmlFor="TurnOnMainWater">Turn On Main Water</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="BugsInsideOutsideFrontDoor"
+                  name="BugsInsideOutsideFrontDoor"
+                  checked={formData.BugsInsideOutsideFrontDoor}
+                  onChange={handleChange}
+                />
+                <label htmlFor="BugsInsideOutsideFrontDoor">Bugs Inside/Outside Front Door</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="Ceilings"
+                  name="Ceilings"
+                  checked={formData.Ceilings}
+                  onChange={handleChange}
+                />
+                <label htmlFor="Ceilings">Ceilings</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="Floors"
+                  name="Floors"
+                  checked={formData.Floors}
+                  onChange={handleChange}
+                />
+                <label htmlFor="Floors">Floors</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="CloseClosets"
+                  name="CloseClosets"
+                  checked={formData.CloseClosets}
+                  onChange={handleChange}
+                />
+                <label htmlFor="CloseClosets">Close Closets</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="TurnToiletsOnOff"
+                  name="TurnToiletsOnOff"
+                  checked={formData.TurnToiletsOnOff}
+                  onChange={handleChange}
+                />
+                <label htmlFor="TurnToiletsOnOff">Turn Toilets On/Off</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="GarageCeiling"
+                  name="GarageCeiling"
+                  checked={formData.GarageCeiling}
+                  onChange={handleChange}
+                />
+                <label htmlFor="GarageCeiling">Garage Ceiling</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="GarageFloor"
+                  name="GarageFloor"
+                  checked={formData.GarageFloor}
+                  onChange={handleChange}
+                />
+                <label htmlFor="GarageFloor">Garage Floor</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="AnyGarageFridge"
+                  name="AnyGarageFridge"
+                  checked={formData.AnyGarageFridge}
+                  onChange={handleChange}
+                />
+                <label htmlFor="AnyGarageFridge">Any Garage Fridge</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="AcAirHandlerDrainLine"
+                  name="AcAirHandlerDrainLine"
+                  checked={formData.AcAirHandlerDrainLine}
+                  onChange={handleChange}
+                />
+                <label htmlFor="AcAirHandlerDrainLine">AC Air Handler Drain Line</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="TurnOnOffWaterHeaterInElectricalPanel"
+                  name="TurnOnOffWaterHeaterInElectricalPanel"
+                  checked={formData.TurnOnOffWaterHeaterInElectricalPanel}
+                  onChange={handleChange}
+                />
+                <label htmlFor="TurnOnOffWaterHeaterInElectricalPanel">Turn On/Off Water Heater In Electrical Panel</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="TurnOnOffIceMachine"
+                  name="TurnOnOffIceMachine"
+                  checked={formData.TurnOnOffIceMachine}
+                  onChange={handleChange}
+                />
+                <label htmlFor="TurnOnOffIceMachine">Turn On/Off Ice Machine</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="ThermostatSetTo78ForClose72ForOpening"
+                  name="ThermostatSetTo78ForClose72ForOpening"
+                  checked={formData.ThermostatSetTo78ForClose72ForOpening}
+                  onChange={handleChange}
+                />
+                <label htmlFor="ThermostatSetTo78ForClose72ForOpening">Thermostat Set To 78 For Close 72 For Opening</label>
+              </div>
+
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="ViewRearOfTheHouse"
+                  name="ViewRearOfTheHouse"
+                  checked={formData.ViewRearOfTheHouse}
+                  onChange={handleChange}
+                />
+                <label htmlFor="ViewRearOfTheHouse">View Rear Of The House</label>
+              </div> 
+
+              </div>
                   {/*other options at the end*/} 
                   <div className="form-actions">
                     {/*submit button*/} 
