@@ -340,29 +340,29 @@ router.post('/editActivity', ensureAuthenticated, async (req, res)=> {
             return res.status(404).json({ error: 'Activity not found' });
         }
         
-        activity.EmployeeName = EmployeeName,
-        activity.Community= Community,
-        activity.ClientName= ClientName,
-        activity.Address= Address,
-        activity.DoorCode= DoorCode,
-        activity.Service= Service,
-        activity.ReviewWeeklySchedule= ReviewWeeklySchedule === true || ReviewWeeklySchedule === 'true',
-        activity.CheckMailbox= CheckMailbox === true || CheckMailbox === 'true',
-        activity.ViewFrontOfTheHouse= ViewFrontOfTheHouse === true || ViewFrontOfTheHouse === 'true',
-        activity.TurnOnMainWater= TurnOnMainWater === true || TurnOnMainWater === 'true',
-        activity.BugsInsideOutsideFrontDoor= BugsInsideOutsideFrontDoor === true || BugsInsideOutsideFrontDoor === 'true',
-        activity.Ceilings= Ceilings === true || Ceilings === 'true',
-        activity.Floors= Floors === true || Floors === 'true',
-        activity.CloseClosets= CloseClosets === true || CloseClosets === 'true',
-        activity.TurnToiletsOnOff= TurnToiletsOnOff === true || TurnToiletsOnOff === 'true',
-        activity.GarageCeiling= GarageCeiling === true || GarageCeiling === 'true',
-        activity.GarageFloor= GarageFloor === true || GarageFloor === 'true',
-        activity.AnyGarageFridge= AnyGarageFridge === true || AnyGarageFridge === 'true',
-        activity.AcAirHandlerDrainLine= AcAirHandlerDrainLine === true || AcAirHandlerDrainLine === 'true',
-        activity.TurnOnOffWaterHeaterInElectricalPanel= TurnOnOffWaterHeaterInElectricalPanel === true || TurnOnOffWaterHeaterInElectricalPanel === 'true',
-        activity.TurnOnOffIceMachine= TurnOnOffIceMachine === true || TurnOnOffIceMachine === 'true',
-        activity.ThermostatSetTo78ForClose72ForOpening= ThermostatSetTo78ForClose72ForOpening === true || ThermostatSetTo78ForClose72ForOpening === 'true',
-        activity.ViewRearOfTheHouse= ViewRearOfTheHouse === true || ViewRearOfTheHouse === 'true',
+        activity.EmployeeName = EmployeeName;
+        activity.Community= Community;
+        activity.ClientName= ClientName;
+        activity.Address= Address;
+        activity.DoorCode= DoorCode;
+        activity.Service= Service;
+        activity.ReviewWeeklySchedule= ReviewWeeklySchedule === true || ReviewWeeklySchedule === 'true';
+        activity.CheckMailbox= CheckMailbox === true || CheckMailbox === 'true';
+        activity.ViewFrontOfTheHouse= ViewFrontOfTheHouse === true || ViewFrontOfTheHouse === 'true';
+        activity.TurnOnMainWater= TurnOnMainWater === true || TurnOnMainWater === 'true';
+        activity.BugsInsideOutsideFrontDoor= BugsInsideOutsideFrontDoor === true || BugsInsideOutsideFrontDoor === 'true';
+        activity.Ceilings= Ceilings === true || Ceilings === 'true';
+        activity.Floors= Floors === true || Floors === 'true';
+        activity.CloseClosets= CloseClosets === true || CloseClosets === 'true';
+        activity.TurnToiletsOnOff= TurnToiletsOnOff === true || TurnToiletsOnOff === 'true';
+        activity.GarageCeiling= GarageCeiling === true || GarageCeiling === 'true';
+        activity.GarageFloor= GarageFloor === true || GarageFloor === 'true';
+        activity.AnyGarageFridge= AnyGarageFridge === true || AnyGarageFridge === 'true';
+        activity.AcAirHandlerDrainLine= AcAirHandlerDrainLine === true || AcAirHandlerDrainLine === 'true';
+        activity.TurnOnOffWaterHeaterInElectricalPanel= TurnOnOffWaterHeaterInElectricalPanel === true || TurnOnOffWaterHeaterInElectricalPanel === 'true';
+        activity.TurnOnOffIceMachine= TurnOnOffIceMachine === true || TurnOnOffIceMachine === 'true';
+        activity.ThermostatSetTo78ForClose72ForOpening= ThermostatSetTo78ForClose72ForOpening === true || ThermostatSetTo78ForClose72ForOpening === 'true';
+        activity.ViewRearOfTheHouse= ViewRearOfTheHouse === true || ViewRearOfTheHouse === 'true';
 
         await activity.save();
         
