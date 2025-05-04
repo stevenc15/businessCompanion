@@ -543,12 +543,13 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* dark background */
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  z-index: 1000;
+  justify-content: flex-start; /* start at top */
   overflow-y: auto;
+  padding-top: 2rem;
 }
 
 .form-card {
@@ -560,6 +561,7 @@
   padding: 2rem;
   border: 1px solid var(--border-color);
   overflow-y: auto;
+  max-height: 90vh;
 }
 
 .form-title {
