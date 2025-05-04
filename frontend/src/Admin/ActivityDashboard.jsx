@@ -341,7 +341,7 @@ function ActivityDashboard() {
                       <td>{activity.Service}</td>
                       
                       {/*Checklist*/}
-                      <td>{activity.ReviewWeeklySchedule}</td>
+                      <td>{activity.ReviewWeeklySchedule ? '✓' : '□'}</td>
 
                       {/*status*/}
                       <td>
