@@ -550,7 +550,30 @@ function ActivityDashboard() {
                 {/*logging form*/} 
                 <form className="activity-form" onSubmit={(e) => {
                   handleEdit(e);
-                  setFormData({ EmployeeName: '', Community: '', Address: '', DoorCode: '', Service: '' });
+                  setFormData({ 
+                    EmployeeName: '', 
+                    Community: '', 
+                    ClientName: '', 
+                    Address: '',  
+                    Service: '',
+                    ReviewWeeklySchedule: false,
+                    CheckMailbox: false,
+                    ViewFrontOfTheHouse: false,
+                    TurnOnMainWater: false,
+                    BugsInsideOutsideFrontDoor: false,
+                    Ceilings: false,
+                    Floors: false,
+                    CloseClosets: false,
+                    TurnToiletsOnOff: false,
+                    GarageCeiling: false,
+                    GarageFloor: false,
+                    AnyGarageFridge: false,
+                    AcAirHandlerDrainLine: false,
+                    TurnOnOffWaterHeaterInElectricalPanel: false,
+                    TurnOnOffIceMachine: false,
+                    ThermostatSetTo78ForClose72ForOpening: false,
+                    ViewRearOfTheHouse: false, 
+                  });
                   setEditActivityID(null);
                 }}>
            
