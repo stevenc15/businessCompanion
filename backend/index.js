@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5001;
 const Admin = require('./Schemas/adminSchema.js');
 const Client = require('./Schemas/clientSchema.js');
 const Activity = require('./Schemas/activitySchema.js');
-const ALLOWED_EMAILS = ['stevenacamachoperez@gmail.com'];
+const ALLOWED_EMAILS = ['stevenacamachoperez@gmail.com', 'armandocaro282@gmail.com'];
 
 app.set('trust proxy', 1);
 app.use(session ({

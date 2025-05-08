@@ -6,7 +6,7 @@ import ClientDashboard from './Admin/ClientDashboard';
 import AdminLogin from './Admin/AdminLogin';
 import AddClient from './Admin/AddClient';
 import AddActivity from './Admin/AddActivity';
-
+import EndUserAgreement from './EndUserAgreement';
 
 function App() {
   return(
@@ -20,6 +20,7 @@ function App() {
         <Route path="/clientDashboard" element={<ClientDashboard/>} />
         <Route path="/addClient" element={<AddClient/>} />
         <Route path="/addActivity" element={<AddActivity/>} />
+        <Route path="/endUserAgreement" element={<EndUserAgreement/>} />
       </Routes>
     </Router>
   )
