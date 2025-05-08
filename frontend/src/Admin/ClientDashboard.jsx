@@ -190,6 +190,16 @@ function ClientDashboard() {
             Add Client
           </button>
 
+          {/*To EULA Agreement*/}
+          <button 
+            className="go-back-button"
+            onClick={() => {
+              navigate('/endUserAgreement');
+            }}
+          >
+            Go to EULA Agreement
+          </button>
+
         </div>
 
       </div> {/*End of Header*/}
