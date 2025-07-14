@@ -6,10 +6,10 @@ function EndUserAgreement () {
         <div>
             <div>
               <h1>Privacy Policy</h1>
-              <p>Effective Date: [Insert Date]</p>
+              <p>Effective Date: 06/07/2025</p>
         
               <p>
-                This application ("App") is developed and maintained by [Your Name or Company Name] for internal use with QuickBooks Online.
+                This application ("App") is developed and maintained by HouseMedix, LLC for internal use with QuickBooks Online.
               </p>
         
               <h2>Information We Collect</h2>
@@ -36,7 +36,7 @@ function EndUserAgreement () {
 
 <div>
 <h1>End User License Agreement (EULA)</h1>
-<p>Effective Date: [Insert Date]</p>
+<p>Effective Date: 06/07/2025</p>
 
 <p>
   This EULA is a legal agreement between you and [Your Name or Company Name] regarding the use of the internal-use application ("App") that integrates with QuickBooks Online.

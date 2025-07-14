@@ -2,6 +2,7 @@ import {useState, useEffect, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import './ActivityDashboard.css';
 import ChecklistCell from './components/Checklist';
+import { encryptData, decryptData } from '../utils/cryptoUtils';
 
 //Admin Dashboard
 function ActivityDashboard() {
@@ -15,7 +16,6 @@ function ActivityDashboard() {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
 
- 
   const fetchActivities = useCallback(async () => {
     setLoading(true);
     try{
@@ -26,8 +26,15 @@ function ActivityDashboard() {
     if (!data) {
       console.log('no activities available');
     }
-    setActivities(data);
-    setAllActivities(data);
+
+    const password = prompt('Enter admin decryption password: ');
+
+    const decrypted = await Promise.all(
+      data.map(encrypted => decryptData(encrypted, password))
+    );
+
+    setActivities(decrypted);
+    setAllActivities(decrypted);
   }catch(error){
     console.log(error);
   }finally{
@@ -40,6 +47,7 @@ function ActivityDashboard() {
       fetchActivities();
   }, [fetchActivities]);
 
+  //SEARCH BAR
   useEffect (() => {    
     const filtered = allActivities.filter((activity) => 
       Object.values(activity).some((value) => 
@@ -91,6 +99,7 @@ function ActivityDashboard() {
     );
   };  
 
+  //PROB REMOVE
   //function to set activity to approved state
   const handleApprove = async (ActivityId) => {
       const res = await fetch(`https://businesscompanion.onrender.com/admin/approve`, {
@@ -107,6 +116,7 @@ function ActivityDashboard() {
       await fetchActivities();
   };
 
+  //PROB REMOVE
   //function to set activity to unapproved state
   const handleUnapprove = async (ActivityId) => {
       await fetch(`https://businesscompanion.onrender.com/admin/unapprove`, {
@@ -120,6 +130,7 @@ function ActivityDashboard() {
       await fetchActivities();
   };
 
+  //PROB REMOVE
   //log submission function
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -201,7 +212,7 @@ function ActivityDashboard() {
             Go to Client Dashboard
           </button>
 
-          {/*Add Activity*/}
+          {/*Add Activity
           <button 
             className="add-button"
             onClick={() => {
@@ -210,6 +221,7 @@ function ActivityDashboard() {
           >
             Add Activity
           </button>
+          */}
 
           {/*To EULA Agreement*/}
           <button 
@@ -242,21 +254,23 @@ function ActivityDashboard() {
               <span className="stat-label">Total Activities</span>
             </div>
 
-            {/*number of approved activities*/}
+            {/*number of approved activities
             <div className="stat-item">              
               <span className="stat-value">
                   {activities.filter(activity => activity.Status).length}
               </span>              
               <span className="stat-label">Approved</span>
             </div>
+            */}
 
-            {/*number of unapproved activities*/}
+            {/*number of unapproved activities
             <div className="stat-item">                  
               <span className="stat-value">
                 {activities.filter(activity => !activity.Status).length}
               </span>              
               <span className="stat-label">Pending</span>
             </div>
+            */}
 
             <div className="search-container">
               <span className="search-label">Search</span>
@@ -293,10 +307,12 @@ function ActivityDashboard() {
           <div className="table-header"> {/*top of table details*/} 
             <h3 className="table-title">Activity Records</h3>            
             
-            {/*refresh data button, ADD FUNCTIONALITY*/} 
+            {/*refresh data button, ADD FUNCTIONALITY 
             <div className="table-actions">
               <button className="refresh-button" onClick={fetchActivities}>Refresh Data</button>
             </div>
+            */}
+
           </div>
 
           {loading && <div className="spinner"></div>}
@@ -494,8 +510,10 @@ function ActivityDashboard() {
 
                       {/*approve or disapprove button*/}
                       <td>
+
                       <div className="action-buttons-container">
-                        {/*activity pending, approve button available*/}
+                        
+                        {/*activity pending, approve button available
                         {!activity.Status ? (
                           <button 
                             className="action-button approve"
@@ -511,10 +529,10 @@ function ActivityDashboard() {
                           >
                             Reject
                           </button>
-                        )}
+                          */}
 
                        
-                        
+                        {/*
                           <button className="action-button action-button-modify" onClick={()=> {
                             setEditModal(true) 
                             setEditActivityID(activity.ActivityId)
@@ -528,11 +546,14 @@ function ActivityDashboard() {
                           }
                           }
                           >Modify</button>
+                        */}
 
+                        {/*
                           <button className="action-button action-button-delete" onClick={()=> {
                             setDeleteModal(true) 
                             setDeleteActivityID(activity.ActivityId)}}
                           >Delete</button>
+                        */}
 
                         </div>
                       </td>
@@ -549,6 +570,7 @@ function ActivityDashboard() {
               </tbody>
             </table>
 
+              
             {editModal && (
               <div className="modal-overlay">
               {/*logging form*/}
@@ -862,6 +884,7 @@ function ActivityDashboard() {
               </div> {/*end of form*/}
               </div>
             )}
+            
 
             {deleteModal && (
               <div className="option-container">

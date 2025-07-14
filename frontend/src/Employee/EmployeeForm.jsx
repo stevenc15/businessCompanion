@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {Link, useSearchParams} from 'react-router-dom';
 import './EmployeeForm.css';
+import { encryptData, decryptData } from '../utils/cryptoUtils';
 
 //employee form for employees to log their activities
 function EmployeeForm() {
@@ -71,10 +72,14 @@ function EmployeeForm() {
   //log submission function
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const password = 'SECRET_PASSWORD';
+    const encrypted = await encryptData(formData, password);
+
     const res = await fetch('https://businesscompanion.onrender.com/api/activities', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(formData),
+      body: JSON.stringify(encrypted),
     });
 
     const data = await res.json();
