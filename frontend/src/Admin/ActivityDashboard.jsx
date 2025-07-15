@@ -26,21 +26,10 @@ function ActivityDashboard() {
     if (!data) {
       console.log('no activities available');
     }
-
-    const password = prompt('Enter admin decryption password: ');
-
-    const decrypted = await Promise.all(data.map(async (encrypted, i) => {
-      try {
-        return await decryptData(encrypted, password);
-      } catch (err) {
-        console.warn(`Failed to decrypt item ${i}`, err);
-        return null; // or an object with an error field
-      }
-    }));
     
 
-    setActivities(decrypted);
-    setAllActivities(decrypted);
+    setActivities(data);
+    setAllActivities(data);
   }catch(error){
     console.log(error);
   }finally{

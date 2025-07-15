@@ -73,13 +73,10 @@ function EmployeeForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const password = 'SECRET_PASSWORD';
-    const encrypted = await encryptData(formData, password);
-
     const res = await fetch('https://businesscompanion.onrender.com/api/activities', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(encrypted),
+      body: JSON.stringify(formData),
     });
 
     const data = await res.json();
