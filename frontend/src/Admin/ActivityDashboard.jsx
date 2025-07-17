@@ -65,7 +65,7 @@ function ActivityDashboard () {
       
             {/*Title CONTAINER*/}
             <div className="dashboard-title-section">
-                <h2 className="dashboard-title">Excelo File with all activities</h2> {/*title*/}          
+                <h2 className="dashboard-title">Excel File with all activities</h2> {/*title*/}          
             </div> {/*end of title*/} 
   
             <button onClick={() => downloadExcel()}>Export CSV File</button>
