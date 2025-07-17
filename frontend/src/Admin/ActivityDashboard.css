@@ -537,6 +537,17 @@
   background-color: #95a5a6;
 }
 
+.excel-table table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.excel-table th, .excel-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -674,6 +685,7 @@ label {
     }
   }
   
+
   @media (max-width: 480px) {
     .dashboard-header {
       flex-direction: column;

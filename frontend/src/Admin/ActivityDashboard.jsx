@@ -121,7 +121,7 @@ function ActivityDashboard () {
 
         {/* Conditional Table Display */}
         {showTable && excelData.length > 0 && (
-          <div >
+          <div className="excel-table">
             <table>
               <thead>
                 <tr>
