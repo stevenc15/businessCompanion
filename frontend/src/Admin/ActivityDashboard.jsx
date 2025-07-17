@@ -144,6 +144,7 @@ function ActivityDashboard () {
       
         </div>
 
+        )};
         {/*footer*/} 
         <div className="dashboard-footer">
             <p>© 2025 Company Name. All rights reserved.</p>
@@ -152,6 +153,7 @@ function ActivityDashboard () {
 
     </div>
     
+    </div>
     );
 
 };
