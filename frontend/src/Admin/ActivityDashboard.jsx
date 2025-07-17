@@ -121,8 +121,8 @@ function ActivityDashboard () {
 
         {/* Conditional Table Display */}
         {showTable && excelData.length > 0 && (
-          <div className="excel-table">
-            <table>
+          <div className="table-container" style={{ maxHeight: '400px', overflowY: 'auto', overflowX: 'auto' }}>
+            <table className="excel-table">
               <thead>
                 <tr>
                   {Object.keys(excelData[0]).map((key) => (
@@ -131,13 +131,19 @@ function ActivityDashboard () {
                 </tr>
               </thead>
               <tbody>
-                {excelData.map((row, i) => (
-                  <tr key={i}>
-                    {Object.values(row).map((cell, j) => (
-                      <td key={j}>{cell}</td>
-                    ))}
-                  </tr>
-                ))}
+              {excelData.map((row, i) => (
+        <tr key={i}>
+          {Object.values(row).map((cell, j) => (
+            <td key={j}>
+              {typeof cell === 'boolean' ? (
+                <input type="checkbox" checked={cell} readOnly />
+              ) : (
+                cell
+              )}
+            </td>
+          ))}
+        </tr>
+      ))}
               </tbody>
             </table>
       
