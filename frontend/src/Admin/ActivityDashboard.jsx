@@ -1,7 +1,6 @@
-import {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import './ActivityDashboard.css';
-import React, { useState} from 'react';
 import * as XLSX from 'xlsx';
 
 import { saveAs } from 'file-saver';
@@ -145,6 +144,7 @@ function ActivityDashboard () {
         </div>
 
         )};
+
         {/*footer*/} 
         <div className="dashboard-footer">
             <p>© 2025 Company Name. All rights reserved.</p>
