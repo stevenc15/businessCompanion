@@ -1,13 +1,56 @@
 import {useState, useEffect, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import './ActivityDashboard.css';
+import React, { useState} from 'react';
+import * as XLSX from 'xlsx';
+
+import { saveAs } from 'file-saver';
+
+
 
 function ActivityDashboard () {
 
     const navigate = useNavigate();
+
+    const [excelData, setExcelData] = useState([]);
+    
+    const [showTable, setShowTable] = useState(false);
+
     //function importExcel
+    const importExcel = (event) => {
+        
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const workbook = XLSX.read(e.target.result, { type: 'binary'});
+            const sheetName = workbook.SheetNames[0];
+            const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { defval: '' });
+            setExcelData(data);
+            setShowTable(false);
+        };
+        reader.readAsBinaryString(file);
+
+    };
+
     //function downloadExcel
+    const downloadExcel = () => {
+        const worksheet = XLSX.utils.json_to_sheet(excelData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Activities');
+
+        const excelBuffer = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
+        const blob = new Blob([excelBuffer], {type: 'application/octet-stream'});
+        saveAs(blob, 'activity_data.xlsx');
+    };
+
     //function viewExcel
+    const viewExcel = () => {
+        setShowTable((prev) => !prev);
+    };
 
     return (
       //Main CONTAINER
@@ -65,10 +108,39 @@ function ActivityDashboard () {
       
             {/*Title CONTAINER*/}
             <div className="dashboard-title-section">
-                <h2 className="dashboard-title">Excel File with all activities</h2> {/*title*/}          
+                <h2 className="dashboard-title">Manage Excel Activities</h2> {/*title*/}          
             </div> {/*end of title*/} 
-  
-            <button onClick={() => downloadExcel()}>Export CSV File</button>
+                
+            <div >
+          <button onClick={viewExcel}>{showTable ? 'Hide' : 'View'} Excel</button>
+          <button onClick={downloadExcel}>Export Excel</button>
+          <label >
+            Import Excel
+            <input type="file" accept=".xlsx, .xls" onChange={importExcel} hidden />
+          </label>
+        </div>
+
+        {/* Conditional Table Display */}
+        {showTable && excelData.length > 0 && (
+          <div >
+            <table>
+              <thead>
+                <tr>
+                  {Object.keys(excelData[0]).map((key) => (
+                    <th key={key}>{key}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {excelData.map((row, i) => (
+                  <tr key={i}>
+                    {Object.values(row).map((cell, j) => (
+                      <td key={j}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
       
         </div>
 
