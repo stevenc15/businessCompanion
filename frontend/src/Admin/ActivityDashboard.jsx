@@ -110,7 +110,7 @@ function ActivityDashboard () {
                 <h2 className="dashboard-title">Manage Excel Activities</h2> {/*title*/}          
             </div> {/*end of title*/} 
                 
-            <div >
+            <div className="excel-actions">
           <button onClick={viewExcel}>{showTable ? 'Hide' : 'View'} Excel</button>
           <button onClick={downloadExcel}>Export Excel</button>
           <label >

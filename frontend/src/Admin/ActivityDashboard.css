@@ -537,6 +537,12 @@
   background-color: #95a5a6;
 }
 
+.excel-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 .excel-table table {
   margin-top: 20px;
   border-collapse: collapse;
