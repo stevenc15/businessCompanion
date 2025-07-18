@@ -528,6 +528,14 @@
   background-color: #c0392b;
 }
 
+.import-label {
+  background-color: #007bff;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .option-container button:last-child {
   background-color: #bdc3c7; /* Gray for Cancel */
   color: black;

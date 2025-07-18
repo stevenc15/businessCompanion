@@ -113,7 +113,7 @@ function ActivityDashboard () {
             <div className="excel-actions">
           <button onClick={viewExcel}>{showTable ? 'Hide' : 'View'} Excel</button>
           <button onClick={downloadExcel}>Export Excel</button>
-          <label >
+          <label className="import-label">
             Import Excel
             <input type="file" accept=".xlsx, .xls" onChange={importExcel} hidden />
           </label>
