@@ -17,6 +17,12 @@ const XLSX = require('xlsx');
 const path = require('path');
 const fs = require('fs');
 
+const uploadPath = path.join(__dirname, 'uploads');
+
+if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath);
+}
+
 app.set('trust proxy', 1);
 app.use(session ({
     secret: process.env.GOOGLE_CLIENT_SECRET,
