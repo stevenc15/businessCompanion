@@ -137,7 +137,7 @@ function ActivityDashboard () {
               <button onClick={viewExcel}>{showTable ? 'Hide' : 'View'} Excel</button>
               <button onClick={downloadExcel}>Export Excel</button>              
             </div>
-
+;
             {/* Conditional Table Display */}
             {showTable && excelData.length > 0 && (
               <div className="table-container" style={{ maxHeight: '400px', overflowY: 'auto', overflowX: 'auto' }}>
@@ -160,7 +160,7 @@ function ActivityDashboard () {
                   </tbody>
                 </table>      
               </div>
-        )};
+        )}
 
         {/*footer*/} 
         <div className="dashboard-footer">
