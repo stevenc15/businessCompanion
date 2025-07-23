@@ -15,6 +15,7 @@ const multer = require('multer');
 const XLSX = require('xlsx');
 
 const path = require('path');
+const fs = require('fs');
 
 app.set('trust proxy', 1);
 app.use(session ({
@@ -103,7 +104,15 @@ app.use('/admin', adminRouter);
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
-        cb(null, 'uploads/');
+        const dir = 'uploads';
+        fs.access(dir, fs.constants.W_OK, (err) => {
+            if (err) {
+                console.error('Uploads filder is not writable: ', err);
+                return cb(new Error('Uploads folder is not writable'));
+            }
+            cb(null, dir);
+        });
+        
     },
     filename: function (req, file, cb) {
         cb(null, 'stored.xlsx');
