@@ -139,7 +139,7 @@ function ActivityDashboard () {
             </div>
 ;
             {/* Conditional Table Display */}
-            {showTable  && (
+            {showTable && excelData.length > 0 && (
               <div className="table-container" style={{ maxHeight: '400px', overflowY: 'auto', overflowX: 'auto' }}>
                 <table className="excel-table">
                   <thead>
