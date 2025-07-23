@@ -116,6 +116,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //import excel file
 app.post('/api/upload', upload.single('file'), (req, res) => {
+    console.log('accessed correct endpoint');
     
     try{
         if (!req.file) return res.status(400).send('No file uploaded');
