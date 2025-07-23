@@ -22,7 +22,7 @@ function ActivityDashboard () {
         if (!file) return;
 
         const formData = new FormData();
-        formData.append('excelFile', file);
+        formData.append('file', file);
 
         try {
           await fetch('https://businesscompanion.onrender.com/api/upload', {
