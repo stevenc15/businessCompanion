@@ -28,6 +28,7 @@ function ActivityDashboard () {
           await fetch('https://businesscompanion.onrender.com/api/upload', {
             method: 'POST',
             body: formData,
+            credentials: 'include',
           });
           alert('File successfully uploaded!');
         } catch(err){

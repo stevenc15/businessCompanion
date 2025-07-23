@@ -111,6 +111,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage:storage});
 
+//make uploads folder static and available by url
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 //import excel file
 app.post('/api/upload', upload.single('file'), (req, res) => {
     
