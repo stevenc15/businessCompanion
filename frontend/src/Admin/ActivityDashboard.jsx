@@ -25,7 +25,7 @@ function ActivityDashboard () {
         formData.append('file', file);
 
         try {
-          await fetch('/api/upload', {
+          await fetch('https://businesscompanion.onrender.com/api/upload', {
             method: 'POST',
             body: formData,
             credentials: 'include',
