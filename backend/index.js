@@ -113,13 +113,13 @@ const storage = multer.diskStorage({
 const upload = multer({storage:storage});
 
 //import excel file
-app.post('/upload', upload.single('file'), (req, res) => {
+app.post('/api/upload', upload.single('file'), (req, res) => {
     if (!req.file) return res.status(400).send('No file uploaded');
     res.status(200).send('File uploaded successfully!');
 })
 
 //view excel file
-app.get('/data', (req, res) => {
+app.get('/api/data', (req, res) => {
     const filePath = path.join(__dirname, 'uploads', 'stored.xlsx');
     if (!fs.existsSync(filePath)){
         return res.status(404).send('No file found');
@@ -133,7 +133,7 @@ app.get('/data', (req, res) => {
 });
 
 //download/export file
-app.get('/download', (req, res) => {
+app.get('/api/download', (req, res) => {
     const filePath = path.join(__dirname, 'uploads', 'stored.xlsx');
     if (!fs.existsSync(filePath)){
         return res.status(404).send('No file found');

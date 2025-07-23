@@ -25,7 +25,7 @@ function ActivityDashboard () {
         formData.append('excelFile', file);
 
         try {
-          await fetch('http://localhost:5001/api/upload-excel', {
+          await fetch('https://businesscompanion.onrender.com/api/upload-excel', {
             method: 'POST',
             body: formData,
           });
@@ -38,14 +38,14 @@ function ActivityDashboard () {
 
     //function downloadExcel
     const downloadExcel = () => {
-        window.location.href = 'http://localhost:5001/api/download-excel';
+        window.location.href = 'https://businesscompanion.onrender.com/api/download-excel';
     };
 
     //function viewExcel
     const viewExcel = async () => {
         
       try{
-        const res = await fetch('http://localhost:5001/api/view-excel');
+        const res = await fetch('https://businesscompanion.onrender.com/api/view-excel');
         const blob = await res.blob();
         const data = await blob.arrayBuffer();
         const workbook = XLSX.read(data, { type: 'array' });
