@@ -167,7 +167,7 @@ app.get('/api/data', (req, res) => {
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
     const jsonData = XLSX.utils.sheet_to_json(sheet);
-    res.json(jsonData);
+    return res.json(jsonData);
 });
 
 //download/export file
