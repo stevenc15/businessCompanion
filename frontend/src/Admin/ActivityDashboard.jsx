@@ -25,7 +25,7 @@ function ActivityDashboard () {
         formData.append('file', file);
 
         try {
-          await fetch('https://businesscompanion.onrender.com/api/upload', {
+          await fetch('/api/upload', {
             method: 'POST',
             body: formData,
             credentials: 'include',
@@ -132,7 +132,7 @@ function ActivityDashboard () {
             <div className="excel-actions">
               <label className="import-label">
                 Import Excel
-                <input type="file" accept=".xlsx, .xls" onChange={importExcel} style={{ marginBottom: '10px' }} />
+                <input type="file" accept=".xlsx, .xls" onChange={(e) => importExcel(e)} style={{ marginBottom: '10px' }} />
               </label>
               <button onClick={viewExcel}>{showTable ? 'Hide' : 'View'} Excel</button>
               <button onClick={downloadExcel}>Export Excel</button>              
