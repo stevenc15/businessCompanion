@@ -97,7 +97,6 @@ app.use(cors({
 
 //parse any incoming data
 app.use(express.json());
-
  
 const adminRouter = require('./Routes/admin.js');
 app.use('/admin', adminRouter);
@@ -114,9 +113,14 @@ const upload = multer({storage:storage});
 
 //import excel file
 app.post('/api/upload', upload.single('file'), (req, res) => {
-    if (!req.file) return res.status(400).send('No file uploaded');
-    res.status(200).send('File uploaded successfully!');
-})
+    
+    try{
+        if (!req.file) return res.status(400).send('No file uploaded');
+        res.status(200).send('File uploaded successfully!');
+    }catch(err){
+        console.error(err);
+    }
+});
 
 //view excel file
 app.get('/api/data', (req, res) => {
