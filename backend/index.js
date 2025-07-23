@@ -117,13 +117,28 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 //import excel file
 app.post('/api/upload', upload.single('file'), (req, res) => {
     console.log('accessed correct endpoint');
-    
+
     try{
         if (!req.file) return res.status(400).send('No file uploaded');
         res.status(200).send('File uploaded successfully!');
     }catch(err){
         console.error(err);
     }
+});
+
+//multer error handling
+app.use((err, req, res, next) => {
+    if (err instanceof multer.MulterError) {
+        //multer error occured when uploading.
+        console.error('multer error: ', err);
+        return res.status(500).json({error: err.message});
+    }else if (err){
+        //unknown error
+        console.error('unknown error:', err);
+        return res.status(500).json({ error: ' an unexpected error ocurred' });
+    }
+
+    next();
 });
 
 //view excel file
