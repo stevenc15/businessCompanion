@@ -125,6 +125,8 @@ router.get('/getSingleClient', async(req, res) => {
     const {ClientId} = req.query;
 
     try{
+        console.log(ClientId);
+        
         const client = await Client.findByPk(ClientId);
 
         if (!client){
