@@ -1,3 +1,4 @@
+//imports
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
@@ -7,21 +8,10 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
 const PORT = process.env.PORT || 5001;
-const Admin = require('./Schemas/adminSchema.js');
 const Client = require('./Schemas/clientSchema.js');
 const Activity = require('./Schemas/activitySchema.js');
 const ALLOWED_EMAILS = ['stevenacamachoperez@gmail.com', 'armandocaro282@gmail.com', 'bmmedjuck@gmail.com'];
-const multer = require('multer');
-const XLSX = require('xlsx');
 
-const path = require('path');
-const fs = require('fs');
-
-const uploadPath = path.join(__dirname, 'uploads');
-
-if (!fs.existsSync(uploadPath)) {
-    fs.mkdirSync(uploadPath);
-}
 
 app.set('trust proxy', 1);
 app.use(session ({
@@ -92,10 +82,12 @@ async function initializeDatabase() {
 }
 
 initializeDatabase();
+
 const allowedOrigins = [
     'http://localhost:5173', 
     'https://business-companion-seven.vercel.app'
 ]
+
 //allow ports connection from frontend to backend
 app.use(cors({
     origin: allowedOrigins,
@@ -104,163 +96,11 @@ app.use(cors({
 
 //parse any incoming data
 app.use(express.json());
- 
+
 const adminRouter = require('./Routes/admin.js');
 app.use('/admin', adminRouter);
-
-const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        const dir = 'uploads';
-        fs.access(dir, fs.constants.W_OK, (err) => {
-            if (err) {
-                console.error('Uploads filder is not writable: ', err);
-                return cb(new Error('Uploads folder is not writable'));
-            }
-            cb(null, dir);
-        });
-        
-    },
-    filename: function (req, file, cb) {
-        cb(null, 'stored.xlsx');
-    }
-});
-const upload = multer({storage:storage});
-
-//make uploads folder static and available by url
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-//import excel file
-app.post('/api/upload', upload.single('file'), (req, res) => {
-    console.log('accessed correct endpoint');
-
-    try{
-        if (!req.file) return res.status(400).send('No file uploaded');
-        res.status(200).send('File uploaded successfully!');
-    }catch(err){
-        console.error(err);
-    }
-});
-
-//multer error handling
-app.use((err, req, res, next) => {
-    if (err instanceof multer.MulterError) {
-        //multer error occured when uploading.
-        console.error('multer error: ', err);
-        return res.status(500).json({error: err.message});
-    }else if (err){
-        //unknown error
-        console.error('unknown error:', err);
-        return res.status(500).json({ error: ' an unexpected error ocurred' });
-    }
-
-    next();
-});
-
-//view excel file
-app.get('/api/data', (req, res) => {
-    const filePath = path.join(__dirname, 'uploads', 'stored.xlsx');
-    if (!fs.existsSync(filePath)){
-        return res.status(404).send('No file found');
-    }
-
-    const workbook = XLSX.readFile(filePath);
-    const sheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[sheetName];
-    const jsonData = XLSX.utils.sheet_to_json(sheet);
-    return res.json(jsonData);
-});
-
-//download/export file
-app.get('/api/download', (req, res) => {
-    const filePath = path.join(__dirname, 'uploads', 'stored.xlsx');
-    if (!fs.existsSync(filePath)){
-        return res.status(404).send('No file found');
-    }
-
-    res.download(filePath, 'exported-file.xlsx');
-});
-
-//Define general employee logging route
-app.post('/api/activities', async(req, res) => {
-    
-    try{
-        const {
-            Community, 
-            ClientName, 
-            Address, 
-            DoorCode, 
-            Service, 
-            EmployeeName,
-            ReviewWeeklySchedule,
-            CheckMailbox,
-            ViewFrontOfTheHouse,
-            TurnOnMainWater,
-            BugsInsideOutsideFrontDoor,
-            Ceilings,
-            Floors, 
-            CloseClosets,
-            TurnToiletsOnOff,
-            GarageCeiling, 
-            GarageFloor,
-            AnyGarageFridge,
-            AcAirHandlerDrainLine,
-            TurnOnOffWaterHeaterInElectricalPanel,
-            TurnOnOffIceMachine,
-            ThermostatSetTo78ForClose72ForOpening,
-            ViewRearOfTheHouse,
-        } = req.body;
-
-        await Activity.create({
-            EmployeeName: EmployeeName,
-            Community: Community,
-            ClientName: ClientName,
-            Address: Address,
-            DoorCode: DoorCode,
-            Service: Service,
-            ReviewWeeklySchedule: ReviewWeeklySchedule === true || ReviewWeeklySchedule === 'true',
-            CheckMailbox: CheckMailbox === true || CheckMailbox === 'true',
-            ViewFrontOfTheHouse: ViewFrontOfTheHouse === true || ViewFrontOfTheHouse === 'true',
-            TurnOnMainWater: TurnOnMainWater === true || TurnOnMainWater === 'true',
-            BugsInsideOutsideFrontDoor: BugsInsideOutsideFrontDoor === true || BugsInsideOutsideFrontDoor === 'true',
-            Ceilings: Ceilings === true || Ceilings === 'true',
-            Floors: Floors === true || Floors === 'true',
-            CloseClosets: CloseClosets === true || CloseClosets === 'true',
-            TurnToiletsOnOff: TurnToiletsOnOff === true || TurnToiletsOnOff === 'true',
-            GarageCeiling: GarageCeiling === true || GarageCeiling === 'true',
-            GarageFloor: GarageFloor === true || GarageFloor === 'true',
-            AnyGarageFridge: AnyGarageFridge === true || AnyGarageFridge === 'true',
-            AcAirHandlerDrainLine: AcAirHandlerDrainLine === true || AcAirHandlerDrainLine === 'true',
-            TurnOnOffWaterHeaterInElectricalPanel: TurnOnOffWaterHeaterInElectricalPanel === true || TurnOnOffWaterHeaterInElectricalPanel === 'true',
-            TurnOnOffIceMachine: TurnOnOffIceMachine === true || TurnOnOffIceMachine === 'true',
-            ThermostatSetTo78ForClose72ForOpening: ThermostatSetTo78ForClose72ForOpening === true || ThermostatSetTo78ForClose72ForOpening === 'true',
-            ViewRearOfTheHouse: ViewRearOfTheHouse === true || ViewRearOfTheHouse === 'true',
-        });
-
-        res.status(200).json({message: 'successfully logged activity'});
-    }catch(err){
-        console.error(err);
-        res.status(500).json({error: 'Failed to save activity'});
-    }     
-});
-
-//get single client
-app.get('/api/getSingleClient', async(req, res) => {
-    const {ClientId} = req.query;
-
-    try{
-        const client = await Client.findByPk(ClientId);
-
-        if (!client){
-            return res.status(401).json({message: 'no client found by that id'});
-        }
-
-        res.status(200).json(client);
-
-    }catch(error){
-        console.error('Error fetching client: ', error);
-        res.status(500).json({message: 'Server Error'});
-    }
-});
+const employeeRouter = require('./Routes/employee.js');
+app.use('/employee', employeeRouter);
 
 //start server
 app.listen(PORT, () => {

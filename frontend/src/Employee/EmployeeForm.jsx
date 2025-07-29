@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react';
-import {Link, useSearchParams} from 'react-router-dom';
+import {useSearchParams} from 'react-router-dom';
 import './EmployeeForm.css';
-import { encryptData, decryptData } from '../utils/cryptoUtils';
 
 //employee form for employees to log their activities
 function EmployeeForm() {
@@ -13,7 +12,7 @@ function EmployeeForm() {
 
   useEffect (() => {
     if (ClientId) {
-      fetch(`https://businesscompanion.onrender.com/api/getSingleClient?ClientId=${ClientId}`)
+      fetch(`https://businesscompanion.onrender.com/getSingleClient?ClientId=${ClientId}`)
         .then(res => res.json())
         .then(data => setClientData(data))
         .catch(err => console.error("Error fetching the client: ", err));
@@ -73,7 +72,7 @@ function EmployeeForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch('https://businesscompanion.onrender.com/api/activities', {
+    const res = await fetch('https://businesscompanion.onrender.com/activities', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(formData),
