@@ -80,7 +80,7 @@ function ActivityDashboard () {
             />
             
             <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
-                <button className="my-8 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                <button style={{ marginTop: '20px', marginBottom: '20px', padding: '10px 20px' }}>
                     Export to Excel
                 </button>
             </a>
