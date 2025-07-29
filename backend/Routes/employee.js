@@ -4,6 +4,58 @@ const router = express.Router();
 require('dotenv').config();
 const Client = require('../Schemas/clientSchema.js');
 const Activity = require('../Schemas/activitySchema.js');
+const {google}= require('googleapis');
+const {getSheetsClient} = require('../googleClient.js');
+
+//insert activity endpoint
+router.post('/insert-activity', async(req, res) => {
+    const sheets = getSheetsClient();
+    
+    const formData = req.body;
+
+    const newRow = [
+        formData.EmployeeName,
+        formData.Community,
+        formData.ClientName,
+        formData.Address,
+        formData.Service,
+        formData.ReviewWeeklySchedule,
+        formData.CheckMailbox,
+        formData.ViewFrontOfTheHouse,
+        formData.TurnOnMainWater,
+        formData.BugsInsideOutsideFrontDoor,
+        formData.Ceilings,
+        formData.Floors,
+        formData.CloseClosets,
+        formData.TurnToiletsOnOff,
+        formData.GarageCeiling,
+        formData.GarageFloor,
+        formData.AnyGarageFridge,
+        formData.AcAirHandlerDrainLine,
+        formData.TurnOnOffWaterHeaterInElectricalPanel,
+        formData.TurnOnOffIceMachine,
+        formData.ThermostatSetTo78ForClose72ForOpening,
+        formData.ViewRearOfTheHouse,
+        new Date().toLocaleDateString() //Timestamp
+    ];
+
+    try{
+        await sheets.spreadsheets.values.append({
+            spreadSheetId: '1C1X6BUa51t1XhKwQcDPXg4Mj5wYHatybBqkY_0JbrFs',
+            range: 'Sheet1!A2',
+            valueInputOption: 'USER_ENTERED',
+            insertDataOption: 'INSERT_ROWS',
+            requestBody: {
+                values: [newRow],
+            },
+        });
+
+        res.status(200).json({ message: 'Submitted to Sheet successfully'});
+    }catch(err){
+        console.error(err);
+        res.status(500).json({ message: 'Failed to write to sheet'});
+    }
+});
 
 //Define general employee logging route
 router.post('/activities', async(req, res) => {

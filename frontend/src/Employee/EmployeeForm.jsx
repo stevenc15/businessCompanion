@@ -72,7 +72,7 @@ function EmployeeForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch('https://businesscompanion.onrender.com/activities', {
+    const res = await fetch('https://businesscompanion.onrender.com/insert-activity', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(formData),
