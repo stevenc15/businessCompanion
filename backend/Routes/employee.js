@@ -16,7 +16,7 @@ router.post('/insert-activity', async(req, res) => {
     if (!formData){
         res.status(402).json({ message: 'no data is submitted/found from form'});
     }
-    
+
     const newRow = [
         formData.EmployeeName,
         formData.Community,
@@ -45,7 +45,7 @@ router.post('/insert-activity', async(req, res) => {
 
     try{
         await sheets.spreadsheets.values.append({
-            spreadSheetId: '1C1X6BUa51t1XhKwQcDPXg4Mj5wYHatybBqkY_0JbrFs',
+            spreadsheetId: '1C1X6BUa51t1XhKwQcDPXg4Mj5wYHatybBqkY_0JbrFs',
             range: 'Sheet1!A2',
             valueInputOption: 'USER_ENTERED',
             insertDataOption: 'INSERT_ROWS',
