@@ -21,7 +21,7 @@ router.post('/insert-activity', async(req, res) => {
 
     const newRow = Object.values(formData);
 
-    console.log(newRow);
+    console.log([newRow]);
 
     try{
         await sheets.spreadsheets.values.append({
