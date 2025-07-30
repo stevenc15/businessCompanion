@@ -19,34 +19,10 @@ router.post('/insert-activity', async(req, res) => {
 
     console.log(formData);
 
-    const newRow = [
-        formData.EmployeeName,
-        formData.Community,
-        formData.ClientName,
-        formData.Address,
-        formData.Service,
-        formData.ReviewWeeklySchedule,
-        formData.CheckMailbox,
-        formData.ViewFrontOfTheHouse,
-        formData.TurnOnMainWater,
-        formData.BugsInsideOutsideFrontDoor,
-        formData.Ceilings,
-        formData.Floors,
-        formData.CloseClosets,
-        formData.TurnToiletsOnOff,
-        formData.GarageCeiling,
-        formData.GarageFloor,
-        formData.AnyGarageFridge,
-        formData.AcAirHandlerDrainLine,
-        formData.TurnOnOffWaterHeaterInElectricalPanel,
-        formData.TurnOnOffIceMachine,
-        formData.ThermostatSetTo78ForClose72ForOpening,
-        formData.ViewRearOfTheHouse,
-        new Date().toLocaleDateString() //Timestamp
-    ];
+    const newRow = Object.values(formData);
 
     console.log(newRow);
-    
+
     try{
         await sheets.spreadsheets.values.append({
             spreadsheetId: '1C1X6BUa51t1XhKwQcDPXg4Mj5wYHatybBqkY_0JbrFs',
