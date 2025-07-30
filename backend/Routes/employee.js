@@ -29,8 +29,8 @@ router.post('/insert-activity', async(req, res) => {
             range: 'Sheet1!A2',
             valueInputOption: 'USER_ENTERED',
             insertDataOption: 'INSERT_ROWS',
-            requestBody: {
-                values: newRow,
+            resource: {
+                values: [newRow],
             },
         });
 
