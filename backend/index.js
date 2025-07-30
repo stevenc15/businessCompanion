@@ -12,6 +12,7 @@ const Client = require('./Schemas/clientSchema.js');
 const Activity = require('./Schemas/activitySchema.js');
 const ALLOWED_EMAILS = ['stevenacamachoperez@gmail.com', 'armandocaro282@gmail.com', 'bmmedjuck@gmail.com'];
 
+app.use(express.urlencoded({ extended: true }));
 
 app.set('trust proxy', 1);
 app.use(session ({
