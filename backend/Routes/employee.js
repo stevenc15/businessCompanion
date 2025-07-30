@@ -10,6 +10,7 @@ const {getSheetsClient} = require('../googleClient.js');
 //insert activity endpoint
 router.post('/insert-activity', async(req, res) => {
     const sheets = await getSheetsClient();
+    console.log('sheets client ready: ', sheets);
     
     const formData = req.body;
 
