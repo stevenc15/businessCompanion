@@ -17,6 +17,8 @@ router.post('/insert-activity', async(req, res) => {
         res.status(402).json({ message: 'no data is submitted/found from form'});
     }
 
+    console.log(formData);
+
     const newRow = [
         formData.EmployeeName,
         formData.Community,
@@ -43,6 +45,8 @@ router.post('/insert-activity', async(req, res) => {
         new Date().toLocaleDateString() //Timestamp
     ];
 
+    console.log(newRow);
+    
     try{
         await sheets.spreadsheets.values.append({
             spreadsheetId: '1C1X6BUa51t1XhKwQcDPXg4Mj5wYHatybBqkY_0JbrFs',
