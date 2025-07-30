@@ -13,6 +13,10 @@ router.post('/insert-activity', async(req, res) => {
     
     const formData = req.body;
 
+    if (!formData){
+        res.status(402).json({ message: 'no data is submitted/found from form'});
+    }
+    
     const newRow = [
         formData.EmployeeName,
         formData.Community,
