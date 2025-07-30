@@ -27,7 +27,7 @@ router.post('/insert-activity', async(req, res) => {
     try{
         await sheets.spreadsheets.values.append({
             spreadsheetId: '1C1X6BUa51t1XhKwQcDPXg4Mj5wYHatybBqkY_0JbrFs',
-            range: 'Sheet1',
+            range: 'Sheet1!A2',
             valueInputOption: 'USER_ENTERED',
             insertDataOption: 'INSERT_ROWS',
             resource: {
