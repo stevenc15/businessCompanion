@@ -12,7 +12,7 @@ function EmployeeForm() {
 
   useEffect (() => {
     if (ClientId) {
-      fetch(`https://businesscompanion.onrender.com/getSingleClient?ClientId=${ClientId}`)
+      fetch(`https://businesscompanion.onrender.com/employee/getSingleClient?ClientId=${ClientId}`)
         .then(res => res.json())
         .then(data => setClientData(data))
         .catch(err => console.error("Error fetching the client: ", err));
