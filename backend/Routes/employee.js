@@ -30,7 +30,7 @@ router.post('/insert-activity', async(req, res) => {
             valueInputOption: 'USER_ENTERED',
             insertDataOption: 'INSERT_ROWS',
             requestBody: {
-                values: [newRow],
+                values: newRow,
             },
         });
 
