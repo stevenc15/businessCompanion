@@ -11,7 +11,7 @@ const SCOPES = [
 
 //new google auth instance using json key
 const auth = new google.auth.GoogleAuth({
-    keyFile: path.join(__dirname, './credentials/businesscompanion-app-backend-ad0a2252b965.json'),
+    keyFile: 'businesscompanion-app-backend-ad0a2252b965.json',
     scopes:SCOPES,
 });
 
