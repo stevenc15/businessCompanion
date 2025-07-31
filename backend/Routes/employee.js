@@ -5,8 +5,7 @@ const Client = require('../Schemas/clientSchema.js');
 const Activity = require('../Schemas/activitySchema.js');
 const {google}= require('googleapis');
 const {getSheetsClient} = require('../googleClient.js');
-import dotenv from 'dotenv';
-dotenv.config();
+require("dotenv").config();
 
 //insert activity endpoint
 router.post('/insert-activity', async(req, res) => {
