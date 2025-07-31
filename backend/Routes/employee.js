@@ -6,6 +6,7 @@ const Client = require('../Schemas/clientSchema.js');
 const Activity = require('../Schemas/activitySchema.js');
 const {google}= require('googleapis');
 const {getSheetsClient} = require('../googleClient.js');
+require('dotenv').config();
 
 //insert activity endpoint
 router.post('/insert-activity', async(req, res) => {
@@ -26,7 +27,7 @@ router.post('/insert-activity', async(req, res) => {
 
     try{
         await sheets.spreadsheets.values.append({
-            spreadsheetId: '1C1X6BUa51t1XhKwQcDPXg4Mj5wYHatybBqkY_0JbrFs',
+            spreadsheetId: process.env.GOOGLE_SHEET_ID,
             range: 'Sheet1!A2',
             valueInputOption: 'USER_ENTERED',
             insertDataOption: 'INSERT_ROWS',

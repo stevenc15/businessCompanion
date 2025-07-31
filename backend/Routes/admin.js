@@ -6,6 +6,25 @@ const jwtKey = process.env.JWT_SECRET; //jwt key
 const ensureAuthenticated = require ('./Route_utils/authentication'); //create helper function `for jwts
 const QRCode = require('qrcode');
 const {getDriveClient, getSheetsClient} = require('../googleClient.js');
+require('dotenv').config();
+
+router.get('/get-sheet', ensureAuthenticated, async(req,res)=>{
+    try{
+        res.status(200).json({url: process.env.GOOGLE_SHEET_EMBED_URL});
+    }catch(error){
+        console.error('Error fetching sheet:', error.message);
+        res.status(500).json({error: "failed to get sheet data"});
+    }
+});
+
+router.get('/get-export-sheet', ensureAuthenticated, async(req, res)=>{
+    try{
+        res.status(200).json({url: process.env.GOOGLE_SHEET_EXPORT_URL});
+    }catch(error){
+        console.error('Error fetching sheet:', error.message);
+        res.status(500).json({error: "failed to get EXPORT sheet"});
+    }
+});
 
 //fetch clients
 router.get('/getClients', ensureAuthenticated, async (req, res)=>{

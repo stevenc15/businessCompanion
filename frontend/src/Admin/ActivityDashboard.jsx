@@ -1,14 +1,28 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import './ActivityDashboard.css';
+require('dotenv').config();
 
 function ActivityDashboard () {
 
     const navigate = useNavigate();
     
-    const sheetId = '1C1X6BUa51t1XhKwQcDPXg4Mj5wYHatybBqkY_0JbrFs';
+    const sheetId = process.env.GOOGLE_SHEET_ID;
     const downloadUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=xlsx`;
 
+    const [sheetUrl, setSheetUrl] = useState(null);
+    useEffect(()=>{
+        fetch('https://businesscompanion.onrender.com/admin/get-sheet')
+            .then(res=>res.json())
+            .then(data=>setSheetUrl(data.url));
+    }, []);
+
+    const [exportSheetUrl, setExportSheetUrl] = useState(null);
+    useEffect(()=>{
+        fetch('https://businesscompanion.onrender.com/admin/get-export-sheet')
+            .then(res=>res.json())
+            .then(data=>setExportSheetUrl(data.url));
+    }, []);
 
     return (
       
@@ -72,14 +86,14 @@ function ActivityDashboard () {
             </div> {/*end of title*/}            
 
             <iframe
-                src="https://docs.google.com/spreadsheets/d/1C1X6BUa51t1XhKwQcDPXg4Mj5wYHatybBqkY_0JbrFs/edit?gid=0#gid=0"
+                src={sheetUrl}
                 width="100%"
                 height="600"
                 style={{ border: 'none' }}
                 title="Google Sheet"
             />
             
-            <a href={downloadUrl} target="_blank" rel="noopener noreferrer">
+            <a href={exportSheetUrl} target="_blank" rel="noopener noreferrer">
                 <button style={{ marginTop: '20px', marginBottom: '20px', padding: '10px 20px' }}>
                     Export to Excel
                 </button>

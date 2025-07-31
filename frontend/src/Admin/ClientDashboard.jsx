@@ -38,7 +38,7 @@ function ClientDashboard() {
     );
     setClients(filtered);
   }, [query, allClients]);
-
+ 
   const fetchClients = useCallback(async () => {
     setLoading(true);
     try{
