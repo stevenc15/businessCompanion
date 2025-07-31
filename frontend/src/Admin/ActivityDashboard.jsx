@@ -2,14 +2,10 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import './ActivityDashboard.css';
 import dotenv from 'dotenv';
-dotenv.config();
 
 function ActivityDashboard () {
 
     const navigate = useNavigate();
-    
-    const sheetId = process.env.GOOGLE_SHEET_ID;
-    const downloadUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=xlsx`;
 
     const [sheetUrl, setSheetUrl] = useState(null);
     useEffect(()=>{
