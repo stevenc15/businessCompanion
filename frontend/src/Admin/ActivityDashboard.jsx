@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import './ActivityDashboard.css';
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 function ActivityDashboard () {
 
