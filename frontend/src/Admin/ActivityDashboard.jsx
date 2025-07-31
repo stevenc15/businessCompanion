@@ -9,14 +9,18 @@ function ActivityDashboard () {
 
     const [sheetUrl, setSheetUrl] = useState(null);
     useEffect(()=>{
-        fetch('https://businesscompanion.onrender.com/admin/get-sheet')
+        fetch('https://businesscompanion.onrender.com/admin/get-sheet', {
+            credentials:'include'
+        })
             .then(res=>res.json())
             .then(data=>setSheetUrl(data.url));
     }, []);
 
     const [exportSheetUrl, setExportSheetUrl] = useState(null);
     useEffect(()=>{
-        fetch('https://businesscompanion.onrender.com/admin/get-export-sheet')
+        fetch('https://businesscompanion.onrender.com/admin/get-export-sheet', {
+            credentials: 'include'
+        })
             .then(res=>res.json())
             .then(data=>setExportSheetUrl(data.url));
     }, []);
