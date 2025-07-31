@@ -94,7 +94,7 @@ function ActivityDashboard () {
                 title="Google Sheet"
             />
             
-            <a href={exportSheetUrl} target="_blank" rel="noopener noreferrer">
+            <a href={exportSheetUrl} target="_blank" rel="noopener noreferrer" download>
                 <button style={{ marginTop: '20px', marginBottom: '20px', padding: '10px 20px' }}>
                     Export to Excel
                 </button>
