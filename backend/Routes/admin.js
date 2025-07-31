@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Client = require('../Schemas/clientSchema.js'); //activity model
-require('dotenv').config();
 const jwtKey = process.env.JWT_SECRET; //jwt key
 const ensureAuthenticated = require ('./Route_utils/authentication'); //create helper function `for jwts
 const QRCode = require('qrcode');

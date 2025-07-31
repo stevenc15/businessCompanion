@@ -1,7 +1,6 @@
 //imports
 const express = require('express');
 const router = express.Router();
-require('dotenv').config();
 const Client = require('../Schemas/clientSchema.js');
 const Activity = require('../Schemas/activitySchema.js');
 const {google}= require('googleapis');
