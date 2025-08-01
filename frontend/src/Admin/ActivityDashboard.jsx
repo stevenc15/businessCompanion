@@ -15,7 +15,7 @@ function ActivityDashboard () {
             .then(res=>res.json())
             .then(data=>setSheetUrl(data.url));
     }, []);
-
+    {/*
     const [exportSheetUrl, setExportSheetUrl] = useState(null);
     useEffect(()=>{
         fetch('https://businesscompanion.onrender.com/admin/get-export-sheet', {
@@ -24,7 +24,7 @@ function ActivityDashboard () {
             .then(res=>res.json())
             .then(data=>setExportSheetUrl(data.url));
     }, []);
-
+    */}
     return (
       
     //Main CONTAINER
@@ -94,7 +94,7 @@ function ActivityDashboard () {
                 title="Google Sheet"
             />
             
-            <a href={exportSheetUrl} target="_blank" rel="noopener noreferrer" download>
+            <a href="https://businesscompanion.onrender.com/admin/get-export-sheet" target="_blank" rel="noopener noreferrer">
                 <button style={{ marginTop: '20px', marginBottom: '20px', padding: '10px 20px' }}>
                     Export to Excel
                 </button>
