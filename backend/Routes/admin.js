@@ -18,7 +18,22 @@ router.get('/get-sheet', ensureAuthenticated, async(req,res)=>{
 
 router.get('/get-export-sheet', ensureAuthenticated, async(req, res)=>{
     try{
-        res.status(200).json({url: process.env.GOOGLE_SHEET_EXPORT_URL});
+        const drive = await getDriveClient();
+        const fileId = process.env.GOOGLE_SHEET_ID;
+
+        const response = await drive.files.export(
+            {
+
+                fileId,
+                mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            },
+            {responseType: 'stream'}
+        );
+
+        res.setHeader('Content-Disposition', 'attachment; filename="export.xlsx"');
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+        response.data.pipe(res);
     }catch(error){
         console.error('Error fetching sheet:', error.message);
         res.status(500).json({error: "failed to get EXPORT sheet"});
