@@ -87,7 +87,7 @@ initializeDatabase();
 const allowedOrigins = [
     'http://localhost:5173', 
     'https://business-companion-seven.vercel.app',
-    'https://www.hm-services.online/'
+    'https://www.hm-services.online'
 ]
 
 //allow ports connection from frontend to backend
