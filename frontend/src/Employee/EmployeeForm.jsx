@@ -12,7 +12,7 @@ function EmployeeForm() {
 
   useEffect (() => {
     if (ClientId) {
-      fetch(`https://businesscompanion.onrender.com/employee/getSingleClient?ClientId=${ClientId}`)
+      fetch(`https://api.hm-services.online/employee/getSingleClient?ClientId=${ClientId}`)
         .then(res => res.json())
         .then(data => setClientData(data))
         .catch(err => console.error("Error fetching the client: ", err));
@@ -72,7 +72,7 @@ function EmployeeForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch('https://businesscompanion.onrender.com/employee/insert-activity', {
+    const res = await fetch('https://api.hm-services.online/employee/insert-activity', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(formData),

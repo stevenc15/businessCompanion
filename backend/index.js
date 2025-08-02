@@ -31,7 +31,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy ({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'https://businesscompanion.onrender.com/auth/google/callback',
+    callbackURL: 'https://api.hm-services.online/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) => {
     if (ALLOWED_EMAILS.includes(profile.emails[0].value)){
         return done(null, profile); //allow login
@@ -57,7 +57,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
     passport.authenticate('google', {failureRedirect: '/unauthorized' }),
     (req, res) => {
-        res.redirect('https://business-companion-seven.vercel.app/activityDashboard');
+        res.redirect('https://www.hm-services.online/activityDashboard');
     }
 );
 
@@ -86,7 +86,8 @@ initializeDatabase();
 
 const allowedOrigins = [
     'http://localhost:5173', 
-    'https://business-companion-seven.vercel.app'
+    'https://business-companion-seven.vercel.app',
+    'https://www.hm-services.online/'
 ]
 
 //allow ports connection from frontend to backend

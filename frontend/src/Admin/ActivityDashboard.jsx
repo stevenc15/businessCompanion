@@ -9,7 +9,7 @@ function ActivityDashboard () {
 
     const [sheetUrl, setSheetUrl] = useState(null);
     useEffect(()=>{
-        fetch('https://businesscompanion.onrender.com/admin/get-sheet', {
+        fetch('https://api.hm-services.online/admin/get-sheet', {
             credentials:'include'
         })
             .then(res=>res.json())
@@ -18,7 +18,7 @@ function ActivityDashboard () {
     {/*
     const [exportSheetUrl, setExportSheetUrl] = useState(null);
     useEffect(()=>{
-        fetch('https://businesscompanion.onrender.com/admin/get-export-sheet', {
+        fetch('https://api.hm-services.online/admin/get-export-sheet', {
             credentials: 'include'
         })
             .then(res=>res.json())
@@ -94,7 +94,7 @@ function ActivityDashboard () {
                 title="Google Sheet"
             />
             
-            <a href="https://businesscompanion.onrender.com/admin/get-export-sheet" target="_blank" rel="noopener noreferrer">
+            <a href="https://api.hm-services.online/admin/get-export-sheet" target="_blank" rel="noopener noreferrer">
                 <button style={{ marginTop: '20px', marginBottom: '20px', padding: '10px 20px' }}>
                     Export to Excel
                 </button>

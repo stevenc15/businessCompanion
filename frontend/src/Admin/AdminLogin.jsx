@@ -8,7 +8,7 @@ const AdminLogin = () => {
 
     //function to call login endpoint
     const handleGoogleLogin = async(event)=> {
-      window.location.href='https://businesscompanion.onrender.com/auth/google';
+      window.location.href='https://api.hm-services.online/auth/google';
   };
 
     return (
