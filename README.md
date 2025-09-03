@@ -1,50 +1,44 @@
 # Business Companion
-A machine-learning based tracking application that will highlight a specific player from video input from a real-life soccer game. It provides the user with the selection of which player they would like to track, and adds a distinguishing feature to said player to essentially highlight the player throughout the video.
+A lightweight application that digitizes a small business owner's workflow by replacing manual, paper-based logging with an automated integrated with Google Sheets.
+
 ## Table of Contents
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation and Setup](#installation-and-setup)
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [Development Process](#development-process)
 - [Challenges and Learnings](#challenges-and-learnings)
 
-## Features
-- User creation and account initialization for application permissions
-- Accepts videos in MP4 format, performing best with 30 second snippets for specific player tracking
-- Processess input video and returns video with annotations for visual tracking
-- Processed videos include red triangle indicator for the selected player 
-- Videos are available for direct download
-- Preview windows are provided for both input and output
+## Overview
+- Problem: The business owner previously tracked and maintained client inspections by hand on paper, leading to a lengthy 20-hour process for organizing and handling the data.
+- Audience: Employers, employees, clients of the business.
+- What it does: Provides a digital system in which the business owner can manage records fo client inspections via a centralized Google Sheets file, which stores and accepts submissions from employees through the scanning of a client info-linked QR code.
+- Value: Streamlines workflow, reduces manual effort, centralizes records, and allows weekly automatic logging and archival. 
 
-## Technologies Used
-- Frontend: React, React-Router-Dom, bootstrap, React-Dropzone
-- Backend: Express, Node.js, jsonwebtoken (for user authentication and session management), bycrypt (for password hashing and security)
-- Machine Learning: Python(YOLOV5 via Ultralytics, OpenCv, NumPy, scikit-learn, pickle, Supervision)
-- Database: MySql
+## Key Features
+- Employer Activity Dashboard: Monitor client inspection data through viewer window for Google Sheet file.
+- Client Dashboard & QR Codes: Generate and print QR codes that prefill client information.
+- Employee Submission Forms: Scan QR codes -> auto-filled client data -> employee enters details of house inspection.
+- Google Sheets Integration: Automatic logging of submissions into a Sheets file accesible by the employer.
+- Weekly Data Management: Thhe system automatically creates a new blank sheet each week, archiving the previous one for records.
+- Export & Adjustments: Employer can view, edit, or export records at any time.
 
-## Replicating the project
-- git clone this repo using the repo url: git clone <repo url> (make sure you are using the public branch)
-- in general project directory: directory npm install
-- navigate frontend: run npm install 
-- create virtual environment: navigate: backend/Routes_help, run the following:
-   - python3.11 -m venv virtual_e
-   - source virtual_e/bin/activate
-   - pip install -r ../v_e_utils/requirements_original.txt
-- start node app: navigate to frontend folder and run: npm start 
-- start backend server - navigate to backend folder and run: node server.js
+## Architecure
+- Employer: Views activity dashboard, client data, creates QR codes from client data, and exports logs.
+- Employees: Scan QR -> fill form -> data auto-logged.
+- Google Sheets: Acts as the primary datastore and reporting tool.
 
 
+## Tech Stack
+- Frontend: React
+- Backend: Express, Node.js, Google Auth
+- Database: Google Sheets (primary data source).
+- Integrations: Google Sheets API
 
 ## Usage
-- Open app on landing page, login or register
-- On home page, enter input video (single video), hit 'pick player' button, input preview video is up
-- Processed first frame is returned with bounding boxes and IDs for each detected player
-- Choose an ID and enter the ID in 'Select target ID'
-- Hit 'Start Processing Video' button and wait for tracking to be done
-- Once video is processed, preview for output is produced, download options available for video
-- In output preview window, observe how the player is highlighted for entirety of video
-  
+
 ## Project Structure
 ```bash
 TrackMate/
