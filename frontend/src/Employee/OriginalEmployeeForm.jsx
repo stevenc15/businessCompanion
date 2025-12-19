@@ -1,6 +1,15 @@
+/**
+ * Employee submission form component
+ * 
+ * This component allows employees to log their activities and submit them to the system.
+ * It includes fields for employee name, community, client name, address, and service description 
+ * in the form of a checklist.
+ * When submitted, this data will show up in a new row on the central Google Sheets file
+ */
+
 import {useState, useEffect} from 'react';
 import {useSearchParams} from 'react-router-dom';
-import './EmployeeForm.css';
+import './css/EmployeeForm.css';
 
 //employee form for employees to log their activities
 function EmployeeForm() {
