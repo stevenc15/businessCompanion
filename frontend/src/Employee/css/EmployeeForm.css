@@ -236,7 +236,7 @@
     }
     
     .submit-button, .back-button {
-      width: 100%;
+      display: center;
       min-height: 48px;
     }
   }
