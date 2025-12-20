@@ -15,7 +15,8 @@ dist-ssr
 .DS_Store
 
 *.png
-
+*.json
+backend/credentials/
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
