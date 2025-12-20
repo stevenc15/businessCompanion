@@ -1,6 +1,6 @@
 import '../css/EmployeeForm.css';
 
-export default function Form({ formData, setFormData, useChangeForm, clientData }) {
+export default function Form({ formData, setFormData, changeForm, clientData }) {
     return (
         <div>
             {/*name*/}
@@ -10,7 +10,7 @@ export default function Form({ formData, setFormData, useChangeForm, clientData 
                     id="EmployeeName"
                     name="EmployeeName" 
                     placeholder="Enter your full name" 
-                    onChange={useChangeForm(formData, setFormData)}
+                    onChange={(e) => changeForm(setFormData, e)}
                     value={formData.EmployeeName}
                     className="form-input"
                 />
@@ -62,7 +62,7 @@ export default function Form({ formData, setFormData, useChangeForm, clientData 
                         id="Service"
                         name="Service" 
                         placeholder="Describe Service" 
-                        onChange={useChangeForm(formData, setFormData)}
+                        onChange={(e) => changeForm(setFormData, e)}
                         value={formData.Service}
                         className="form-input"
                     />
