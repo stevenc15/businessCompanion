@@ -1,7 +1,16 @@
-import React, {useState, useEffect, useCallback} from 'react';
+/**
+ * ActivityDashboard Component
+ * 
+ * This component represents the dashboard for managing activities.
+ * It includes a header with company logo, app name, and actions like logout, go to client dashboard, and go to EULA agreement.
+ * The main content section displays a title and an iframe to embed a Google Sheet for managing activities.
+ * Additionally, there is a button to export the data to Excel.
+ * The footer contains copyright information and version details.
+ */
+
+import React, {useState, useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import './ActivityDashboard.css';
-import dotenv from 'dotenv';
+import './css/ActivityDashboard.css';
 
 function ActivityDashboard () {
 
@@ -15,16 +24,7 @@ function ActivityDashboard () {
             .then(res=>res.json())
             .then(data=>setSheetUrl(data.url));
     }, []);
-    {/*
-    const [exportSheetUrl, setExportSheetUrl] = useState(null);
-    useEffect(()=>{
-        fetch('https://api.hm-services.online/admin/get-export-sheet', {
-            credentials: 'include'
-        })
-            .then(res=>res.json())
-            .then(data=>setExportSheetUrl(data.url));
-    }, []);
-    */}
+
     return (
       
     //Main CONTAINER
