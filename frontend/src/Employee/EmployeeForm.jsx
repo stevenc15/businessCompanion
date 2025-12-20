@@ -15,7 +15,7 @@ import './css/EmployeeForm.css';
 import useGetClientData from './hooks/getClientData';
 import usePrefillForm from './hooks/preFillForm';
 import submitForm from './hooks/submitForm';
-import useChangeForm from './hooks/changeForm';
+import changeForm from './hooks/changeForm';
 
 // layout components
 import Checklist from './layout/checklist';
@@ -66,7 +66,7 @@ export default function EmployeeForm() {
                         <Form 
                             formData={formData} 
                             setFormData={setFormData} 
-                            useChangeForm={useChangeForm} 
+                            useChangeForm={changeForm} 
                             clientData={clientData} 
                         />
 
@@ -74,7 +74,7 @@ export default function EmployeeForm() {
                         <Checklist
                             checklistItems={checklistItems} 
                             formData={formData} 
-                            handleChange={useChangeForm(formData, setFormData)} 
+                            handleChange={(e) => changeForm(setFormData, e)} 
                         />
 
                         {/*submit button*/}
