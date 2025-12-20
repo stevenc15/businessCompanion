@@ -1,5 +1,9 @@
-import {useState, useEffect} from 'react';
-import {Link, useSearchParams} from 'react-router-dom';
+/**
+ * End User License Agreement and Privacy Policy page 
+ *
+ * user agreement and privacy policy
+ * necessary for quickbooks integration
+ */
 
 function EndUserAgreement () {
     return (
