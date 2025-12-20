@@ -16,7 +16,7 @@ export default function CheckList({formData, handleChange, checklistItems}) {
 
     return (
 
-        <div className="form-group checklist-group">
+        <div className="checklist-group">
             <label>Checklist</label>
             {checklistItems.map(item => (
                 <Checkboxitem
