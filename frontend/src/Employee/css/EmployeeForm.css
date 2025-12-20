@@ -244,6 +244,8 @@
 
   .checklist-group {
     padding: 0.75rem;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .form-input {
@@ -258,5 +260,6 @@
     width: 100%; /* Full width on mobile */
     max-width: 100%;
     min-width: unset; /* Remove min-width constraint */
+    margin: 0;
   }
   }
