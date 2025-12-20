@@ -17,7 +17,7 @@
     --button-primary-hover: #1a365d;
     --button-secondary-hover: #4a5568;
   }
-  
+    
   * {
     box-sizing: border-box;
     margin: 0;
@@ -74,7 +74,6 @@
   .employee-content {
     flex: 1;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 2rem 1rem;
@@ -85,7 +84,7 @@
     border-radius: 8px;
     box-shadow: var(--shadow-sm);
     width: 100%;
-    max-width: 600px;
+    max-width: 640px;
     padding: 2rem;
     border: 1px solid var(--border-color);
   }
@@ -138,20 +137,18 @@
   
   .form-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 2rem;
-    margin-right: 8rem;
   }
   
   .submit-button{
-    padding: 1.5rem 1.5rem;
+    padding: 1rem 1.5rem;
     font-size: 1rem;
     font-weight: 500;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-left: 4rem !important;
   }
   
   .submit-button {
@@ -195,7 +192,7 @@
   .checkbox-item {
     display: flex;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
   
   .checkbox-item input[type="checkbox"] {
@@ -206,14 +203,13 @@
   }
   
   .checkbox-item label {
-    cursor: pointer;
-    font-size: 0.95rem;
+    line-height: 1.4;
   }
   
   /* Responsive adjustments */
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     .form-card {
-      max-width: 100%;
+      max-width: 720px;
     }
   }
   
@@ -222,6 +218,14 @@
       padding: 1rem 1.5rem;
     }
     
+    .app-name {
+    font-size: 1.2rem;
+    }
+
+    .checklist-group {
+    padding: 0.75rem;
+    }
+
     .form-card {
       padding: 1.5rem;
     }
@@ -232,6 +236,6 @@
     }
     
     .submit-button, .back-button {
-      width: 100%;
+      min-height: 48px;
     }
   }
