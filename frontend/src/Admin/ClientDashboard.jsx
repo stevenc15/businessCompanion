@@ -1,6 +1,6 @@
 import {useState, useEffect, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import './ClientDashboard.css';
+import './css/ClientDashboard.css';
 import {jsPDF} from 'jspdf';
 
 //Admin Dashboard

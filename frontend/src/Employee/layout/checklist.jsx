@@ -8,7 +8,7 @@
  * is checked or unchecked.
  */
 
-import './css/EmployeeForm.css';
+import '../css/EmployeeForm.css';
 import Checkboxitem from '../common/checkboxItem';
 
 

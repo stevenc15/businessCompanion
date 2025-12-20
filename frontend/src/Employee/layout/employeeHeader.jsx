@@ -2,7 +2,7 @@
  * employeeHeader.jsx - A React component that renders a header for the employee page.
  */
 
-import './css/EmployeeForm.css';
+import '../css/EmployeeForm.css';
 
 export default function EmployeeHeader() {
 

@@ -1,4 +1,4 @@
-import './css/EmployeeForm.css';
+import '../css/EmployeeForm.css';
 
 export default function Form({ formData, setFormData, useChangeForm, clientData }) {
     return (

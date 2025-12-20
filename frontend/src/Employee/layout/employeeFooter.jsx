@@ -2,7 +2,7 @@
  * employeeFooter.jsx - A React component that renders a footer for the employee page.
  */
 
-import './css/EmployeeForm.css';
+import '../css/EmployeeForm.css';
 
 export default function EmployeeFooter() {
 

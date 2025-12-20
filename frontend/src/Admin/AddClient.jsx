@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
-import './AddClient.css';
+import './css/AddClient.css';
 
 //employee form for employees to log their activities
 function AddClient() {

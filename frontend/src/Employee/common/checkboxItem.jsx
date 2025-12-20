@@ -4,7 +4,7 @@
  * This component will display a checkbox item for the employee to check off. 
  * It is related to the job description option from the employee form.
  */
-import './css/EmployeeForm.css';
+import '../css/EmployeeForm.css';
 
 export default function Checkboxitem({id, label, checked, onChange}) {
     
