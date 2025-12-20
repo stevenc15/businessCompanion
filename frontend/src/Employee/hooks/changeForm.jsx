@@ -4,10 +4,15 @@
  */
 
 export default function changeForm(setFormData, e) {
-      const {name, value, type, checked} = e.target;
+  
+  console.log("changeForm triggered");
+  
+  const {name, value, type, checked} = e.target;
 
-      setFormData(prev => ({
-        ...prev, 
-       [name]: type === 'checkbox' ? checked:value
-      }));
-    }
+  console.log(`Changing form field: ${name}, New Value: ${type === 'checkbox' ? checked:value}`);
+
+  setFormData(prev => ({
+    ...prev, 
+    [name]: type === 'checkbox' ? checked:value
+  }));
+}

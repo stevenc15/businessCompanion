@@ -7,7 +7,7 @@
  * When submitted, this data will show up in a new row on the central Google Sheets file
  */
 
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import './css/EmployeeForm.css';
 
@@ -33,6 +33,7 @@ export default function EmployeeForm() {
 
     const [searchParams] = useSearchParams();
     const ClientId = searchParams.get('ClientId');
+    console.log("ClientId:", ClientId);
 
     //containers for client data and form data
     const [clientData, setClientData] = useState(null);
@@ -42,9 +43,18 @@ export default function EmployeeForm() {
     setClientData(useGetClientData(ClientId));
 
     //populate form data with client data
-    usePrefillForm(clientData, setFormData);
-    
+    usePrefillForm(clientData, setFormData);    
+
     const checklistItems = CHECKLISTITEMS;
+    console.log("Checklist Items:", checklistItems);
+
+    useEffect(() => {
+    console.log("Client data updated:", clientData);
+    }, [clientData]);
+
+    useEffect(() => {
+    console.log("Form data after prefill:", formData);
+    }, [formData]);
 
     return(
         //Main CONTAINER
@@ -66,7 +76,7 @@ export default function EmployeeForm() {
                         <Form 
                             formData={formData} 
                             setFormData={setFormData} 
-                            useChangeForm={changeForm} 
+                            changeForm={changeForm} 
                             clientData={clientData} 
                         />
 
