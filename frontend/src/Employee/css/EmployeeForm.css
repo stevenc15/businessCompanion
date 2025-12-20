@@ -117,20 +117,29 @@
   }
   
   .form-input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-    border-radius: 6px;
-    background-color: white;
-    transition: all 0.2s ease;
-  }
-  
-  .form-input:focus {
-    border-color: var(--input-focus);
-    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
-  }
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--input-border); /* Changed from transparent */
+  border-radius: 6px;
+  background-color: white;
+  transition: all 0.2s ease;
+  outline: none; /* Add this */
+}
+
+.form-input:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+  outline: none; /* Ensure no outline */
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Add this */
+  width: 100%;
+  margin-top: 2rem;
+}
 
   
   .form-input::placeholder {
@@ -138,22 +147,20 @@
     opacity: 0.7;
   }
   
-  .form-actions {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 2rem;
-  }
   
-  .submit-button{
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 500;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
+  .submit-button {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: var(--button-primary);
+  color: white;
+  min-width: 200px; /* Add minimum width */
+  max-width: 100%; /* Ensure it doesn't overflow */
+}
   
   .submit-button {
     background-color: var(--button-primary);
@@ -218,28 +225,38 @@
   }
   
   @media (max-width: 480px) {
-    .employee-header {
-      padding: 1rem 1.5rem;
-    }
-    
-    .app-name {
+  .employee-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .app-name {
     font-size: 1.2rem;
-    }
+  }
 
-    .checklist-group {
+  .employee-content {
+    padding: 1rem; /* Reduce padding */
+  }
+
+  .form-card {
+    padding: 1.5rem;
+    max-width: 100%; /* Ensure full width usage */
+  }
+
+  .checklist-group {
     padding: 0.75rem;
-    }
+  }
 
-    .form-card {
-      padding: 1.5rem;
-    }
-    
-    .form-actions {
-      flex-direction: column;
-      gap: 1rem;
-    }
-    
-    .submit-button, .back-button {
-      max-width: 100%;
-    }
+  .form-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .form-actions {
+    margin-top: 1.5rem;
+  }
+  
+  .submit-button {
+    width: 100%; /* Full width on mobile */
+    max-width: 100%;
+    min-width: unset; /* Remove min-width constraint */
+  }
   }
