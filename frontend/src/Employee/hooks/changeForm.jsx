@@ -4,11 +4,12 @@
  */
 
 export default function useChangeForm(formData, setFormData, e) {
-    const {name, value, type, checked} = e.target;
+    return function handleChange(e) {
+      const {name, value, type, checked} = e.target;
 
-    setFormData(() => ({
-       ...formData, 
+      setFormData(prev => ({
+        ...prev, 
        [name]: type === 'checkbox' ? checked:value
-      })
-    );
-  };
+      }));
+    };
+  }
