@@ -108,7 +108,7 @@ router.post('/activities', async(req, res) => {
 //get single client
 router.get('/getSingleClient', async(req, res) => {
     const {ClientId} = req.query;
-
+    console.log('getSingleClient endpoint called');
     try{
         console.log('client id: ', ClientId);
 
