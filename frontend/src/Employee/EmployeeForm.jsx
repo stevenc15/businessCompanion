@@ -35,12 +35,11 @@ export default function EmployeeForm() {
     const ClientId = searchParams.get('ClientId');
     console.log("ClientId:", ClientId);
 
-    //containers for client data and form data
-    const [clientData, setClientData] = useState(null);
+    //containers for form data
     const [formData, setFormData] = useState(FORMDEFAULT);
 
     //fetch client data base on ClientId
-    setClientData(useGetClientData(ClientId));
+    const clientData = useGetClientData(ClientId);
 
     //populate form data with client data
     usePrefillForm(clientData, setFormData);    
