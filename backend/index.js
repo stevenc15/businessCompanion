@@ -105,6 +105,6 @@ const employeeRouter = require('./Routes/employee.js');
 app.use('/employee', employeeRouter);
 
 //start server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
 })
