@@ -6,7 +6,8 @@
 import {useState, useEffect} from 'react';
 
 export default function useGetClientData(ClientId) {
-    const [clientData, setClientData] = useState(null);
+  console.log("useGetClientData triggered with ClientId:", ClientId);
+  const [clientData, setClientData] = useState(null);
 
     useEffect (() => {
     if (ClientId) {
@@ -16,6 +17,8 @@ export default function useGetClientData(ClientId) {
         .catch(err => console.error("Error fetching the client: ", err));
     }
     }, [ClientId]);
-
+    
+    console.log("Fetched Client Data:", clientData);
+    
     return clientData;
 }
