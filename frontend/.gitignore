@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+**/.DS_Store
+
+*.png
+*.json
+backend/credentials/
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
