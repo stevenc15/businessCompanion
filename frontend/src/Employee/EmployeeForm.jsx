@@ -14,7 +14,7 @@ import './css/EmployeeForm.css';
 // hooks
 import useGetClientData from './hooks/getClientData';
 import usePrefillForm from './hooks/preFillForm';
-import useSubmitForm from './hooks/submitForm';
+import submitForm from './hooks/submitForm';
 import useChangeForm from './hooks/changeForm';
 
 // layout components
@@ -61,7 +61,7 @@ export default function EmployeeForm() {
                     <h2 className="form-title">Employee Activity Log</h2>
 
                     {/*logging form*/} 
-                    <form className="activity-form" onSubmit={useSubmitForm(formData, setFormData)}>
+                    <form className="activity-form" onSubmit={(e) => submitForm(e, formData, setFormData)}>
             
                         <Form 
                             formData={formData} 
