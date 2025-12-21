@@ -6,14 +6,18 @@ import './css/AddClient.css';
 function AddClient() {
 
   //define form data object
+  //CONFIG FOR FORM DATA
+  
   const [formData, setFormData] = useState({ClientName: '', Address: '', Community: ''});
 
   //function to change form data
+  //HOOK FOR FORM DATA CHANGE
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value});
   };
 
   //log submission function
+  //HOOK FOR FORM SUBMISSION
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await fetch('https://api.hm-services.online/admin/addClient', {
@@ -36,7 +40,9 @@ function AddClient() {
     //Main CONTAINER
     <div className="employee-container">
 
-      {/*header CONTAINER*/}
+      {/*header CONTAINER
+      COMMON CREATE CUSTOM ELEMENT
+      */}
       <div className="employee-header">
         <div className="company-logo">
           <div className="logo-placeholder">AL</div> {/*logo*/}
@@ -56,7 +62,10 @@ function AddClient() {
           {/*logging form*/} 
           <form className="activity-form" onSubmit={handleSubmit}>
             
-            {/*name*/}
+            {/*name
+            
+          LAYOUT FORM ELEMENT
+          */}
             <div className="form-group">
               <label htmlFor="name">Client Name</label>
               <input 
@@ -101,7 +110,9 @@ function AddClient() {
               <button type="submit" className="submit-button">
                 Submit
               </button>
-              {/*going back button*/} 
+              {/*going back button
+              COMMON MAKE BACK ELEMENT
+              */} 
               <Link to='/clientDashboard' className="back-link">
                 <button className="back-button">Return to Client Dashboard</button>
               </Link>
@@ -113,7 +124,9 @@ function AddClient() {
 
       </div>
           
-      {/*footer*/}
+      {/*footer
+      COMMON CREATE FOOTER ELEMENT
+      */}
       <div className="employee-footer">
         <p>© 2025 Company Name. All rights reserved.</p>
         <p className="version-info">Version 1.0.2</p>

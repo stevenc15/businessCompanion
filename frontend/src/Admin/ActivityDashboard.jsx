@@ -16,6 +16,7 @@ function ActivityDashboard () {
 
     const navigate = useNavigate();
 
+    // HOOKS MAKE get sheet url hook
     const [sheetUrl, setSheetUrl] = useState(null);
     useEffect(()=>{
         fetch('https://api.hm-services.online/admin/get-sheet', {
@@ -33,6 +34,9 @@ function ActivityDashboard () {
         {/*Header CONTAINER*/}
         <div className="dashboard-header">
       
+            {/*
+            COMMON CREATE CUSTOM ELEMENT
+            Header*/}
             <div className="company-logo">
                 <div className="logo-placeholder">AL</div> {/*Logo*/}
             </div>
@@ -42,7 +46,10 @@ function ActivityDashboard () {
             {/*Clickable elements of header*/}
             <div className="header-actions">
         
-                {/*Logout*/}
+
+                {/*
+                COMMON MAKE LOGOUT ELEMENT 
+                Logout*/}
                 <button 
                     className="logout-button"
                     onClick={() => {
@@ -53,7 +60,9 @@ function ActivityDashboard () {
                     Logout
                 </button>
 
-                {/*To Client Dashboard*/}
+                {/*
+                COMMON MAKE GO BACK ELEMENT
+                To Client Dashboard*/}
                 <button 
                     className="go-back-button"
                     
@@ -64,7 +73,9 @@ function ActivityDashboard () {
                     Go to Client Dashboard
                 </button>
 
-                {/*To EULA Agreement*/}
+                {/*
+                COMMON MAKE EULA ELEMENT BUTTON
+                To EULA Agreement*/}
                 <button 
                     className="go-back-button"
                     onClick={() => {
@@ -81,11 +92,16 @@ function ActivityDashboard () {
         {/*Main Content CONTAINER*/}
         <div className="dashboard-content">
       
-            {/*Title CONTAINER*/}
+            {/*
+            LAYOUT TITLE
+            Title CONTAINER*/}
             <div className="dashboard-title-section">
                 <h2 className="dashboard-title">Manage Activities</h2> {/*title*/}          
             </div> {/*end of title*/}            
-
+            
+            {/*
+            LAYOUT MAKE FILE 
+            Google Sheet Iframe*/}
             <iframe
                 src={sheetUrl}
                 width="100%"
@@ -100,11 +116,13 @@ function ActivityDashboard () {
                 </button>
             </a>
 
-        {/*footer*/} 
-        <div className="dashboard-footer">
-            <p>© 2025 Company Name. All rights reserved.</p>
-            <p className="version-info">Version 1.0.2</p>
-        </div>
+            {/*
+            COMMON MAKE  
+            footer*/} 
+            <div className="dashboard-footer">
+                <p>© 2025 Company Name. All rights reserved.</p>
+                <p className="version-info">Version 1.0.2</p>
+            </div>
 
         </div>
     

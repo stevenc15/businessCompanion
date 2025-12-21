@@ -7,6 +7,7 @@ const AdminLogin = () => {
     //email and password objects    
 
     //function to call login endpoint
+    // HOOK FOR GOOGLE LOGIN
     const handleGoogleLogin = async(event)=> {
       window.location.href='https://api.hm-services.online/auth/google';
   };
@@ -15,7 +16,9 @@ const AdminLogin = () => {
         //MAIN CONTAINER
         <div className="admin-container">
 
-          {/*Header CONTAINER*/}
+          {/*Header CONTAINER
+          COMMON CREATE CUSTOM ELEMENT
+          */}
           <div className="admin-header">
             <div className="company-logo"> 
               <div className="logo-placeholder">AL</div> {/*logo*/}
@@ -29,11 +32,13 @@ const AdminLogin = () => {
             {/*Login CONTAINER*/}
             <div className="login-card">
 
+              {/*COMMON CREATE CUSTOM ELEMENT*/}
               <div className="login-header">
                 <div className="admin-icon">A</div> {/*logo*/}
                 <h2 className="login-title">Admin Login</h2>{/*title*/}
               </div>
               
+              {/* LAYOUT Google Signin CONTAINER*/}
               <div className="google-signin-container">
                 <button 
                   className="google-signin-button"
@@ -49,7 +54,9 @@ const AdminLogin = () => {
                 </button>
               </div>
               
-              {/*Login Help Options CONTAINER*/}
+              {/*
+              COMMON CREATE
+              Login Help Options CONTAINER*/}
               <div className="login-help">                
                 <a href="mailto:stevenacamachoperez@gmail.com" className="contact-button">
                   Contact IT Support
@@ -60,7 +67,9 @@ const AdminLogin = () => {
 
           </div>
           
-          {/*footer CONTAINER*/}
+          {/*
+          COMMON CREATE
+          footer CONTAINER*/}
           <div className="admin-footer">
             <p>© 2025 Company Name. All rights reserved.</p>
             <p className="version-info">Version 1.0.2</p>

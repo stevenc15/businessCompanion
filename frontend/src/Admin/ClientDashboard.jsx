@@ -23,13 +23,16 @@ function ClientDashboard() {
   const [loading, setLoading] = useState(false);
 
   //define form data object
+  //CONFIG FOR FORM DATA
   const [formData, setFormData] = useState({ClientName: '', Address: '', Email: ''});
 
   //function to change form data
+  //HOOK FOR FORM DATA CHANGE
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value});
   };
 
+  //HOOK FOR SEARCH FILTER
   useEffect (() => {    
     const filtered = allClients.filter((client) => 
       Object.values(client).some((value) => 
@@ -39,6 +42,7 @@ function ClientDashboard() {
     setClients(filtered);
   }, [query, allClients]);
  
+  //HOOK FOR FETCHING CLIENT DATA
   const fetchClients = useCallback(async () => {
     setLoading(true);
     try{
@@ -59,12 +63,14 @@ function ClientDashboard() {
   }, []); // No dependencies for now
 
   //to be called when Clients is populated, once
+  //HOOK FOR INITIAL DATA FETCH
   useEffect(() => {     
       fetchClients();
   }, [fetchClients]);
 
   
   //log submission function
+  //HOOK FOR EDIT SUBMISSION
   const handleEdit = async (e) => {
     e.preventDefault();
 
@@ -94,6 +100,7 @@ function ClientDashboard() {
 
   };
 
+  // HOOK FOR DELETE SUBMISSION
   const handleDelete = async () => {
     const res = await fetch('https://api.hm-services.online/admin/deleteClient', {
       method: 'POST',
@@ -111,6 +118,7 @@ function ClientDashboard() {
     }
   };
 
+  // HOOK FOR GET QR CODE
   const handleQR = async (ClientId) => {
     const res = await fetch('https://api.hm-services.online/admin/getQR', {
       method: 'POST',
@@ -130,6 +138,7 @@ function ClientDashboard() {
     }
   };
 
+  // HOOK FOR DOWNLOAD PDF
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
     
@@ -159,7 +168,9 @@ function ClientDashboard() {
         {/*Clickable elements of header*/}
         <div className="header-actions">
           
-          {/*Logout*/}
+          {/*Logout
+          COMMON MAKE LOGOUT ELEMENT
+          */}
           <button 
             className="logout-button"
             onClick={() => {
@@ -170,7 +181,9 @@ function ClientDashboard() {
             Logout
           </button>
 
-          {/*Back to Activity Dashboard*/}
+          {/*Back to Activity Dashboard
+          COMMON MAKE GO BACK ELEMENT
+          */}
           <button 
             className="go-back-button"
             onClick={() => {
@@ -180,7 +193,9 @@ function ClientDashboard() {
             Go back to Activity Dashboard
           </button>
 
-          {/*Add Client*/}
+          {/*Add Client
+          COMMON MAKE ADD ELEMENT
+          */}
           <button 
             className="add-button"
             onClick={() => {
@@ -190,7 +205,9 @@ function ClientDashboard() {
             Add Client
           </button>
 
-          {/*To EULA Agreement*/}
+          {/*To EULA Agreement
+          COMMON MAKE EULA ELEMENT BUTTON
+          */}
           <button 
             className="go-back-button"
             onClick={() => {
@@ -211,7 +228,9 @@ function ClientDashboard() {
         <div className="dashboard-title-section">
           <h2 className="dashboard-title"> Client Dashboard </h2> {/*title*/}
           
-          {/*Dashboard/table stats*/}
+          {/*Dashboard/table stats
+          LAYOUT STATS ELEMENT
+          */}
           <div className="dashboard-stats">
             
             {/*Client Stats*/}
@@ -253,7 +272,9 @@ function ClientDashboard() {
             
         
 
-        {/*table of clients*/} 
+        {/*table of clients
+        LAYOUT DATA TABLE ELEMENT
+        */} 
         <div className="data-table-container">
           
           <div className="table-header"> {/*top of table details*/} 
@@ -267,9 +288,12 @@ function ClientDashboard() {
 
           {loading && <div className="spinner"></div>}
           
-          {/*actual table*/}   
+          {/*actual table container*/}   
           <div className="table-responsive">
-                
+
+            {/*actual table
+          LAYOUT TABLE ELEMENT
+          */}  
             <table className="data-table">
                   
               {/*table columns*/} 
@@ -349,6 +373,9 @@ function ClientDashboard() {
               </tbody>
             </table>
             
+            {/**
+             * LAYOUT MODALS ELEMENT
+             */}
             {qrModal && (
               <div className="modal-overlay2">        
               <div className="modal-content2">    
@@ -363,6 +390,9 @@ function ClientDashboard() {
               </div>
             )}
 
+            {/**
+             * LAYOUT MODALS ELEMENT
+             */}
             {editModal && (
               <div className="modal-overlay">
               {/*logging form*/}
@@ -434,6 +464,9 @@ function ClientDashboard() {
               </div>
             )}
 
+            {/**
+             * LAYOUT MODALS ELEMENT
+             */}
             {deleteModal && (
               <div className="option-container">
                 <div>
@@ -454,7 +487,9 @@ function ClientDashboard() {
         </div>
       </div>
 
-      {/*footer*/} 
+      {/*footer
+      COMMON CREATE FOOTER ELEMENT
+      */} 
       <div className="dashboard-footer">
         <p>© 2025 Company Name. All rights reserved.</p>
         <p className="version-info">Version 1.0.2</p>
