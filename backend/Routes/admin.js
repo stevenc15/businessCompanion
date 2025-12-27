@@ -8,6 +8,7 @@ const {getDriveClient, getSheetsClient} = require('../googleClient.js');
 require("dotenv").config();
 
 router.get('/get-sheet', ensureAuthenticated, async(req,res)=>{
+    console.log("get sheet endpoint called");
     try{
         res.status(200).json({url: process.env.GOOGLE_SHEET_EMBED_URL});
     }catch(error){
@@ -55,10 +56,11 @@ router.get('/getClients', ensureAuthenticated, async (req, res)=>{
 
 //add client
 router.post('/addClient', ensureAuthenticated, async (req, res)=> {
-
+    console.log('addClient endpoint called');
     try{
-        const {ClientName, Address, Community} = req.body;
 
+        const {ClientName, Address, Community} = req.body;
+        console.log('Received client data:', req.body);
         await Client.create({
             ClientName: ClientName,
             Address: Address,
