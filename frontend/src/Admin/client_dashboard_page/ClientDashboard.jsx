@@ -6,7 +6,7 @@
 import {useState, useEffect} from 'react';
 import './css/ClientDashboard.css';
 import ClientDashboardHeader from './layout/clientDashboardHeader'; 
-import LogoutButton from './layout/logoutCLientButton';
+import LogoutButton from './layout/logoutClientButton';
 import ReturnToActivities from './layout/backToActivities';
 import AddClientButton from './layout/addClientButton';
 import ToEulaagreement from './layout/toEulaAgreementDocument';
