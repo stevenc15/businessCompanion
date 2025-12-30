@@ -11,6 +11,13 @@ const PORT = process.env.PORT || 5001;
 const Client = require('./Schemas/clientSchema.js');
 const Activity = require('./Schemas/activitySchema.js');
 const ALLOWED_EMAILS = ['stevenacamachoperez@gmail.com', 'armandocaro282@gmail.com', 'bmmedjuck@gmail.com'];
+const isProduction = process.env.NODE_ENV === 'production';
+
+const FRONTENDAPPURL = isProduction ? 'https://www.hm-services.online' : 'http://localhost:5173';
+const BACKENDAPPURL = isProduction ? 'https://api.hm-services.online' : `http://localhost:${PORT}`;
+console.log('Production Mode: ', isProduction);
+console.log('FRONTEND App URL: ', FRONTENDAPPURL);
+console.log('BACKEND App URL: ', BACKENDAPPURL);
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -20,8 +27,8 @@ app.use(session ({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        sameSite: 'none',
-        secure: true
+        sameSite: isProduction ? 'none' : 'lax',
+        secure: isProduction
     }
 }));
 
@@ -31,7 +38,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy ({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'https://api.hm-services.online/auth/google/callback',
+    callbackURL: `${BACKENDAPPURL}/auth/google/callback`,
 }, (accessToken, refreshToken, profile, done) => {
     if (ALLOWED_EMAILS.includes(profile.emails[0].value)){
         return done(null, profile); //allow login
@@ -57,7 +64,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
     passport.authenticate('google', {failureRedirect: '/unauthorized' }),
     (req, res) => {
-        res.redirect('https://www.hm-services.online/activityDashboard');
+        res.redirect(`${FRONTENDAPPURL}/activityDashboard`);
     }
 );
 

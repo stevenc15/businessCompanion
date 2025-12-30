@@ -11,7 +11,7 @@ const SCOPES = [
 
 //new google auth instance using json key
 const auth = new google.auth.GoogleAuth({
-    keyFile: 'businesscompanion-app-backend-ad0a2252b965.json',
+    keyFile: 'credentials/businesscompanion-app-backend-ad0a2252b965.json',
     scopes:SCOPES,
 });
 
@@ -27,5 +27,5 @@ async function getDriveClient() {
     const client = await auth.getClient();
     return google.drive({ version: 'v3', auth:client});
 }
-
+ 
 module.exports = {getSheetsClient, getDriveClient};
