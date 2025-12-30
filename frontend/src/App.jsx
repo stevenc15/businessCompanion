@@ -7,11 +7,11 @@
 
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import './App.css';
-import EmployeeForm from './Employee/EmployeeForm';
-import ActivityDashboard from './Admin/ActivityDashboard';
-import ClientDashboard from './Admin/ClientDashboard';
-import AdminLogin from './Admin/AdminLogin';
-import AddClient from './Admin/AddClient';
+import EmployeeForm from './Employee/employee_form_page/EmployeeForm';
+import ActivityDashboard from './Admin/activity_dashboard_page/ActivityDashboard';
+import ClientDashboard from './Admin/client_dashboard_page/ClientDashboard';
+import AdminLogin from './Admin/admin_login_page/AdminLogin';
+import AddClient from './Admin/add_client_page/AddClient';
 import EndUserAgreement from './EndUserAgreement';
 
 function App() {
