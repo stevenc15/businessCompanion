@@ -5,7 +5,7 @@ import { API_URL } from "../../../config/api";
 
 export default async function getQR(ClientId, setQRCode) {
 
-    const res = await fetch(`${API_URL}/admin/getQR`, {
+    const res = await fetch(`${API_URL}/admin/clients/genQR`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

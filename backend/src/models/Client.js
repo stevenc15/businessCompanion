@@ -1,6 +1,9 @@
-const DataTypes = require('sequelize');
-const sequelize = require('../database/database');
-//import sequelize from '../database/database.js';
+/**
+ * Client.js - schema structure for client data
+ */
+
+const {DataTypes} = require('sequelize');
+const sequelize = require('../database/sequelize');
 
 const Client = sequelize.define( 'Client', {
     ClientId: {

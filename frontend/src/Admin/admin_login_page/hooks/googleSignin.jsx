@@ -4,6 +4,6 @@
 import { API_URL } from "../../../config/api";
 
 export default function googleLogin(event) {
-      const url = `${API_URL}/auth/google`;
+      const url = `${API_URL}/auth/login/google`;
       window.location.href = url;
 }

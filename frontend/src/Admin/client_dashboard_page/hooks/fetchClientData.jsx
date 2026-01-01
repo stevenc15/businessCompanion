@@ -8,7 +8,7 @@ import { API_URL } from '../../../config/api';
 export default async function fetchClientData(setLoading, setClients, setAllClients) {
     setLoading(true);
     try {
-        const res = await fetch(`${API_URL}/admin/getClients`, {
+        const res = await fetch(`${API_URL}/admin/clients/getClients`, {
             credentials: 'include',
         });
         const data = await res.json();

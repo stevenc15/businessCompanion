@@ -1,6 +1,9 @@
-const DataTypes = require('sequelize');
-const sequelize = require('../database/database');
-//import sequelize from '../database/database.js';
+/**
+ * Activity.js - Schema structure for activities that are logged by employees
+ */
+
+const {DataTypes} = require('sequelize');
+const sequelize = require('../database/sequelize');
 
 const Activity = sequelize.define( 'Activity', {
     ActivityId: {
@@ -30,92 +33,92 @@ const Activity = sequelize.define( 'Activity', {
     },
     ReviewWeeklySchedule:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     CheckMailbox:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     ViewFrontOfTheHouse:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     TurnOnMainWater:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     BugsInsideOutsideFrontDoor:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     Ceilings:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     Floors:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     CloseClosets:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     TurnToiletsOnOff:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     GarageCeiling:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     GarageFloor:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     AnyGarageFridge:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     AcAirHandlerDrainLine:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     TurnOnOffWaterHeaterInElectricalPanel:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     TurnOnOffIceMachine:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     ThermostatSetTo78ForClose72ForOpening:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     ViewRearOfTheHouse:{
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        default: false
+        allowNull: false,
+        defaultValue: false
     },
     Status:{
         type: DataTypes.BOOLEAN,
-        default: false
+        defaultValue: false
     }
 }, {
     timestamps:true,

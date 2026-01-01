@@ -5,7 +5,7 @@ import { API_URL } from "../../../config/api";
 import fetchClientData from "./fetchClientData";
 
 export default async function deleteClient(deleteClientID, setLoading, setClients, setAllClients, setDeleteModal) {
-    const res = await fetch(`${API_URL}/admin/deleteClient`, {
+    const res = await fetch(`${API_URL}/admin/clients/deleteClient`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ClientId: deleteClientID}),

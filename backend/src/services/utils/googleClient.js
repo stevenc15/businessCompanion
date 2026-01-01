@@ -1,4 +1,7 @@
-//backend/googleClient.js - fetching authentication to drive and sheets services
+/**
+ * googleClient.js - fetching authentication to drive and sheets services
+ */ 
+
 const {google} = require('googleapis');
 const path = require('path');
 const fs = require('fs');
@@ -27,5 +30,5 @@ async function getDriveClient() {
     const client = await auth.getClient();
     return google.drive({ version: 'v3', auth:client});
 }
- 
-module.exports = {getSheetsClient, getDriveClient};
+
+module.exports = {getSheetsClient, getDriveClient}; 
