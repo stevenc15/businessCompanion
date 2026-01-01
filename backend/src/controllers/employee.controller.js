@@ -21,12 +21,12 @@ async function insertActivity(req, res) {
 
     console.log(formData);
 
-    const newRow = sheetService.createRow(formData);
+    const newRow = await sheetService.createRow(formData);
 
     console.log([newRow]);
-
+ 
     try{
-        sheetService.addToSheet(newRow)
+        sheetService.addToSheet(newRow, sheets);
 
         res.status(200).json({ message: 'Submitted to Sheet successfully'});
     }catch(err){

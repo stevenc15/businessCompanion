@@ -30,7 +30,9 @@ async function createRow(formData){
     return Object.values(formData);
 }
 
-async function addToSheet(newRow){
+async function addToSheet(newRow, sheets){
+    console.log([newRow]);
+    
     await sheets.spreadsheets.values.append({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
             range: 'Sheet1!A2',
