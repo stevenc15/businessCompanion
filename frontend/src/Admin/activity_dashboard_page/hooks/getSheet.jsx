@@ -11,7 +11,7 @@ import { API_URL } from "../../../config/api";
 export default function GetSheet() {
     const [sheetUrl, setSheetUrl] = useState(null);
         useEffect(()=>{
-            fetch(`${API_URL}/admin/get-sheet`, {
+            fetch(`${API_URL}/admin/dashboard/get-sheet`, {
                 credentials:'include'
             })
                 .then(res=>res.json())

@@ -7,7 +7,7 @@ import { API_URL } from '../../../config/api';
 export default function SheetExport() {
     const handleExport = async () => {
         try {
-            const response = await fetch(`${API_URL}/admin/get-export-sheet`, {
+            const response = await fetch(`${API_URL}/admin/dashboard/get-export-sheet`, {
                 method: 'GET',
                 credentials: 'include' // 🔑 THIS IS THE KEY
             });

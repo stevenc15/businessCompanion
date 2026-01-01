@@ -13,7 +13,7 @@ export default async function editClient(e, formData, editClientID, fetchClients
       ClientId: editClientID, // add your editClientId here
     };
     console.log(updatedData)
-    const res = await fetch(`${API_URL}/admin/editClient`, {
+    const res = await fetch(`${API_URL}/admin/clients/editClient`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(updatedData),

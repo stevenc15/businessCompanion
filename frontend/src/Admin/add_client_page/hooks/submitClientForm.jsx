@@ -10,7 +10,7 @@ export default async function submitClientForm(e, formData, setFormData) {
   console.log('formData:', formData);
   e.preventDefault();
 
-    const res = await fetch(`${API_URL}/admin/addClient`, {
+    const res = await fetch(`${API_URL}/admin/clients/addClient`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(formData),
