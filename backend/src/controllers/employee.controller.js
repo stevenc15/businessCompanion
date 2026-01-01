@@ -102,12 +102,12 @@ async function getSingleClient(req, res){
     try{
         console.log('client id: ', ClientId);
     
-        const client = clientService.getOneClient(ClientId);
+        const client = await clientService.getOneClient(ClientId);
     
         if (!client){
             return res.status(401).json({message: 'no client found by that id'});
         }
-    
+        console.log(client);
         res.status(200).json(client);
     
     }catch(error){
