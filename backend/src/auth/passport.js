@@ -11,15 +11,23 @@
  * is defined for passport as to how user info will be stored and removed.
  */
 
+
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+require('dotenv').config();
+const isProduction = process.env.NODE_ENV === 'production';
+const FRONTENDAPPURL = isProduction ? 'https://www.hm-services.online' : 'http://localhost:5173';
+const BACKENDAPPURL = isProduction ? 'https://api.hm-services.online' : `http://localhost:${PORT}`;
+console.log('Production Mode: ', isProduction);
+console.log('FRONTEND App URL: ', FRONTENDAPPURL);
+console.log('BACKEND App URL: ', BACKENDAPPURL);
 
 module.exports = (ALLOWED_EMAILS) => {
 
     passport.use(new GoogleStrategy ({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'https://api.hm-services.online/auth/google/callback',
+        callbackURL: `${BACKENDAPPURL}/auth/google/callback`,
     }, (accessToken, refreshToken, profile, done) => {
         if (ALLOWED_EMAILS.includes(profile.emails[0].value)) {
             return done(null, profile);

@@ -5,6 +5,13 @@
 
 const express = require('express')
 const router = express.Router();
+require('dotenv').config();
+const isProduction = process.env.NODE_ENV === 'production';
+const FRONTENDAPPURL = isProduction ? 'https://www.hm-services.online' : 'http://localhost:5173';
+const BACKENDAPPURL = isProduction ? 'https://api.hm-services.online' : `http://localhost:${PORT}`;
+console.log('Production Mode: ', isProduction);
+console.log('FRONTEND App URL: ', FRONTENDAPPURL);
+console.log('BACKEND App URL: ', BACKENDAPPURL);
 
 const ALLOWED_EMAILS = [
     'stevenacamachoperez@gmail.com', 
@@ -22,7 +29,7 @@ router.get('/login/google',
 router.get('/login/google/callback', 
     passport.authenticate('google', {failureRedirect: '/unauthorized' }),
     (req, res) => {
-        res.redirect('https://www.hm-services.online/activityDashboard');
+        res.redirect(`${FRONTENDAPPURL}/activityDashboard`);
     }
 );
 

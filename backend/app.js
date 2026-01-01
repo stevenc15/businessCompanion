@@ -19,6 +19,12 @@ const authRouter = require('./src/auth/authRoutes.js')
 const adminRouter = require('./src/routes/admin.routes.js');
 const employeeRouter = require('./src/routes/employee.routes.js');
 
+const allowedOrigins = [
+    'http://localhost:5173', 
+    'https://business-companion-seven.vercel.app',
+    'https://www.hm-services.online'
+]
+
 const app = express();
 
 // Middleware 
