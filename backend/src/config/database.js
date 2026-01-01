@@ -7,7 +7,7 @@
  * - will create or update the DB tables
  */
 
-const sequelize = require('./database/sequelize.js');
+const sequelize = require('../database/sequelize.js');
 
 async function initializeDatabase() {
     try {

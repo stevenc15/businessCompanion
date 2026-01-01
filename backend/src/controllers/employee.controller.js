@@ -4,7 +4,7 @@
 
 const clientService = require('../services/client.service');
 const sheetService = require('../services/sheet.service');
-const activityService = require('../service/activity.service');
+const activityService = require('../services/activity.service');
 
 const {getSheetsClient} = require('../services/utils/googleClient.js');
 

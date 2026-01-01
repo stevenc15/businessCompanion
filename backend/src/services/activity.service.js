@@ -2,7 +2,7 @@
  * activity.service.js - logic handling of activity related tasks, e.g creation
  */
 
-const Activity = require('../models/activitySchema.js');
+const Activity = require('../models/Activity.js');
 
 async function createActivity(Community, 
                 ClientName, 

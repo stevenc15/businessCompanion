@@ -6,6 +6,7 @@
 const express = require('express')
 const router = express.Router();
 require('dotenv').config();
+const PORT = process.env.PORT || 5001;
 const isProduction = process.env.NODE_ENV === 'production';
 const FRONTENDAPPURL = isProduction ? 'https://www.hm-services.online' : 'http://localhost:5173';
 const BACKENDAPPURL = isProduction ? 'https://api.hm-services.online' : `http://localhost:${PORT}`;

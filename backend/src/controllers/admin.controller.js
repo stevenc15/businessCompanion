@@ -11,7 +11,8 @@ const sheetService = require('../services/sheet.service');
 // getSheet - retrieves sheet url 
 async function getSheet(req, res) {
     try{
-        const url = sheetService.getSheet();
+        const url = await sheetService.getSheet();
+        console.log("url: ", url);
         res.status(200).json({url: url});
     }catch(error){
         console.error('Error fetching sheet:', error.message);
@@ -20,9 +21,9 @@ async function getSheet(req, res) {
 }
 
 // exportSheet - exports the Google Sheet file to an XLXS file format
-async  function exportSheet(req, res) {
+async function exportSheet(req, res) {
     try{
-        const response = sheetService.exportSheet()
+        const response = await sheetService.exportSheet()
 
         res.setHeader('Content-Disposition', 'attachment; filename="export.xlsx"');
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -119,7 +120,7 @@ async function generateClientQR(req, res) {
             console.error(error);
             res.status(500).json({ error: 'Failed to generate QR code' });
         }
-};
+}; 
 
 module.exports = {
     getSheet,

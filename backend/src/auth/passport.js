@@ -15,6 +15,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
+const PORT = process.env.PORT || 5001;
 const isProduction = process.env.NODE_ENV === 'production';
 const FRONTENDAPPURL = isProduction ? 'https://www.hm-services.online' : 'http://localhost:5173';
 const BACKENDAPPURL = isProduction ? 'https://api.hm-services.online' : `http://localhost:${PORT}`;
@@ -27,7 +28,7 @@ module.exports = (ALLOWED_EMAILS) => {
     passport.use(new GoogleStrategy ({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: `${BACKENDAPPURL}/auth/google/callback`,
+        callbackURL: `${BACKENDAPPURL}/auth/login/google/callback`,
     }, (accessToken, refreshToken, profile, done) => {
         if (ALLOWED_EMAILS.includes(profile.emails[0].value)) {
             return done(null, profile);
