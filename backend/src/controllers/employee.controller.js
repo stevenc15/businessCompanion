@@ -9,6 +9,7 @@ const activityService = require('../services/activity.service');
 const {getSheetsClient} = require('../services/utils/googleClient.js');
 
 async function insertActivity(req, res) {
+    console.log("insert Activity function called");
     
     const sheets = await getSheetsClient();
     console.log('sheets client ready: ', sheets);
