@@ -42,7 +42,7 @@ export default function EmployeeForm() {
     const clientData = useGetClientData(ClientId);
 
     //populate form data with client data
-    usePrefillForm(clientData, setFormData);    
+    usePrefillForm(clientData, setFormData, formData);    
 
     const checklistItems = CHECKLISTITEMS;
     console.log("Checklist Items:", checklistItems);
