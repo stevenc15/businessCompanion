@@ -12,7 +12,6 @@ const sheetService = require('../services/sheet.service');
 async function getSheet(req, res) {
     try{
         const url = await sheetService.getSheet();
-        console.log("url: ", url);
         res.status(200).json({url: url});
     }catch(error){
         console.error('Error fetching sheet:', error.message);
@@ -73,9 +72,9 @@ async function editClient(req, res) {
             return res.status(404).json({ error: 'Client not found' });
         }
 
-        updatedClient = clientService.editClient(client, {ClientName, Address, Community})
-        
-        res.status(200).json({message: 'successful edit of client info'}, updatedClient);
+        const updatedClient = await clientService.editClient(client, {ClientName, Address, Community})
+
+        res.status(200).json({message: 'successful edit of client info', updatedClient});
 
     }catch(error){
         console.error(error);

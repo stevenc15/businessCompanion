@@ -8,18 +8,30 @@
  */
 
 const sequelize = require('../database/sequelize.js');
+let isDatabaseReady = false;
+require('dotenv').config();
+const isProduction = process.env.NODE_ENV === 'production';
 
 async function initializeDatabase() {
     try {
         await sequelize.authenticate();
         console.log('Database successfully connected');
 
-        await sequelize.sync({alter:true});
-
+        await sequelize.sync({alter:!isProduction});
         console.log('Tables were adjusted successfully');
+
+        isDatabaseReady = true;
     }catch(error){
         console.error('Unable to connect to Database: ', error);
+        throw error;
     }
 }
 
-module.exports = initializeDatabase;
+function databaseReady() {
+    return isDatabaseReady;
+}
+
+module.exports = {
+    initializeDatabase,
+    databaseReady,
+};
