@@ -2,4 +2,4 @@
 . "$(dirname "$0")/_/husky.sh"
 
 echo "🟢 PRE-COMMIT HOOK RUNNING"
-npm test
+exit 1
