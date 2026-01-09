@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "🟢 PRE-COMMIT HOOK RUNNING"
-exit 1
+echo "🔥 PRE-COMMIT HOOK EXECUTED 🔥"
+npm test
