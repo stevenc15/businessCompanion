@@ -17,6 +17,7 @@ async function initializeDatabase() {
         await sequelize.authenticate();
         console.log('Database successfully connected');
 
+        console.log(!isProduction);
         await sequelize.sync({alter:!isProduction});
         console.log('Tables were adjusted successfully');
 
