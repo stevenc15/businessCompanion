@@ -4,7 +4,6 @@ const {initializeTestDB} = require('./setupTestDB');
 const requireAuth = require('../src/routes/Route_utils/requireAuth');
 const Client = require('../src/models/Client');
 
-
 jest.mock('../src/routes/Route_utils/requireAuth', () => {
     return jest.fn((req, res, next) => next());
 });

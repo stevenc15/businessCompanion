@@ -16,7 +16,10 @@ require('dotenv').config();
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-require('./src/auth/passport.js')
+if (process.env.NODE_ENV !== 'test'){
+    require('./src/auth/passport.js');
+}
+
 
 const authRouter = require('./src/auth/authRoutes.js')
 const adminRouter = require('./src/routes/admin.routes.js');
