@@ -91,7 +91,7 @@ async function createActivity(req, res) {
 }
 
 async function getSingleClient(req, res){
-    const {ClientId} = req.body;
+    const {ClientId} = req.query;
 
     try{
         const client = await clientService.getOneClient(ClientId);
