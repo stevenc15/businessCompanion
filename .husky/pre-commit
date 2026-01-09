@@ -1,0 +1,2 @@
+echo "🧪 Running backend tests"
+cd backend && npm test

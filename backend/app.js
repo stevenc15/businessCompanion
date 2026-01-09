@@ -16,7 +16,7 @@ require('dotenv').config();
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-require('./src/auth/passport.js')
+require('./src/auth/passport.js');
 
 const authRouter = require('./src/auth/authRoutes.js')
 const adminRouter = require('./src/routes/admin.routes.js');
@@ -27,6 +27,8 @@ const allowedOrigins = [
     'https://business-companion-seven.vercel.app',
     'https://www.hm-services.online'
 ]
+
+const {databaseReady} = require('./src/config/database');
 
 const app = express();
 
@@ -53,6 +55,20 @@ app.use(session ({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'ok',
+        uptime: process.uptime()
+    });
+});
+
+app.get('/ready', (req, res) =>{
+    if (!databaseReady()) {
+        return res.status(503).json({status: 'not ready'});
+    }
+    res.status(200).json({status: 'ready'});
+});
 
 // Routes
 app.use('/admin', adminRouter);

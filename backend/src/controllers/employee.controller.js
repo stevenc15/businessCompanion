@@ -9,10 +9,8 @@ const activityService = require('../services/activity.service');
 const {getSheetsClient} = require('../services/utils/googleClient.js');
 
 async function insertActivity(req, res) {
-    console.log("insert Activity function called");
     
     const sheets = await getSheetsClient();
-    console.log('sheets client ready: ', sheets);
 
     const formData = req.body;
 
@@ -20,15 +18,10 @@ async function insertActivity(req, res) {
         res.status(402).json({ message: 'no data is submitted/found from form'});
     }
 
-    console.log(formData);
-
     const newRow = await sheetService.createRow(formData);
-
-    console.log([newRow]);
  
     try{
         sheetService.addToSheet(newRow, sheets);
-
         res.status(200).json({ message: 'Submitted to Sheet successfully'});
     }catch(err){
         console.error(err);
@@ -62,8 +55,8 @@ async function createActivity(req, res) {
                 TurnOnOffIceMachine,
                 ThermostatSetTo78ForClose72ForOpening,
                 ViewRearOfTheHouse,
-            } = req.body;
-    
+            } = req.body;    
+
             const newActivity = activityService.createActivity(
                 Community, 
                 ClientName, 
@@ -98,18 +91,16 @@ async function createActivity(req, res) {
 }
 
 async function getSingleClient(req, res){
-    const {ClientId} = req.query;
-    console.log('getSingleClient endpoint called');
+    const {ClientId} = req.body;
+
     try{
-        console.log('client id: ', ClientId);
-    
         const client = await clientService.getOneClient(ClientId);
     
         if (!client){
             return res.status(401).json({message: 'no client found by that id'});
         }
-        console.log(client);
-        res.status(200).json(client);
+
+        res.status(200).json({client: client});
     
     }catch(error){
         console.error('Error fetching client: ', error);

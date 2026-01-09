@@ -12,9 +12,12 @@ const {Sequelize} = require('sequelize');
 const dotenv = require('dotenv'); 
 dotenv.config();
 
+const isTest = process.env.NODE_ENV === 'test';
 let sequelize;
 console.log(process.env.DATABASE_URL);
 
-sequelize = new Sequelize(process.env.DATABASE_URL);
+sequelize = isTest 
+  ? new Sequelize('sqlite::memory:', {logging: false})
+  : new Sequelize(process.env.DATABASE_URL)
 
 module.exports= sequelize;
