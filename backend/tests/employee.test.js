@@ -46,7 +46,7 @@ describe('Employee routes (SQLite in-memory DB)', () => {
         expect(res.body.newActivity).toBeDefined();
     });
 
-    // Test addClients endpoint
+    // Test getSingleClient endpoint
     it('GET /employee/getSingleClient', async () => {
         const clientsBefore = await Client.findAll();
         expect(clientsBefore.length).toBe(2);
@@ -61,4 +61,5 @@ describe('Employee routes (SQLite in-memory DB)', () => {
         expect(res.body.client).toBeDefined();
     });
 
+    //test addactivity endpoint
 })
