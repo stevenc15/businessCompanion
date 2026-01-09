@@ -55,7 +55,7 @@ describe('Employee routes (SQLite in-memory DB)', () => {
 
         const res = await request(app)
           .get('/employee/getSingleClient')
-          .send({ClientId: clientToGet.ClientId});
+          .query({ClientId: clientToGet.ClientId});
 
         expect(res.statusCode).toBe(200);
         expect(res.body.client).toBeDefined();

@@ -8,7 +8,7 @@
 import {useEffect} from 'react';
 
 export default function usePrefillForm(clientData, setFormData, formData) {
-
+    
     console.log("usePrefillForm triggered with clientData:", clientData);
     
     //populate form data with client data
