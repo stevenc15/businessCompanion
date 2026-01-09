@@ -15,7 +15,7 @@ dotenv.config();
 const isTest = process.env.NODE_ENV === 'test';
 let sequelize;
 console.log(process.env.DATABASE_URL);
-
+console.log('test status: ', isTest);
 sequelize = isTest 
   ? new Sequelize('sqlite::memory:', {logging: false})
   : new Sequelize(process.env.DATABASE_URL)
