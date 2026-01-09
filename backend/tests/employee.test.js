@@ -61,5 +61,5 @@ describe('Employee routes (SQLite in-memory DB)', () => {
         expect(res.body.client).toBeDefined();
     });
 
-    //test addactivity endpoint
+    //test insert-activity endpoint
 })
