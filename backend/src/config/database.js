@@ -17,9 +17,12 @@ async function initializeDatabase() {
         await sequelize.authenticate();
         console.log('Database successfully connected');
 
-        console.log(!isProduction);
-        await sequelize.sync({alter:!isProduction});
-        console.log('Tables were adjusted successfully');
+        if (!isProduction) {
+            await sequelize.sync({ alter: true });
+            console.log('Tables were adjusted successfully (non-prod)');
+        } else {
+            console.log('Skipping sequelize.sync() in production');
+        }
 
         isDatabaseReady = true;
     }catch(error){
