@@ -17,6 +17,9 @@ const PORT = process.env.PORT || 5001;
         });
     } catch(error) {
         console.error('Server Starup Aborted');
+        console.error(error);          
+        console.error(error.message);
+        console.error(error.stack);
         process.exit(1);
     }
 })();
