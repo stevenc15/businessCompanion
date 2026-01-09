@@ -26,10 +26,6 @@ console.log('BACKEND App URL: ', BACKENDAPPURL);
 
 module.exports = (ALLOWED_EMAILS) => {
 
-    if (process.env.NODE_ENV === 'test') {
-        return passport;
-    }
-    
     passport.use(new GoogleStrategy ({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
