@@ -37,19 +37,30 @@ export default function EmployeeForm() {
 
     //containers for form data
     const [formData, setFormData] = useState(FORMDEFAULT);
+    
+    const [isPrefilled, setIsPrefilled] = useState(false);
 
     //fetch client data base on ClientId
     const clientData = useGetClientData(ClientId);
 
     //populate form data with client data
-    usePrefillForm(clientData, setFormData, formData);    
+    //usePrefillForm(clientData, setFormData, formData);    
 
     const checklistItems = CHECKLISTITEMS;
     console.log("Checklist Items:", checklistItems);
 
     useEffect(() => {
-    console.log("Client data updated:", clientData);
-    }, [clientData]);
+        if (!clientData || isPrefilled) return;
+
+        setFormData(prev => ({
+            ...prev,
+            ClientName: clientData.ClientName,
+            Address: clientData.Address,
+            Community: clientData.Community,
+        }));
+
+        setIsPrefilled(true);
+    }, [clientData, isPrefilled]);
 
     useEffect(() => {
     console.log("Form data after prefill:", formData);
