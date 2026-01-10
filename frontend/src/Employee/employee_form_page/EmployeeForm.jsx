@@ -60,10 +60,6 @@ export default function EmployeeForm() {
         setIsPrefilled(true);
     }, [clientData, isPrefilled]);
 
-    useEffect(() => {
-        console.log("Form data after prefill:", formData);
-    }, [formData]);
-
     return(
         //Main CONTAINER
         <div className="employee-container">
