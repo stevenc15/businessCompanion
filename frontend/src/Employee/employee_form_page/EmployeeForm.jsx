@@ -13,7 +13,6 @@ import './css/EmployeeForm.css';
 
 // hooks
 import useGetClientData from './hooks/useGetClientData';
-import usePrefillForm from './hooks/usePreFillForm';
 import submitForm from './services/submitForm';
 import changeForm from './services/changeForm';
 
@@ -47,7 +46,6 @@ export default function EmployeeForm() {
     //usePrefillForm(clientData, setFormData, formData);    
 
     const checklistItems = CHECKLISTITEMS;
-    console.log("Checklist Items:", checklistItems);
 
     useEffect(() => {
         if (!clientData || isPrefilled) return;
@@ -63,7 +61,7 @@ export default function EmployeeForm() {
     }, [clientData, isPrefilled]);
 
     useEffect(() => {
-    console.log("Form data after prefill:", formData);
+        console.log("Form data after prefill:", formData);
     }, [formData]);
 
     return(

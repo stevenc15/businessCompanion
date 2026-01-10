@@ -28,7 +28,7 @@ export default function Form({ formData, setFormData, changeForm, clientData }) 
                         name="Community" 
                         placeholder="Enter Community Name" 
                         readOnly
-                        value={clientData?.Community || formData.Community}
+                        value={formData.Community}
                         className="form-input"
                         />
             </div>
@@ -40,7 +40,7 @@ export default function Form({ formData, setFormData, changeForm, clientData }) 
                         name="ClientName" 
                         placeholder="Enter Client Name" 
                         readOnly
-                        value={clientData?.ClientName || formData.ClientName}
+                        value={formData.ClientName}
                         className="form-input"
                     />
             </div>
@@ -52,7 +52,7 @@ export default function Form({ formData, setFormData, changeForm, clientData }) 
                         name="Address" 
                         placeholder="Enter full Address" 
                         readOnly
-                        value={clientData?.Address || formData.Address}
+                        value={formData.Address}
                         className="form-input"
                     />
             </div>
