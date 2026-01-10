@@ -51,7 +51,7 @@ export default function EmployeeForm() {
 
     useEffect(() => {
         if (!clientData || isPrefilled) return;
-
+        console.log("pre fill use effect called");
         setFormData(prev => ({
             ...prev,
             ClientName: clientData.ClientName,
