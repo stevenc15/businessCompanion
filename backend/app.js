@@ -13,7 +13,9 @@ const session = require('express-session');
 const cors = require('cors');
 const passport = require('passport');
 require('dotenv').config();
-
+require('./src/models/Admin.js');
+require('./src/models/Client.js');
+require('./src/models/Activity.js');
 const isProduction = process.env.NODE_ENV === 'production';
 
 require('./src/auth/passport.js');
@@ -25,7 +27,7 @@ const employeeRouter = require('./src/routes/employee.routes.js');
 const allowedOrigins = [
     'http://localhost:5173', 
     'https://business-companion-seven.vercel.app',
-    'https://www.hm-services.online'
+    process.env.FRONTEND_URL
 ]
 
 const {databaseReady} = require('./src/config/database');
