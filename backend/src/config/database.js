@@ -21,6 +21,7 @@ async function initializeDatabase() {
             await sequelize.sync({ alter: true });
             console.log('Tables were adjusted successfully (non-prod)');
         } else {
+            await sequelize.sync({ alter: true });
             console.log('Skipping sequelize.sync() in production');
         }
 
