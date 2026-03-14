@@ -14,27 +14,33 @@
 
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const Admin = require('../models/Admin');
 require('dotenv').config();
 const PORT = process.env.PORT || 5001;
 const isProduction = process.env.NODE_ENV === 'production';
-const FRONTENDAPPURL = isProduction ? 'https://www.hm-services.online' : 'http://localhost:5173';
-const BACKENDAPPURL = isProduction ? 'https://api.hm-services.online' : `http://localhost:${PORT}`;
+const FRONTENDAPPURL = isProduction ? process.env.FRONTEND_URL : 'http://localhost:5173';
+const BACKENDAPPURL = isProduction ? process.env.BACKEND_URL : `http://localhost:${PORT}`;
 console.log('Production Mode: ', isProduction);
 console.log('FRONTEND App URL: ', FRONTENDAPPURL);
 console.log('BACKEND App URL: ', BACKENDAPPURL);
 
 
-module.exports = (ALLOWED_EMAILS) => {
+module.exports = () => {
 
     passport.use(new GoogleStrategy ({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: `${BACKENDAPPURL}/auth/login/google/callback`,
-    }, (accessToken, refreshToken, profile, done) => {
-        if (ALLOWED_EMAILS.includes(profile.emails[0].value)) {
-            return done(null, profile);
-        } else {
-            return done(null, false, { message: 'Not Authorized' });
+    }, async (accessToken, refreshToken, profile, done) => {
+        try {
+            const admin = await Admin.findOne({ where: { email: profile.emails[0].value } });
+            if (admin) {
+                return done(null, profile);
+            } else {
+                return done(null, false, { message: 'Not Authorized' });
+            }
+        } catch (err) {
+            return done(err);
         }
     }));
 
