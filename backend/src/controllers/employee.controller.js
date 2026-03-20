@@ -11,7 +11,6 @@ const {getSheetsClient} = require('../services/utils/googleClient.js');
 async function insertActivity(req, res) {
     
     const sheets = await getSheetsClient();
-    console.log('sheets client ready: ', sheets);
 
     const formData = req.body;
 
@@ -97,17 +96,15 @@ async function createActivity(req, res) {
 
 async function getSingleClient(req, res){
     const {ClientId} = req.query;
-    console.log('getSingleClient endpoint called');
+
     try{
-        console.log('client id: ', ClientId);
-    
-        const client = clientService.getOneClient(ClientId);
+        const client = await clientService.getOneClient(ClientId);
     
         if (!client){
             return res.status(404).json({message: 'no client found by that id'});
         }
-    
-        res.status(200).json(client);
+
+        res.status(200).json({client: client});
     
     }catch(error){
         console.error('Error fetching client: ', error);

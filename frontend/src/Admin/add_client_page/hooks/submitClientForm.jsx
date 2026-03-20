@@ -23,3 +23,6 @@ export default async function submitClientForm(e, formData, setFormData) {
     alert(data.message || 'Submitted!');
     setFormData(CLIENTFORMCONFIG); 
 } 
+/**
+ * submitClientForm.jsx - hook to handle submission of add client form 
+ */

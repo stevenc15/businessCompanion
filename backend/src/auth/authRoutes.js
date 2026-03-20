@@ -5,16 +5,9 @@
 
 const express = require('express')
 const router = express.Router();
-
 const {FRONTENDAPPURL} = require('../config/appConfig');
 
-const ALLOWED_EMAILS = [
-    'stevenacamachoperez@gmail.com', 
-    'armandocaro282@gmail.com', 
-    'bmmedjuck@gmail.com'
-];
-
-const passport = require('./passport')(ALLOWED_EMAILS)
+const passport = require('./passport')()
 
 // endpoints
 router.get('/login/google', 
@@ -34,4 +27,4 @@ router.get('/logout', (req, res) => {
     });
 });
 
-module.exports = router
+module.exports = router;

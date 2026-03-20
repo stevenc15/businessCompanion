@@ -13,6 +13,9 @@ const session = require('express-session');
 const cors = require('cors');
 const passport = require('passport');
 require('dotenv').config();
+require('./src/models/Admin.js');
+require('./src/models/Client.js');
+require('./src/models/Activity.js');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const authRouter = require('./src/auth/authRoutes.js')
@@ -23,6 +26,8 @@ const allowedOrigins = [
     'http://localhost:5173', 
     process.env.FRONTEND_URL
 ]
+
+const {databaseReady} = require('./src/config/database');
 
 const app = express();
 
@@ -49,6 +54,20 @@ app.use(session ({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'ok',
+        uptime: process.uptime()
+    });
+});
+
+app.get('/ready', (req, res) =>{
+    if (!databaseReady()) {
+        return res.status(503).json({status: 'not ready'});
+    }
+    res.status(200).json({status: 'ready'});
+});
 
 // Routes
 app.use('/admin', adminRouter);

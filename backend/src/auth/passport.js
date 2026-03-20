@@ -14,6 +14,7 @@
 
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const Admin = require('../models/Admin');
 require('dotenv').config();
 const {BACKENDAPPURL} = require('../config/appConfig');
 
@@ -23,11 +24,16 @@ module.exports = () => {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: `${BACKENDAPPURL}/auth/login/google/callback`,
-    }, (accessToken, refreshToken, profile, done) => {
-        if (ALLOWED_EMAILS.includes(profile.emails[0].value)) {
-            return done(null, profile);
-        } else {
-            return done(null, false, { message: 'Not Authorized' });
+    }, async (accessToken, refreshToken, profile, done) => {
+        try {
+            const admin = await Admin.findOne({ where: { email: profile.emails[0].value } });
+            if (admin) {
+                return done(null, profile);
+            } else {
+                return done(null, false, { message: 'Not Authorized' });
+            }
+        } catch (err) {
+            return done(err);
         }
     }));
 

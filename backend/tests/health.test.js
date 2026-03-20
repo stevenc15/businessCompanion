@@ -1,0 +1,18 @@
+const request = require('supertest');
+const app = require('../app');
+
+describe('Health check', () => {
+    it('should return 200 OK', async () => {
+        const res = await request(app).get('/health');
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body.status).toBe('ok');
+    });
+});
+
+describe('Database readiness check', () => {
+    it('returns 200 or 503 depending on DB state', async () => {
+        const res = await request(app).get('/ready');
+        expect([200, 503]).toContain(res.statusCode);
+    });
+});

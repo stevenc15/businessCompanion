@@ -13,7 +13,6 @@ import './css/EmployeeForm.css';
 
 // hooks
 import useGetClientData from './hooks/useGetClientData';
-import usePrefillForm from './hooks/usePreFillForm';
 import submitForm from './services/submitForm';
 import changeForm from './services/changeForm';
 
@@ -37,23 +36,29 @@ export default function EmployeeForm() {
 
     //containers for form data
     const [formData, setFormData] = useState(FORMDEFAULT);
+    
+    const [isPrefilled, setIsPrefilled] = useState(false);
 
     //fetch client data base on ClientId
     const clientData = useGetClientData(ClientId);
 
     //populate form data with client data
-    usePrefillForm(clientData, setFormData);    
+    //usePrefillForm(clientData, setFormData, formData);    
 
     const checklistItems = CHECKLISTITEMS;
-    console.log("Checklist Items:", checklistItems);
 
     useEffect(() => {
-    console.log("Client data updated:", clientData);
-    }, [clientData]);
+        if (!clientData || isPrefilled) return;
+        console.log("pre fill use effect called");
+        setFormData(prev => ({
+            ...prev,
+            ClientName: clientData.ClientName,
+            Address: clientData.Address,
+            Community: clientData.Community,
+        }));
 
-    useEffect(() => {
-    console.log("Form data after prefill:", formData);
-    }, [formData]);
+        setIsPrefilled(true);
+    }, [clientData, isPrefilled]);
 
     return(
         //Main CONTAINER
