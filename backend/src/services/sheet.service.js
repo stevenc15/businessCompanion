@@ -26,7 +26,7 @@ async function exportSheet(){
     return response;
 }
 
-async function createRow(formData){
+function createRow(formData){
     return Object.values(formData);
 }
 
