@@ -16,18 +16,13 @@ async function insertActivity(req, res) {
     const formData = req.body;
 
     if (!formData){
-        res.status(402).json({ message: 'no data is submitted/found from form'});
+        res.status(400).json({ message: 'no data is submitted/found from form'});
     }
 
-    console.log(formData);
-
     const newRow = sheetService.createRow(formData);
-
-    console.log([newRow]);
-
+ 
     try{
-        sheetService.addToSheet(newRow)
-
+        await sheetService.addToSheet(newRow, sheets);
         res.status(200).json({ message: 'Submitted to Sheet successfully'});
     }catch(err){
         console.error(err);
@@ -61,9 +56,13 @@ async function createActivity(req, res) {
                 TurnOnOffIceMachine,
                 ThermostatSetTo78ForClose72ForOpening,
                 ViewRearOfTheHouse,
-            } = req.body;
-    
-            const newActivity = activityService.createActivity(
+            } = req.body;    
+
+            if (!Community || !ClientName || !Address || !DoorCode || !Service || !EmployeeName){
+                return res.status(400).json({message: 'missing required fields'});
+            }
+
+            const newActivity = await activityService.createActivity(
                 Community, 
                 ClientName, 
                 Address, 
@@ -105,7 +104,7 @@ async function getSingleClient(req, res){
         const client = clientService.getOneClient(ClientId);
     
         if (!client){
-            return res.status(401).json({message: 'no client found by that id'});
+            return res.status(404).json({message: 'no client found by that id'});
         }
     
         res.status(200).json(client);
