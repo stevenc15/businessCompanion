@@ -21,9 +21,7 @@ import ActivityDashboardTitle from './layout/activityDashboardTitle';
 
 function ActivityDashboard () {
 
-    // HOOKS MAKE get sheet url hook
-    const sheetUrl = useGetSheet();
-    console.log("Sheet URL:", sheetUrl);
+    const { sheetUrl, loading } = useGetSheet();
     
     return (
       
@@ -51,7 +49,7 @@ function ActivityDashboard () {
 
             <ActivityDashboardTitle />
 
-            <GoogleSheetDisplay sheetUrl={sheetUrl} />
+            <GoogleSheetDisplay sheetUrl={sheetUrl} loading={loading} />
             
             <SheetExport />
 

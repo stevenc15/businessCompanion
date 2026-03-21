@@ -1,128 +1,146 @@
 const request = require('supertest');
 const app = require('../app');
-const {initializeTestDB} = require('./setupTestDB');
-const requireAuth = require('../src/routes/Route_utils/requireAuth');
+const { initializeTestDB } = require('./setupTestDB');
 const Client = require('../src/models/Client');
 
+// Bypass auth middleware so protected routes are reachable in tests
 jest.mock('../src/routes/Route_utils/requireAuth', () => {
     return jest.fn((req, res, next) => next());
 });
+
+// Prevent googleClient.js from making real Google API calls or failing on missing creds
+jest.mock('../src/services/utils/googleClient', () => ({
+    getSheetsClient: jest.fn().mockResolvedValue({}),
+    getDriveClient: jest.fn().mockResolvedValue({}),
+}));
 
 beforeEach(async () => {
     await initializeTestDB();
 });
 
-describe('Admin routes (SQLite in-memory DB)', () => {
+// ─── Client management ────────────────────────────────────────────────────────
 
-    // Test getClients endpoint
-    it('GET /admin/clients/getClient should return 200 and an array', async () =>{
+describe('GET /admin/clients/getClients', () => {
+
+    it('returns 200 and an array of all seeded clients', async () => {
         const res = await request(app).get('/admin/clients/getClients');
-
         expect(res.statusCode).toBe(200);
         expect(Array.isArray(res.body)).toBe(true);
         expect(res.body.length).toBe(2);
     });
+});
 
-    // Test addClients endpoint
-    it('POST /admin/clients/addClient', async () => {
+describe('POST /admin/clients/addClient', () => {
+
+    it('returns 200 and creates a new client', async () => {
         const newClient = {
-            ClientName: 'test name',
-            Address: '1234 ave',
-            Community: 'example circle',
+            ClientName: 'Test Client',
+            Address: '1234 Test Ave',
+            Community: 'Test Community',
         };
-
-        const res = await request(app)
-          .post('/admin/clients/addClient')
-          .send(newClient);
-
+        const res = await request(app).post('/admin/clients/addClient').send(newClient);
         expect(res.statusCode).toBe(200);
         expect(res.body.message).toBe('successfully added client to database');
-        expect(res.body.client).toBeDefined();
-
         expect(res.body.client.ClientName).toBe(newClient.ClientName);
         expect(res.body.client.Address).toBe(newClient.Address);
         expect(res.body.client.Community).toBe(newClient.Community);
-
-        const clients = await Client.findAll();
-        expect(clients.length).toBe(3);
+        const all = await Client.findAll();
+        expect(all.length).toBe(3);
     });
 
-    // Test deleteClient endpoint
-    it('POST /admin/clients/deleteClient', async () => {
-        const clientsBefore = await Client.findAll();
-        expect(clientsBefore.length).toBe(2);
-
-        const clientToDelete = clientsBefore[0];
-        
+    it('returns 400 when required fields are missing', async () => {
         const res = await request(app)
-          .post('/admin/clients/deleteClient')
-          .send({ClientId: clientToDelete.ClientId});
-
-        expect(res.statusCode).toBe(200);
-        expect(res.body.message).toBe('successful deletion of client info');
-
-        const clients = await Client.findAll();
-        expect(clients.length).toBe(1);
-
-        const deletedClient = await Client.findByPk(clientToDelete.ClientId);
-        expect(deletedClient).toBeNull();
+            .post('/admin/clients/addClient')
+            .send({ ClientName: 'Only Name' });
+        expect(res.statusCode).toBe(400);
+        expect(res.body.error).toBeDefined();
     });
+});
 
-    // Test editClient endpoint
-    it('POST /admin/clients/editClient', async () => {
-        const clientsBefore = await Client.findAll();
-        expect(clientsBefore.length).toBe(2);
+describe('POST /admin/clients/editClient', () => {
 
-        const clientToEdit = clientsBefore[0];
-
-        const newClient = {
-            ClientId: clientToEdit.ClientId, 
-            ClientName: 'Utest name',
-            Address: 'U1234 ave',
-            Community: 'Uexample circle',
-        };
-
-        const res = await request(app)
-          .post('/admin/clients/editClient')
-          .send(newClient);
-
+    it('returns 200 and updates the target client', async () => {
+        const clients = await Client.findAll();
+        const target = clients[0];
+        const res = await request(app).post('/admin/clients/editClient').send({
+            ClientId: target.ClientId,
+            ClientName: 'Updated Name',
+            Address: 'Updated Address',
+            Community: 'Updated Community',
+        });
         expect(res.statusCode).toBe(200);
         expect(res.body.message).toBe('successful edit of client info');
-        expect(res.body.updatedClient).toBeDefined();
+        expect(res.body.updatedClient.ClientName).toBe('Updated Name');
+        expect(res.body.updatedClient.Address).toBe('Updated Address');
+        expect(res.body.updatedClient.Community).toBe('Updated Community');
+        // original values should not persist
+        expect(res.body.updatedClient.ClientName).not.toBe(target.ClientName);
+    });
 
-        expect(res.body.updatedClient.ClientName).toBe(newClient.ClientName);
-        expect(res.body.updatedClient.Address).toBe(newClient.Address);
-        expect(res.body.updatedClient.Community).toBe(newClient.Community);
+    it('returns 404 when the client does not exist', async () => {
+        const res = await request(app).post('/admin/clients/editClient').send({
+            ClientId: 99999,
+            ClientName: 'Ghost',
+            Address: 'Nowhere',
+            Community: 'None',
+        });
+        expect(res.statusCode).toBe(404);
+        expect(res.body.error).toBeDefined();
+    });
+});
 
-        expect(res.body.updatedClient.ClientName).not.toBe(clientToEdit.ClientName);
-        expect(res.body.updatedClient.Address).not.toBe(clientToEdit.Address);
-        expect(res.body.updatedClient.Community).not.toBe(clientToEdit.Community);
-    })
+describe('POST /admin/clients/deleteClient', () => {
 
-    // Test getQR endpoint
-    it('POST /admin/clients/genQR', async () => {
-        const clientsBefore = await Client.findAll();
-        expect(clientsBefore.length).toBe(2);
-
-        const clientToGetQR = clientsBefore[0];
-
+    it('returns 200 and removes the client from the database', async () => {
+        const clients = await Client.findAll();
+        const target = clients[0];
         const res = await request(app)
-          .post('/admin/clients/genQR')
-          .send({ClientId: clientToGetQR.ClientId});
+            .post('/admin/clients/deleteClient')
+            .send({ ClientId: target.ClientId });
+        expect(res.statusCode).toBe(200);
+        expect(res.body.message).toBe('successful deletion of client info');
+        const remaining = await Client.findAll();
+        expect(remaining.length).toBe(1);
+        const deleted = await Client.findByPk(target.ClientId);
+        expect(deleted).toBeNull();
+    });
 
+    it('returns 404 when the client does not exist', async () => {
+        const res = await request(app)
+            .post('/admin/clients/deleteClient')
+            .send({ ClientId: 99999 });
+        expect(res.statusCode).toBe(404);
+        expect(res.body.error).toBeDefined();
+    });
+});
+
+describe('POST /admin/clients/genQR', () => {
+
+    it('returns 200 and a base64 PNG data URL', async () => {
+        const clients = await Client.findAll();
+        const target = clients[0];
+        const res = await request(app)
+            .post('/admin/clients/genQR')
+            .send({ ClientId: target.ClientId });
         expect(res.statusCode).toBe(200);
         expect(res.body.qrCode).toBeDefined();
-    })
+        expect(res.body.qrCode).toMatch(/^data:image\/png;base64,/);
+    });
 
-    // Test get-sheet endpoint
-    it('GET /admin/dashboard/get-sheet', async () => {
+    it('returns 400 when ClientId is missing', async () => {
+        const res = await request(app).post('/admin/clients/genQR').send({});
+        expect(res.statusCode).toBe(400);
+        expect(res.body.error).toBeDefined();
+    });
+});
 
-        const res = await request(app)
-          .get('/admin/dashboard/get-sheet');
+// ─── Dashboard ────────────────────────────────────────────────────────────────
 
+describe('GET /admin/dashboard/get-sheet', () => {
+
+    it('returns 200 and the configured sheet URL', async () => {
+        const res = await request(app).get('/admin/dashboard/get-sheet');
         expect(res.statusCode).toBe(200);
-        expect(res.body.url).toBeDefined();
-    })
-
-    // Test get-export-sheet endpoint
-})
+        expect(res.body.url).toBe(process.env.GOOGLE_SHEET_EMBED_URL);
+    });
+});

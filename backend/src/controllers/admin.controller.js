@@ -41,15 +41,19 @@ async function getAllClients(req, res) {
         
         res.status(200).json(clients);
     }catch(error){
-        res.status(500).json({message: 'failed to retrieve client data'})
+        res.status(500).json({error: 'failed to retrieve client data'})
     }
 };
 
 // createClient - create a client profile that goes into the client table in the database
 async function createClient(req, res) {
-    
+
     try{
         const {ClientName, Address, Community} = req.body;
+
+        if (!ClientName || !Address || !Community) {
+            return res.status(400).json({error: 'ClientName, Address, and Community are required'});
+        }
 
         const client = await clientService.createClient({ClientName, Address, Community})
 
@@ -109,7 +113,7 @@ async function generateClientQR(req, res) {
             const {ClientId} = req.body;
     
             if (!ClientId){
-                return res.status(401).json({ message:'Client ID missing '});
+                return res.status(400).json({ error: 'Client ID missing' });
             }
     
             const qrCode = await qrService.generateClientQR(ClientId)

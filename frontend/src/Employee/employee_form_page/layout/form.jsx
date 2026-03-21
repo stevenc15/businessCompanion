@@ -5,9 +5,7 @@
 
 import '../css/EmployeeForm.css';
 
-export default function Form({ formData, setFormData, changeForm, clientData }) {
-    console.log(formData);
-    
+export default function Form({ formData, setFormData, changeForm }) {
     return (
         <div>
             

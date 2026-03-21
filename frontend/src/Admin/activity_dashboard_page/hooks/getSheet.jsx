@@ -10,13 +10,20 @@ import { API_URL } from "../../../config/api";
 
 export default function GetSheet() {
     const [sheetUrl, setSheetUrl] = useState(null);
-        useEffect(()=>{
-            fetch(`${API_URL}/admin/dashboard/get-sheet`, {
-                credentials:'include'
-            })
-                .then(res=>res.json())
-                .then(data=>setSheetUrl(data.url));
-        }, []);
+    const [loading, setLoading] = useState(true);
 
-    return sheetUrl;
-    }
+    useEffect(() => {
+        fetch(`${API_URL}/admin/dashboard/get-sheet`, {
+            credentials: 'include'
+        })
+            .then(res => {
+                if (!res.ok) throw new Error(`Failed to fetch sheet: ${res.status}`);
+                return res.json();
+            })
+            .then(data => setSheetUrl(data.url))
+            .catch(err => console.error('Failed to load sheet URL:', err))
+            .finally(() => setLoading(false));
+    }, []);
+
+    return { sheetUrl, loading };
+}

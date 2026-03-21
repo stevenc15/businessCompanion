@@ -7,7 +7,7 @@
  * When submitted, this data will show up in a new row on the central Google Sheets file
  */
 
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import './css/EmployeeForm.css';
 
@@ -32,33 +32,27 @@ export default function EmployeeForm() {
 
     const [searchParams] = useSearchParams();
     const ClientId = searchParams.get('ClientId');
-    console.log("ClientId:", ClientId);
 
     //containers for form data
     const [formData, setFormData] = useState(FORMDEFAULT);
-    
-    const [isPrefilled, setIsPrefilled] = useState(false);
 
-    //fetch client data base on ClientId
-    const clientData = useGetClientData(ClientId);
+    const hasPrefilledRef = useRef(false);
 
-    //populate form data with client data
-    //usePrefillForm(clientData, setFormData, formData);    
+    //fetch client data based on ClientId
+    const [clientData, clientError] = useGetClientData(ClientId);
 
     const checklistItems = CHECKLISTITEMS;
 
     useEffect(() => {
-        if (!clientData || isPrefilled) return;
-        console.log("pre fill use effect called");
+        if (!clientData || hasPrefilledRef.current) return;
         setFormData(prev => ({
             ...prev,
             ClientName: clientData.ClientName,
             Address: clientData.Address,
             Community: clientData.Community,
         }));
-
-        setIsPrefilled(true);
-    }, [clientData, isPrefilled]);
+        hasPrefilledRef.current = true;
+    }, [clientData]);
 
     return(
         //Main CONTAINER
@@ -74,14 +68,15 @@ export default function EmployeeForm() {
                     {/*heading*/}
                     <h2 className="form-title">Employee Activity Log</h2>
 
-                    {/*logging form*/} 
+                    {clientError && <p className="error-message">{clientError}</p>}
+
+                    {/*logging form*/}
                     <form className="activity-form" onSubmit={(e) => submitForm(e, formData, setFormData)}>
             
-                        <Form 
-                            formData={formData} 
-                            setFormData={setFormData} 
-                            changeForm={changeForm} 
-                            clientData={clientData} 
+                        <Form
+                            formData={formData}
+                            setFormData={setFormData}
+                            changeForm={changeForm}
                         />
 
                         {/*checklist component*/}

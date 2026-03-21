@@ -29,6 +29,7 @@ export default function SheetExport() {
             window.URL.revokeObjectURL(url);
         } catch (error) {
             console.error('Error exporting sheet:', error);
+            alert('Export failed. Please try again.');
         }
     };
     return(

@@ -10,6 +10,10 @@ const {FRONTENDAPPURL} = require('../config/appConfig');
 const passport = require('./passport')()
 
 // endpoints
+router.get('/status', (req, res) => {
+    res.status(200).json({ authenticated: req.isAuthenticated() });
+});
+
 router.get('/login/google', 
     passport.authenticate('google', {scope: ['profile', 'email'] })
 );
