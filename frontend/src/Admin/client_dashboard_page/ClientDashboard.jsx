@@ -20,6 +20,7 @@ import QRmodal from './layout/QRmodal';
 import EditModal from './layout/editModal';
 import DeleteModal from './layout/deleteModal';
 import ActivityModal from './layout/activityModal';
+import MassDeleteModal from './layout/massDeleteModal';
 import AdminFooter from './layout/adminFooter';
 import fetchClientData from './hooks/fetchClientData'; 
 
@@ -38,6 +39,8 @@ function ClientDashboard() {
   const [deleteClientID, setDeleteClientID] = useState(null);
   const [activityModal, setActivityModal] = useState(false);
   const [activityClient, setActivityClient] = useState(null);
+  const [selectedClients, setSelectedClients] = useState(new Set());
+  const [massDeleteModal, setMassDeleteModal] = useState(false);
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -94,6 +97,17 @@ function ClientDashboard() {
           
           <TableHeader />
 
+          {selectedClients.size > 0 && (
+            <div style={{ padding: '0.75rem 1.5rem', borderBottom: '1px solid var(--border-color)' }}>
+              <button
+                className="action-button action-button-delete"
+                onClick={() => setMassDeleteModal(true)}
+              >
+                Delete Selected ({selectedClients.size})
+              </button>
+            </div>
+          )}
+
           {loading && <div className="spinner"></div>}
           
           {/*actual table container*/}   
@@ -111,6 +125,8 @@ function ClientDashboard() {
               setDeleteClientID={setDeleteClientID}
               setActivityModal={setActivityModal}
               setActivityClient={setActivityClient}
+              selectedClients={selectedClients}
+              setSelectedClients={setSelectedClients}
             />
 
             {/*HANDLERS FOR MODALS*/}
@@ -155,6 +171,17 @@ function ClientDashboard() {
                 <ActivityModal
                     client={activityClient}
                     setActivityModal={setActivityModal}
+                />
+            )}
+
+            {massDeleteModal && (
+                <MassDeleteModal
+                    selectedClients={selectedClients}
+                    setMassDeleteModal={setMassDeleteModal}
+                    setSelectedClients={setSelectedClients}
+                    setLoading={setLoading}
+                    setClients={setClients}
+                    setAllClients={setAllClients}
                 />
             )}
 
