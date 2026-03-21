@@ -1,48 +1,52 @@
 /**
- * Main Employee submission form component
- * 
- * This component allows employees to log their activities and submit them to the system.
- * It includes fields for employee name, community, client name, address, and service description 
- * in the form of a checklist.
- * When submitted, this data will show up in a new row on the central Google Sheets file
+ * EmployeeForm.jsx - Employee activity log form.
+ *
+ * Requires:
+ *  - A valid employee Google session (checked via /auth/employee/status)
+ *  - A valid 24-hour signed token in the URL (?token=...)
+ *
+ * If the employee is not authenticated, they are redirected to the login page.
+ * If the token is missing or expired, an error message is shown.
  */
 
-import {useState, useEffect, useRef} from 'react';
-import {useSearchParams} from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import './css/EmployeeForm.css';
 
-// hooks
 import useGetClientData from './hooks/useGetClientData';
+import useEmployeeAuth from './hooks/useEmployeeAuth';
 import submitForm from './services/submitForm';
 import changeForm from './services/changeForm';
 
-// layout components
 import Checklist from './layout/checklist';
 import EmployeeHeader from './layout/employeeHeader';
 import EmployeeFooter from './layout/employeeFooter';
 import Form from './layout/form';
 
-//config
-import { CHECKLISTITEMS } from './config/checklistConfig';  
+import { CHECKLISTITEMS } from './config/checklistConfig';
 import { FORMDEFAULT } from './config/formDefault';
+import { API_URL } from '../../config/api';
 
-
-//employee form for employees to log their activities
 export default function EmployeeForm() {
 
     const [searchParams] = useSearchParams();
     const ClientId = searchParams.get('ClientId');
+    const token = searchParams.get('token');
 
-    //containers for form data
+    const authStatus = useEmployeeAuth();
     const [formData, setFormData] = useState(FORMDEFAULT);
-
     const hasPrefilledRef = useRef(false);
-
-    //fetch client data based on ClientId
     const [clientData, clientError] = useGetClientData(ClientId);
 
-    const checklistItems = CHECKLISTITEMS;
+    // Redirect to login if not authenticated
+    useEffect(() => {
+        if (authStatus === 'unauthenticated') {
+            const currentUrl = window.location.href;
+            window.location.href = `/employeeLogin?redirect=${encodeURIComponent(currentUrl)}`;
+        }
+    }, [authStatus]);
 
+    // Pre-fill client fields once client data loads
     useEffect(() => {
         if (!clientData || hasPrefilledRef.current) return;
         setFormData(prev => ({
@@ -54,50 +58,54 @@ export default function EmployeeForm() {
         hasPrefilledRef.current = true;
     }, [clientData]);
 
-    return(
-        //Main CONTAINER
+    if (authStatus === 'loading') {
+        return (
+            <div className="employee-container">
+                <EmployeeHeader />
+                <div className="employee-content">
+                    <p>Loading...</p>
+                </div>
+                <EmployeeFooter />
+            </div>
+        );
+    }
+
+    if (!token) {
+        return (
+            <div className="employee-container">
+                <EmployeeHeader />
+                <div className="employee-content">
+                    <div className="form-card">
+                        <h2 className="form-title">Invalid Link</h2>
+                        <p>This link is missing a required token. Please use the link provided by your admin.</p>
+                    </div>
+                </div>
+                <EmployeeFooter />
+            </div>
+        );
+    }
+
+    return (
         <div className="employee-container">
             <EmployeeHeader />
-
-            {/*main content CONTAINER*/}
             <div className="employee-content">
-        
-                {/*logging form*/}
                 <div className="form-card">
-
-                    {/*heading*/}
                     <h2 className="form-title">Employee Activity Log</h2>
-
                     {clientError && <p className="error-message">{clientError}</p>}
-
-                    {/*logging form*/}
-                    <form className="activity-form" onSubmit={(e) => submitForm(e, formData, setFormData)}>
-            
-                        <Form
-                            formData={formData}
-                            setFormData={setFormData}
-                            changeForm={changeForm}
-                        />
-
-                        {/*checklist component*/}
+                    <form className="activity-form" onSubmit={(e) => submitForm(e, { ...formData, token }, setFormData)}>
+                        <Form formData={formData} setFormData={setFormData} changeForm={changeForm} />
                         <Checklist
-                            checklistItems={checklistItems} 
-                            formData={formData} 
-                            handleChange={(e) => changeForm(setFormData, e)} 
+                            checklistItems={CHECKLISTITEMS}
+                            formData={formData}
+                            handleChange={(e) => changeForm(setFormData, e)}
                         />
-
-                        {/*submit button*/}
                         <div className="form-actions">
-                            <button type="submit" className="submit-button">
-                                Submit Activity
-                            </button>
+                            <button type="submit" className="submit-button">Submit Activity</button>
                         </div>
-                    </form> 
+                    </form>
                 </div>
             </div>
-
             <EmployeeFooter />
         </div>
     );
-};
-
+}
