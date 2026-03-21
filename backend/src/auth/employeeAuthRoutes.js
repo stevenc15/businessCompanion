@@ -23,8 +23,12 @@ router.get('/status', (req, res) => {
 router.get('/login/google', (req, res, next) => {
     if (req.query.redirect) {
         req.session.employeeReturnTo = req.query.redirect;
+        req.session.save(() => {
+            passport.authenticate('google-employee', { scope: ['profile', 'email'] })(req, res, next);
+        });
+    } else {
+        passport.authenticate('google-employee', { scope: ['profile', 'email'] })(req, res, next);
     }
-    passport.authenticate('google-employee', { scope: ['profile', 'email'] })(req, res, next);
 });
 
 // GET /auth/employee/login/google/callback
