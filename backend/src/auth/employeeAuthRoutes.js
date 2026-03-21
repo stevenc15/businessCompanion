@@ -23,7 +23,9 @@ router.get('/status', (req, res) => {
 router.get('/login/google', (req, res, next) => {
     if (req.query.redirect) {
         req.session.employeeReturnTo = req.query.redirect;
-        req.session.save(() => {
+        console.log('[employee auth] stored employeeReturnTo:', req.session.employeeReturnTo);
+        req.session.save((err) => {
+            console.log('[employee auth] session saved, err:', err, '| session id:', req.session.id);
             passport.authenticate('google-employee', { scope: ['profile', 'email'] })(req, res, next);
         });
     } else {
@@ -32,14 +34,19 @@ router.get('/login/google', (req, res, next) => {
 });
 
 // GET /auth/employee/login/google/callback
-router.get('/login/google/callback',
-    passport.authenticate('google-employee', { failureRedirect: `${FRONTENDAPPURL}/employeeLogin?error=unauthorized` }),
-    (req, res) => {
+router.get('/login/google/callback', (req, res, next) => {
+    console.log('[employee callback] session id:', req.session.id);
+    console.log('[employee callback] employeeReturnTo BEFORE passport:', req.session.employeeReturnTo);
+    passport.authenticate('google-employee', {
+        failureRedirect: `${FRONTENDAPPURL}/employeeLogin?error=unauthorized`
+    })(req, res, (err) => {
+        if (err) return next(err);
+        console.log('[employee callback] employeeReturnTo AFTER passport:', req.session.employeeReturnTo);
         const redirectTo = req.session.employeeReturnTo || `${FRONTENDAPPURL}/employee`;
         delete req.session.employeeReturnTo;
         res.redirect(redirectTo);
-    }
-);
+    });
+});
 
 // GET /auth/employee/logout
 router.get('/logout', (req, res) => {
