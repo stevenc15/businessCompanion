@@ -404,6 +404,22 @@
   box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.3); /* Color-matched focus ring */
 }
 
+/* Log Activity button */
+.action-button-activity {
+  background-color: #3182ce;
+  color: white;
+  border: 1px solid #3182ce;
+}
+
+.action-button-activity:hover {
+  background-color: #2b6cb0;
+  transform: translateY(-2px);
+}
+
+.action-button-activity:focus {
+  box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.3);
+}
+
 /* Delete button - destructive action */
 .action-button-delete {
   background-color: #ef4444; /* red */
