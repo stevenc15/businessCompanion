@@ -6,6 +6,7 @@
 const express = require('express')
 const router = express.Router();
 const {FRONTENDAPPURL} = require('../config/appConfig');
+const { authLimiter } = require('../middleware/rateLimiter');
 
 const passport = require('./passport')()
 
@@ -14,7 +15,8 @@ router.get('/status', (req, res) => {
     res.status(200).json({ authenticated: req.isAuthenticated() });
 });
 
-router.get('/login/google', 
+router.get('/login/google',
+    authLimiter,
     passport.authenticate('google', {scope: ['profile', 'email'] })
 );
 

@@ -15,11 +15,25 @@ async function insertActivity(req, res) {
         return res.status(400).json({ message: 'no data is submitted/found from form'});
     }
 
+    const { EmployeeName, Community, ClientName, Address, Service } = formData;
+    if (!EmployeeName || !Community || !ClientName || !Address || !Service) {
+        return res.status(400).json({ message: 'missing required fields' });
+    }
+
+    const MAX_LENGTH = 200;
+    const textFields = [EmployeeName, Community, ClientName, Address, Service];
+    if (textFields.some(f => typeof f !== 'string' || f.trim().length === 0 || f.length > MAX_LENGTH)) {
+        return res.status(400).json({ message: 'invalid field values' });
+    }
+
     try{
-        console.log('form data in controller: ', formData);
+        if (process.env.NODE_ENV !== 'production') {
+            console.log('form data in controller: ', formData);
+        }
         const sheets = await getSheetsClient();
         const newRow = sheetService.createRow(formData);
         await sheetService.addToSheet(newRow, sheets);
+        res.set('Cache-Control', 'no-store');
         res.status(200).json({ message: 'Submitted to Sheet successfully'});
     }catch(err){
         console.error(err);

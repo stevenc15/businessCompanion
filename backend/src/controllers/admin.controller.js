@@ -12,6 +12,7 @@ const sheetService = require('../services/sheet.service');
 async function getSheet(req, res) {
     try{
         const url = await sheetService.getSheet();
+        res.set('Cache-Control', 'no-store');
         res.status(200).json({url: url});
     }catch(error){
         console.error('Error fetching sheet:', error.message);
@@ -38,7 +39,7 @@ async function exportSheet(req, res) {
 async function getAllClients(req, res) {
     try{
         const clients = await clientService.getAllClients();
-        
+        res.set('Cache-Control', 'no-store');
         res.status(200).json(clients);
     }catch(error){
         res.status(500).json({error: 'failed to retrieve client data'})
