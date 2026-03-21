@@ -16,6 +16,7 @@ async function insertActivity(req, res) {
     }
 
     try{
+        console.log('form data in controller: ', formData);
         const sheets = await getSheetsClient();
         const newRow = sheetService.createRow(formData);
         await sheetService.addToSheet(newRow, sheets);

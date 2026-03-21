@@ -19,7 +19,7 @@ const SCOPES = [
 
 //new google auth instance using json key
 const auth = new google.auth.GoogleAuth({
-    keyFile: path.join(__dirname, '../../../../credentials/businesscompanion-app-backend-ad0a2252b965.json'),
+    keyFile: path.join(__dirname, '../../../credentials/businesscompanion-app-backend-ad0a2252b965.json'),
     scopes: SCOPES,
 });
 
@@ -27,12 +27,18 @@ const auth = new google.auth.GoogleAuth({
 //for read, write and create/delete sheets 
 async function getSheetsClient() {
     const client = await auth.getClient();
+    if (!client){
+        throw new Error('Failed to authenticate with Google API');
+    }
     return google.sheets({ version: 'v4', auth:client });
 }
 
 //for upload/download, move, share files and create folders
 async function getDriveClient() {
     const client = await auth.getClient();
+    if (!client){
+        throw new Error('Failed to authenticate with Google API');
+    }
     return google.drive({ version: 'v3', auth:client});
 }
 
