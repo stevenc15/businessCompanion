@@ -19,6 +19,7 @@ import ClientTable from './layout/clientTable';
 import QRmodal from './layout/QRmodal';
 import EditModal from './layout/editModal';
 import DeleteModal from './layout/deleteModal';
+import ActivityModal from './layout/activityModal';
 import AdminFooter from './layout/adminFooter';
 import fetchClientData from './hooks/fetchClientData'; 
 
@@ -35,6 +36,8 @@ function ClientDashboard() {
   const [qrCodeAddress, setQRCodeAddress] = useState(null);
   const [editClientID, setEditClientID] = useState(null);
   const [deleteClientID, setDeleteClientID] = useState(null);
+  const [activityModal, setActivityModal] = useState(false);
+  const [activityClient, setActivityClient] = useState(null);
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -106,7 +109,9 @@ function ClientDashboard() {
               setFormData={setFormData}
               setDeleteModal={setDeleteModal}
               setDeleteClientID={setDeleteClientID}
-            /> 
+              setActivityModal={setActivityModal}
+              setActivityClient={setActivityClient}
+            />
 
             {/*HANDLERS FOR MODALS*/}
 
@@ -136,14 +141,21 @@ function ClientDashboard() {
              * LAYOUT MODALS ELEMENT
              */}
             {deleteModal && (
-                <DeleteModal 
+                <DeleteModal
                     setDeleteModal={setDeleteModal}
                     setDeleteClientID={setDeleteClientID}
                     deleteClientID={deleteClientID}
-                    setLoading={setLoading} 
+                    setLoading={setLoading}
                     setClients={setClients}
                     setAllClients={setAllClients}
-                />  
+                />
+            )}
+
+            {activityModal && activityClient && (
+                <ActivityModal
+                    client={activityClient}
+                    setActivityModal={setActivityModal}
+                />
             )}
 
           </div>

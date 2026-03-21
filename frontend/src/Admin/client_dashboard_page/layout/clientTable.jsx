@@ -5,7 +5,7 @@
 
 import '../css/ClientDashboard.css';
 
-export default function ClientTable( {clients, setQRModal, handleQR, setQRCodeAddress, setEditModal, setEditClientID, setFormData, setDeleteModal, setDeleteClientID} ) {
+export default function ClientTable( {clients, setQRModal, handleQR, setQRCodeAddress, setEditModal, setEditClientID, setFormData, setDeleteModal, setDeleteClientID, setActivityModal, setActivityClient} ) {
     return (
         <table className="data-table">
                   
@@ -67,8 +67,13 @@ export default function ClientTable( {clients, setQRModal, handleQR, setQRCodeAd
                         }
                         >Modify</button>
 
+                        <button className="action-button action-button-activity" onClick={() => {
+                          setActivityClient(client);
+                          setActivityModal(true);
+                        }}>Log Activity</button>
+
                         <button className="action-button action-button-delete" onClick={()=> {
-                          setDeleteModal(true) 
+                          setDeleteModal(true)
                           setDeleteClientID(client.ClientId)}}
                         >Delete</button>
 
