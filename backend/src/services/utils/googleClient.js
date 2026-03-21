@@ -3,9 +3,8 @@
  */
 
 const {google} = require('googleapis');
-const path = require('path');
 
-const missingVars = ['GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'GOOGLE_SHEET_ID', 'GOOGLE_SHEET_EMBED_URL']
+const missingVars = ['GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'GOOGLE_SHEET_ID', 'GOOGLE_SHEET_EMBED_URL', 'GOOGLE_SERVICE_ACCOUNT_CREDENTIALS']
     .filter(v => !process.env[v]);
 if (missingVars.length > 0) {
     throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
@@ -17,9 +16,9 @@ const SCOPES = [
     'https://www.googleapis.com/auth/drive',
 ];
 
-//new google auth instance using json key
+//new google auth instance using service account credentials from env var
 const auth = new google.auth.GoogleAuth({
-    keyFile: path.join(__dirname, '../../../credentials/businesscompanion-app-backend-ad0a2252b965.json'),
+    credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS),
     scopes: SCOPES,
 });
 
