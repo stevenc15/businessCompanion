@@ -9,6 +9,7 @@ import ClientDashboardHeader from './layout/clientDashboardHeader';
 import LogoutButton from './layout/logoutClientButton';
 import ReturnToActivities from './layout/backToActivities';
 import AddClientButton from './layout/addClientButton';
+import ManageEmployeesButton from './layout/manageEmployeesButton';
 import ToEulaagreement from './layout/toEulaAgreementDocument';
 import { CLIENTFORMCONFIG } from '../add_client_page/config/clientForm'; 
 import searchClientFilter from './hooks/searchFilter';
@@ -21,6 +22,7 @@ import EditModal from './layout/editModal';
 import DeleteModal from './layout/deleteModal';
 import ActivityModal from './layout/activityModal';
 import MassDeleteModal from './layout/massDeleteModal';
+import SendLinksModal from './layout/sendLinksModal';
 import AdminFooter from './layout/adminFooter';
 import fetchClientData from './hooks/fetchClientData'; 
 
@@ -41,6 +43,7 @@ function ClientDashboard() {
   const [activityClient, setActivityClient] = useState(null);
   const [selectedClients, setSelectedClients] = useState(new Set());
   const [massDeleteModal, setMassDeleteModal] = useState(false);
+  const [sendLinksModal, setSendLinksModal] = useState(false);
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -72,6 +75,8 @@ function ClientDashboard() {
 
           <ReturnToActivities />
 
+          <ManageEmployeesButton />
+
           <AddClientButton />
 
           <ToEulaagreement />
@@ -98,7 +103,13 @@ function ClientDashboard() {
           <TableHeader />
 
           {selectedClients.size > 0 && (
-            <div style={{ padding: '0.75rem 1.5rem', borderBottom: '1px solid var(--border-color)' }}>
+            <div style={{ padding: '0.75rem 1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', gap: '0.75rem' }}>
+              <button
+                className="action-button action-button-activity"
+                onClick={() => setSendLinksModal(true)}
+              >
+                Send Links ({selectedClients.size})
+              </button>
               <button
                 className="action-button action-button-delete"
                 onClick={() => setMassDeleteModal(true)}
@@ -171,6 +182,14 @@ function ClientDashboard() {
                 <ActivityModal
                     client={activityClient}
                     setActivityModal={setActivityModal}
+                />
+            )}
+
+            {sendLinksModal && (
+                <SendLinksModal
+                    selectedClients={selectedClients}
+                    clients={clients}
+                    setSendLinksModal={setSendLinksModal}
                 />
             )}
 

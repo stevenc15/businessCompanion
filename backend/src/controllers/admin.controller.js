@@ -5,6 +5,10 @@
 const qrService = require('../services/qr.service');
 const clientService = require('../services/client.service');
 const sheetService = require('../services/sheet.service');
+const Employee = require('../models/Employee');
+const { generateLinkToken } = require('../utils/linkToken');
+const { sendEmployeeLinks } = require('../services/email.service');
+const { FRONTENDAPPURL } = require('../config/appConfig');
 
 // ----- Dashboard routes -----
 
@@ -144,6 +148,81 @@ async function generateClientQR(req, res) {
         }
 }; 
 
+// ── Employee whitelist management ────────────────────────────────────────────
+
+async function getEmployees(req, res) {
+    try {
+        const employees = await Employee.findAll({ order: [['createdAt', 'ASC']] });
+        res.set('Cache-Control', 'no-store');
+        res.status(200).json(employees);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch employees' });
+    }
+}
+
+async function addEmployee(req, res) {
+    try {
+        const { email, name } = req.body;
+        if (!email) return res.status(400).json({ error: 'Email is required' });
+
+        const employee = await Employee.create({ email: email.toLowerCase().trim(), name: name || null });
+        res.status(200).json({ message: 'Employee added', employee });
+    } catch (error) {
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            return res.status(409).json({ error: 'That email is already in the whitelist' });
+        }
+        console.error(error);
+        res.status(500).json({ error: 'Failed to add employee' });
+    }
+}
+
+async function deleteEmployee(req, res) {
+    try {
+        const { id } = req.body;
+        const employee = await Employee.findOne({ where: { id } });
+        if (!employee) return res.status(404).json({ error: 'Employee not found' });
+
+        await employee.destroy();
+        res.status(200).json({ message: 'Employee removed' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to remove employee' });
+    }
+}
+
+// ── Send bulk links via email ─────────────────────────────────────────────────
+
+async function sendLinks(req, res) {
+    try {
+        const { employeeEmail, clientIds } = req.body;
+
+        if (!employeeEmail || !Array.isArray(clientIds) || clientIds.length === 0) {
+            return res.status(400).json({ error: 'employeeEmail and a non-empty clientIds array are required' });
+        }
+
+        const clients = await Promise.all(
+            clientIds.map(id => clientService.getOneClient(id))
+        );
+
+        const missing = clients.some(c => !c);
+        if (missing) return res.status(404).json({ error: 'One or more clients not found' });
+
+        const clientLinks = clients.map(client => ({
+            clientName: client.ClientName,
+            address: client.Address,
+            url: `${FRONTENDAPPURL}/employee?ClientId=${client.ClientId}&token=${generateLinkToken(client.ClientId)}`,
+        }));
+
+        await sendEmployeeLinks(employeeEmail, clientLinks);
+
+        res.status(200).json({ message: `Links sent to ${employeeEmail}` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to send links' });
+    }
+}
+
 module.exports = {
     getSheet,
     exportSheet,
@@ -152,5 +231,9 @@ module.exports = {
     editClient,
     createClient,
     deleteClient,
-    bulkDeleteClients
+    bulkDeleteClients,
+    getEmployees,
+    addEmployee,
+    deleteEmployee,
+    sendLinks,
 }

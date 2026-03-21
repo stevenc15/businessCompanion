@@ -1,37 +1,52 @@
 /**
- * employee.js - file that holds all the endpoints relating to the employee's 
- * submission form
- * 
- * Note: no auth required in these endpoints since these endpoints are only accessible 
- * via an external QR code
+ * employee.js - endpoints for the employee submission form.
+ *
+ * insert-activity requires:
+ *  - A valid employee session (Google sign-in, email in whitelist)
+ *  - A valid 24-hour signed link token
  */
 
 const express = require('express');
 const router = express.Router();
-const employeeController = require('../controllers/employee.controller')
+const employeeController = require('../controllers/employee.controller');
 const { employeeLimiter } = require('../middleware/rateLimiter');
-require("dotenv").config();
+const requireEmployeeAuth = require('./Route_utils/requireEmployeeAuth');
+const { verifyLinkToken } = require('../utils/linkToken');
+require('dotenv').config();
+
+// Token validation middleware
+function validateLinkToken(req, res, next) {
+    const token = req.body.token || req.query.token;
+    if (!token) {
+        return res.status(401).json({ message: 'Missing link token' });
+    }
+    try {
+        req.linkPayload = verifyLinkToken(token);
+        next();
+    } catch {
+        return res.status(401).json({ message: 'Link has expired or is invalid' });
+    }
+}
 
 // POST employee/insert-activity
-// retrieves google sheet file and inserts an activity into a brand new row
 router.post(
     '/insert-activity',
     employeeLimiter,
+    requireEmployeeAuth,
+    validateLinkToken,
     employeeController.insertActivity
 );
 
-// POST employee/activities 
-// creates a new activity object based on input from the employee
+// POST employee/create-activities
 router.post(
-    '/create-activities', 
+    '/create-activities',
     employeeController.createActivity
 );
 
 // GET employee/getSingleClient
-// get client data based on given client id (in action will come from QR code usage)
 router.get(
-    '/getSingleClient', 
+    '/getSingleClient',
     employeeController.getSingleClient
 );
 
-module.exports=router;
+module.exports = router;

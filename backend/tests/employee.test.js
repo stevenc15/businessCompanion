@@ -3,6 +3,15 @@ const app = require('../app');
 const { initializeTestDB } = require('./setupTestDB');
 const Client = require('../src/models/Client');
 
+// Mock employee auth middleware to pass through in tests
+jest.mock('../src/routes/Route_utils/requireEmployeeAuth', () => (req, res, next) => next());
+
+// Mock link token verification to always return a valid payload in tests
+jest.mock('../src/utils/linkToken', () => ({
+    generateLinkToken: jest.fn().mockReturnValue('test-token'),
+    verifyLinkToken: jest.fn().mockReturnValue({ clientId: 1 }),
+}));
+
 // Mock getSheetsClient to return a fake sheets client with the methods used by insertActivity
 jest.mock('../src/services/utils/googleClient', () => ({
     getSheetsClient: jest.fn().mockResolvedValue({
@@ -82,6 +91,7 @@ describe('POST /employee/insert-activity', () => {
                 ClientName: 'Maria Lopez',
                 Address: '1234 Palm Ave, Miami FL',
                 Service: 'Home Watch',
+                token: 'test-token',
             });
         expect(res.statusCode).toBe(200);
         expect(res.body.message).toBe('Submitted to Sheet successfully');

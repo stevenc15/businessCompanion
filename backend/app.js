@@ -17,9 +17,11 @@ require('dotenv').config();
 require('./src/models/Admin.js');
 require('./src/models/Client.js');
 require('./src/models/Activity.js');
+require('./src/models/Employee.js');
 
 const isProduction = process.env.NODE_ENV === 'production';
-const authRouter = require('./src/auth/authRoutes.js')
+const authRouter = require('./src/auth/authRoutes.js');
+const employeeAuthRouter = require('./src/auth/employeeAuthRoutes.js');
 const adminRouter = require('./src/routes/admin.routes.js');
 const employeeRouter = require('./src/routes/employee.routes.js');
 
@@ -51,7 +53,8 @@ app.use(session ({
     saveUninitialized: false,
     cookie: {
         sameSite: isProduction ? 'none' : 'lax',
-        secure: isProduction
+        secure: isProduction,
+        maxAge: 24 * 60 * 60 * 1000
     }
 }));
 
@@ -76,5 +79,6 @@ app.get('/ready', (req, res) =>{
 app.use('/admin', adminRouter);
 app.use('/employee', employeeRouter);
 app.use('/auth', authRouter);
+app.use('/auth/employee', employeeAuthRouter);
 
 module.exports = app;

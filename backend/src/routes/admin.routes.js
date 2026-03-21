@@ -77,4 +77,20 @@ router.post(
     adminController.bulkDeleteClients
 );
 
+// ----- Employee Whitelist Routes -----
+
+// GET /admin/employees/getEmployees
+router.get('/employees/getEmployees', requireAuth, adminController.getEmployees);
+
+// POST /admin/employees/addEmployee
+router.post('/employees/addEmployee', requireAuth, adminController.addEmployee);
+
+// POST /admin/employees/deleteEmployee
+router.post('/employees/deleteEmployee', requireAuth, adminController.deleteEmployee);
+
+// ----- Send Links Route -----
+
+// POST /admin/email/sendLinks
+router.post('/email/sendLinks', requireAuth, adminController.sendLinks);
+
 module.exports = router;

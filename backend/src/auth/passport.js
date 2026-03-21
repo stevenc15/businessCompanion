@@ -1,26 +1,23 @@
 /**
- * passport.js - sets up strategies and serialization and deserialization of user
- * 
- * This file specifies how passport will authenticate users through the import 
- * of GoogleStrategy. It grabs the correct client id (to confirm which app user is 
- * trying to access) and client secret (confirmation that it is indeed an app the developers
- * own) values from GCP credentials in the .env file. The callback url is where the user
- * will be redicrected after a successful login. After Google returns the
- * user info, a verify function executed to see if the user is within the allowed
- * email range. Entire profile stored in session given how serialization and deserialization 
- * is defined for passport as to how user info will be stored and removed.
+ * passport.js - sets up Google OAuth strategies for both admin and employee users.
+ *
+ * Admin strategy ('google'): verifies email against the admins table.
+ * Employee strategy ('google-employee'): verifies email against the employees table.
+ * Both strategies attach a `role` field to the session user so middleware can
+ * distinguish between the two.
  */
-
 
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const Admin = require('../models/Admin');
+const Employee = require('../models/Employee');
 require('dotenv').config();
-const {BACKENDAPPURL} = require('../config/appConfig');
+const { BACKENDAPPURL } = require('../config/appConfig');
 
 module.exports = () => {
 
-    passport.use(new GoogleStrategy ({
+    // ── Admin strategy ──────────────────────────────────────────────────────
+    passport.use('google', new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: `${BACKENDAPPURL}/auth/login/google/callback`,
@@ -28,10 +25,26 @@ module.exports = () => {
         try {
             const admin = await Admin.findOne({ where: { email: profile.emails[0].value } });
             if (admin) {
-                return done(null, profile);
-            } else {
-                return done(null, false, { message: 'Not Authorized' });
+                return done(null, { ...profile, role: 'admin' });
             }
+            return done(null, false, { message: 'Not Authorized' });
+        } catch (err) {
+            return done(err);
+        }
+    }));
+
+    // ── Employee strategy ────────────────────────────────────────────────────
+    passport.use('google-employee', new GoogleStrategy({
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: `${BACKENDAPPURL}/auth/employee/login/google/callback`,
+    }, async (accessToken, refreshToken, profile, done) => {
+        try {
+            const employee = await Employee.findOne({ where: { email: profile.emails[0].value } });
+            if (employee) {
+                return done(null, { ...profile, role: 'employee' });
+            }
+            return done(null, false, { message: 'Not Authorized' });
         } catch (err) {
             return done(err);
         }
@@ -45,5 +58,5 @@ module.exports = () => {
         done(null, user);
     });
 
-    return passport; // optional, if you want to import and use it directly
+    return passport;
 };
