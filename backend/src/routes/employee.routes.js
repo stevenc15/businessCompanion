@@ -9,12 +9,14 @@
 const express = require('express');
 const router = express.Router();
 const employeeController = require('../controllers/employee.controller')
+const { employeeLimiter } = require('../middleware/rateLimiter');
 require("dotenv").config();
 
 // POST employee/insert-activity
 // retrieves google sheet file and inserts an activity into a brand new row
 router.post(
-    '/insert-activity', 
+    '/insert-activity',
+    employeeLimiter,
     employeeController.insertActivity
 );
 

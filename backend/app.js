@@ -12,6 +12,7 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const passport = require('passport');
+const helmet = require('helmet');
 require('dotenv').config();
 require('./src/models/Admin.js');
 require('./src/models/Client.js');
@@ -31,16 +32,18 @@ const {databaseReady} = require('./src/config/database');
 
 const app = express();
 
-// Middleware 
+// Middleware
 app.set('trust proxy', 1);
+
+app.use(helmet());
 
 app.use(cors({
     origin: allowedOrigins,
     credentials:true
 }));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.json({ limit: '10kb' }));
 
 app.use(session ({
     secret: process.env.SESSION_SECRET,

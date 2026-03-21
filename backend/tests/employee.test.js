@@ -76,7 +76,13 @@ describe('POST /employee/insert-activity', () => {
     it('returns 200 when sheet write succeeds', async () => {
         const res = await request(app)
             .post('/employee/insert-activity')
-            .send({ EmployeeName: 'John Smith', Service: 'Home Watch' });
+            .send({
+                EmployeeName: 'John Smith',
+                Community: 'Sunset Villas',
+                ClientName: 'Maria Lopez',
+                Address: '1234 Palm Ave, Miami FL',
+                Service: 'Home Watch',
+            });
         expect(res.statusCode).toBe(200);
         expect(res.body.message).toBe('Submitted to Sheet successfully');
     });
