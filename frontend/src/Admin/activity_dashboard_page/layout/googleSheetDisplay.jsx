@@ -3,7 +3,9 @@
  */
 import '../css/ActivityDashboard.css';
 
-export default function GoogleSheetDisplay({sheetUrl}) {
+export default function GoogleSheetDisplay({sheetUrl, loading}) {
+    if (loading) return <div className="spinner"></div>;
+    if (!sheetUrl) return <p>Unable to load sheet.</p>;
     return (
         <div>
             <iframe

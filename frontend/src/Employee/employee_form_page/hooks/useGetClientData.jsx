@@ -10,20 +10,23 @@ import {useState, useEffect} from 'react';
 import { API_URL } from '../../../config/api';
 
 export default function useGetClientData(ClientId) {
-  console.log("useGetClientData triggered with ClientId:", ClientId);
-  
   const [clientData, setClientData] = useState(null);
+  const [error, setError] = useState(null);
 
-    useEffect (() => {
+  useEffect(() => {
     if (ClientId) {
       fetch(`${API_URL}/employee/getSingleClient?ClientId=${ClientId}`)
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) throw new Error(`Failed to fetch client: ${res.status}`);
+          return res.json();
+        })
         .then(data => setClientData(data))
-        .catch(err => console.error("Error fetching the client: ", err));
+        .catch(err => {
+          console.error("Error fetching the client: ", err);
+          setError('Could not load client information. Please fill in the form manually.');
+        });
     }
-    }, [ClientId]);
-    
-    console.log("Fetched Client Data:", clientData);
+  }, [ClientId]);
 
-    return clientData;
+  return [clientData, error];
 }

@@ -1,10 +1,15 @@
 /**
  * googleClient.js - fetching authentication to drive and sheets services
- */ 
+ */
 
 const {google} = require('googleapis');
 const path = require('path');
-const fs = require('fs');
+
+const missingVars = ['GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'GOOGLE_SHEET_ID', 'GOOGLE_SHEET_EMBED_URL']
+    .filter(v => !process.env[v]);
+if (missingVars.length > 0) {
+    throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
+}
 
 //defining what paths i want access i want
 const SCOPES = [
@@ -14,8 +19,8 @@ const SCOPES = [
 
 //new google auth instance using json key
 const auth = new google.auth.GoogleAuth({
-    keyFile: 'businesscompanion-app-backend-ad0a2252b965.json',
-    scopes:SCOPES,
+    keyFile: path.join(__dirname, '../../../../credentials/businesscompanion-app-backend-ad0a2252b965.json'),
+    scopes: SCOPES,
 });
 
 

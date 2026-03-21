@@ -4,11 +4,10 @@
 
 const Activity = require('../models/Activity.js');
 
-async function createActivity(Community, 
-                ClientName, 
-                Address, 
-                DoorCode, 
-                Service, 
+async function createActivity(Community,
+                ClientName,
+                Address,
+                Service,
                 EmployeeName,
                 ReviewWeeklySchedule,
                 CheckMailbox,
@@ -33,7 +32,6 @@ async function createActivity(Community,
                 Community: Community,
                 ClientName: ClientName,
                 Address: Address,
-                DoorCode: DoorCode,
                 Service: Service,
                 ReviewWeeklySchedule: ReviewWeeklySchedule === true || ReviewWeeklySchedule === 'true',
                 CheckMailbox: CheckMailbox === true || CheckMailbox === 'true',

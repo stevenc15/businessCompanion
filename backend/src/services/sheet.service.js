@@ -7,7 +7,6 @@ require("dotenv").config();
 const {getDriveClient, getSheetsClient} = require('./utils/googleClient.js');
 
 async function getSheet(){
-    console.log(process.env.GOOGLE_SHEET_EMBED_URL);
     return process.env.GOOGLE_SHEET_EMBED_URL;
 }
 

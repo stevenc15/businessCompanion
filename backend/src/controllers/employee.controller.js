@@ -9,18 +9,15 @@ const activityService = require('../services/activity.service');
 const {getSheetsClient} = require('../services/utils/googleClient.js');
 
 async function insertActivity(req, res) {
-    
-    const sheets = await getSheetsClient();
-
     const formData = req.body;
 
     if (!formData){
-        res.status(400).json({ message: 'no data is submitted/found from form'});
+        return res.status(400).json({ message: 'no data is submitted/found from form'});
     }
 
-    const newRow = sheetService.createRow(formData);
- 
     try{
+        const sheets = await getSheetsClient();
+        const newRow = sheetService.createRow(formData);
         await sheetService.addToSheet(newRow, sheets);
         res.status(200).json({ message: 'Submitted to Sheet successfully'});
     }catch(err){
@@ -34,8 +31,7 @@ async function createActivity(req, res) {
             const {
                 Community, 
                 ClientName, 
-                Address, 
-                DoorCode, 
+                Address,  
                 Service, 
                 EmployeeName,
                 ReviewWeeklySchedule,
@@ -57,36 +53,35 @@ async function createActivity(req, res) {
                 ViewRearOfTheHouse,
             } = req.body;    
 
-            if (!Community || !ClientName || !Address || !DoorCode || !Service || !EmployeeName){
+            if (!Community || !ClientName || !Address || !Service || !EmployeeName){
                 return res.status(400).json({message: 'missing required fields'});
             }
 
-            const newActivity = await activityService.createActivity(
-                Community, 
-                ClientName, 
-                Address, 
-                DoorCode, 
-                Service, 
-                EmployeeName,
-                ReviewWeeklySchedule,
-                CheckMailbox,
-                ViewFrontOfTheHouse,
-                TurnOnMainWater,
-                BugsInsideOutsideFrontDoor,
-                Ceilings,
-                Floors, 
-                CloseClosets,
-                TurnToiletsOnOff,
-                GarageCeiling, 
-                GarageFloor,
-                AnyGarageFridge,
-                AcAirHandlerDrainLine,
-                TurnOnOffWaterHeaterInElectricalPanel,
-                TurnOnOffIceMachine,
-                ThermostatSetTo78ForClose72ForOpening,
-                ViewRearOfTheHouse,
-            )
-    
+                const newActivity = await activityService.createActivity(
+                    Community, 
+                    ClientName, 
+                    Address, 
+                    Service, 
+                    EmployeeName,
+                    ReviewWeeklySchedule,
+                    CheckMailbox,
+                    ViewFrontOfTheHouse,
+                    TurnOnMainWater,
+                    BugsInsideOutsideFrontDoor,
+                    Ceilings,
+                    Floors, 
+                    CloseClosets,
+                    TurnToiletsOnOff,
+                    GarageCeiling, 
+                    GarageFloor,
+                    AnyGarageFridge,
+                    AcAirHandlerDrainLine,
+                    TurnOnOffWaterHeaterInElectricalPanel,
+                    TurnOnOffIceMachine,
+                    ThermostatSetTo78ForClose72ForOpening,
+                    ViewRearOfTheHouse,
+                )
+            
             res.status(200).json({message: 'successfully logged activity', newActivity});
         }catch(err){
             console.error(err);
@@ -104,7 +99,7 @@ async function getSingleClient(req, res){
             return res.status(404).json({message: 'no client found by that id'});
         }
 
-        res.status(200).json({client: client});
+        res.status(200).json(client);
     
     }catch(error){
         console.error('Error fetching client: ', error);
