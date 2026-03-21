@@ -330,6 +330,10 @@
   .data-table tbody tr:hover {
     background-color: var(--row-hover);
   }
+
+  .data-table tbody tr.row-selected {
+    background-color: rgba(49, 130, 206, 0.08);
+  }
   
   .status-badge {
     display: inline-block;

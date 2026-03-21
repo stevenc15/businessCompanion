@@ -87,6 +87,24 @@ async function editClient(req, res) {
     }
 }
 
+// bulkDeleteClients - deletes multiple clients by array of IDs
+async function bulkDeleteClients(req, res) {
+    try {
+        const { clientIds } = req.body;
+
+        if (!Array.isArray(clientIds) || clientIds.length === 0) {
+            return res.status(400).json({ error: 'clientIds must be a non-empty array' });
+        }
+
+        await clientService.bulkDeleteClients(clientIds);
+
+        res.status(200).json({ message: `Successfully deleted ${clientIds.length} client(s)` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to bulk delete clients' });
+    }
+}
+
 // deleteClient - deletes client from client table in database
 async function deleteClient(req, res) {
     try{
@@ -133,5 +151,6 @@ module.exports = {
     getAllClients,
     editClient,
     createClient,
-    deleteClient
+    deleteClient,
+    bulkDeleteClients
 }

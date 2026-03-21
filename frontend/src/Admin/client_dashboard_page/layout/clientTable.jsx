@@ -5,13 +5,41 @@
 
 import '../css/ClientDashboard.css';
 
-export default function ClientTable( {clients, setQRModal, handleQR, setQRCodeAddress, setEditModal, setEditClientID, setFormData, setDeleteModal, setDeleteClientID, setActivityModal, setActivityClient} ) {
+export default function ClientTable( {clients, setQRModal, handleQR, setQRCodeAddress, setEditModal, setEditClientID, setFormData, setDeleteModal, setDeleteClientID, setActivityModal, setActivityClient, selectedClients, setSelectedClients} ) {
+
+    const sortedClients = clients.slice().sort((a, b) => a.ClientId - b.ClientId);
+    const allSelected = sortedClients.length > 0 && sortedClients.every(c => selectedClients.has(c.ClientId));
+
+    function toggleSelectAll() {
+        if (allSelected) {
+            setSelectedClients(new Set());
+        } else {
+            setSelectedClients(new Set(sortedClients.map(c => c.ClientId)));
+        }
+    }
+
+    function toggleSelect(clientId) {
+        setSelectedClients(prev => {
+            const next = new Set(prev);
+            next.has(clientId) ? next.delete(clientId) : next.add(clientId);
+            return next;
+        });
+    }
+
     return (
         <table className="data-table">
-                  
-              {/*table columns*/} 
+
+              {/*table columns*/}
               <thead>
                 <tr>
+                  <th>
+                    <input
+                      type="checkbox"
+                      checked={allSelected}
+                      onChange={toggleSelectAll}
+                      title="Select all"
+                    />
+                  </th>
                   <th>Client Name</th>
                   <th>Address</th>
                   <th>Community</th>
@@ -19,26 +47,30 @@ export default function ClientTable( {clients, setQRModal, handleQR, setQRCodeAd
                 </tr>
               </thead>
 
-              {/*table contents*/} 
+              {/*table contents*/}
               <tbody>
-                
-                {/*clients.length>0 show table*/} 
-                {clients.length > 0 ? (
-                  //clients present
-                  clients
-                  .slice()
-                  .sort((a,b)=>a.ClientId-b.ClientId)
-                  .map( (client) => (
-                    
-                    //set id as key, tr = table row
-                    <tr key={client.ClientId}>
-                      
+
+                {/*clients.length>0 show table*/}
+                {sortedClients.length > 0 ? (
+                  sortedClients.map( (client) => (
+
+                    <tr key={client.ClientId} className={selectedClients.has(client.ClientId) ? 'row-selected' : ''}>
+
+                      {/*Checkbox*/}
+                      <td>
+                        <input
+                          type="checkbox"
+                          checked={selectedClients.has(client.ClientId)}
+                          onChange={() => toggleSelect(client.ClientId)}
+                        />
+                      </td>
+
                       {/*ClientName*/}
                       <td>{client.ClientName}</td>
-                      
+
                       {/*Address*/}
                       <td>{client.Address}</td>
-                      
+
                       {/*Community*/}
                       <td>{client.Community}</td>
 
@@ -46,17 +78,17 @@ export default function ClientTable( {clients, setQRModal, handleQR, setQRCodeAd
                       <td>
 
                       <div className="action-buttons-container">
-                        
+
                         <button className="action-button action-button-qr" onClick={(e) => {
                           e.preventDefault();
                           setQRModal(true)
                           handleQR(client.ClientId)
                           setQRCodeAddress(client.Address)
                           }}>QR code</button>
-                        
+
                         <button className="action-button action-button-modify" onClick={()=> {
-                          console.log("✏️ Modify clicked — client object:", client); 
-                          setEditModal(true) 
+                          console.log("✏️ Modify clicked — client object:", client);
+                          setEditModal(true)
                           setEditClientID(client.ClientId)
                           setFormData({
                             ClientName: client.ClientName,
@@ -80,13 +112,13 @@ export default function ClientTable( {clients, setQRModal, handleQR, setQRCodeAd
                       </div>
 
                       </td>
-                      
-                    </tr> //end of row
+
+                    </tr>
                   ))
-                ) : ( 
+                ) : (
                   //no clients present
                   <tr>
-                    <td colSpan="4" className="no-data">No client records found.</td>
+                    <td colSpan="5" className="no-data">No client records found.</td>
                   </tr>
                 )}
 

@@ -39,10 +39,15 @@ async function deleteClient(client){
    await client.destroy();
 }
 
+async function bulkDeleteClients(clientIds){
+    return Client.destroy({ where: { ClientId: clientIds } });
+}
+
 module.exports = {
     getAllClients,
     getOneClient,
     editClient,
     createClient,
-    deleteClient
+    deleteClient,
+    bulkDeleteClients
 };

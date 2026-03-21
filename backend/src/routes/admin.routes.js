@@ -62,11 +62,19 @@ router.post(
 );
 
 // POST /admin/clients/deleteClient
-// delete clint profile from database 
+// delete client profile from database
 router.post(
-    '/clients/deleteClient', 
-    requireAuth, 
+    '/clients/deleteClient',
+    requireAuth,
     adminController.deleteClient
+);
+
+// POST /admin/clients/bulkDeleteClients
+// delete multiple client profiles from database
+router.post(
+    '/clients/bulkDeleteClients',
+    requireAuth,
+    adminController.bulkDeleteClients
 );
 
 module.exports = router;
