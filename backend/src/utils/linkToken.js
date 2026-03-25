@@ -4,11 +4,11 @@
 
 const jwt = require('jsonwebtoken');
 
-function generateLinkToken(clientId) {
+function generateLinkToken(clientId, expiresIn = '24h') {
     return jwt.sign(
         { clientId },
         process.env.LINK_SECRET,
-        { expiresIn: '24h' }
+        { expiresIn }
     );
 }
 
