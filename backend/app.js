@@ -10,6 +10,7 @@
 
 const express = require('express');
 const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 const cors = require('cors');
 const passport = require('passport');
 const helmet = require('helmet');
@@ -47,7 +48,11 @@ app.use(cors({
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(express.json({ limit: '10kb' }));
 
-app.use(session ({
+app.use(session({
+    store: new pgSession({
+        conString: process.env.DATABASE_URL,
+        createTableIfMissing: true,
+    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
