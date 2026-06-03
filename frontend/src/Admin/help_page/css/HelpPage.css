@@ -1,0 +1,70 @@
+/* HelpPage.css */
+
+.help-intro {
+    margin-bottom: 2rem;
+}
+
+.help-intro-text {
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    max-width: 780px;
+}
+
+.help-quick-reference {
+    margin-bottom: 2rem;
+}
+
+.help-ref-label {
+    font-weight: 500;
+    color: var(--text-primary);
+    width: 50%;
+}
+
+.help-ref-value {
+    color: var(--text-secondary);
+}
+
+.help-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.help-section {
+    margin-bottom: 0;
+}
+
+.help-section-subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+
+.help-list {
+    list-style: none;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+}
+
+.help-list-item {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.help-list-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+}

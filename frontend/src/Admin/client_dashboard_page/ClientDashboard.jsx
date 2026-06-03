@@ -11,6 +11,7 @@ import ReturnToActivities from './layout/backToActivities';
 import AddClientButton from './layout/addClientButton';
 import ManageEmployeesButton from './layout/manageEmployeesButton';
 import ToEulaagreement from './layout/toEulaAgreementDocument';
+import HelpButton from './layout/helpButton';
 import { CLIENTFORMCONFIG } from '../add_client_page/config/clientForm'; 
 import searchClientFilter from './hooks/searchFilter';
 import getQR from './hooks/getQR';
@@ -76,6 +77,8 @@ function ClientDashboard() {
           <ReturnToActivities />
 
           <ManageEmployeesButton />
+
+          <HelpButton />
 
           <AddClientButton />
 
