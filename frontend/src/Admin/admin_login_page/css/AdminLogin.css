@@ -269,12 +269,42 @@
   }
   
   /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .login-card {
+      max-width: 100%;
+    }
+
+    .google-signin-button {
+      max-width: 100%;
+    }
+  }
+
   @media (max-width: 480px) {
     .admin-header {
-      padding: 1rem 1.5rem;
+      padding: 0.875rem 1rem;
     }
-    
+
+    .app-name {
+      font-size: 1.2rem;
+    }
+
+    .admin-content {
+      padding: 1.5rem 0.875rem;
+      justify-content: flex-start;
+      padding-top: 2rem;
+    }
+
     .login-card {
-      padding: 1.5rem;
+      padding: 1.5rem 1.25rem;
+    }
+
+    .login-title {
+      font-size: 1.4rem;
+    }
+
+    .google-signin-button {
+      max-width: 100%;
+      min-height: 48px;
+      font-size: 1rem;
     }
   }
