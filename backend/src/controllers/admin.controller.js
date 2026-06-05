@@ -214,7 +214,8 @@ async function sendLinks(req, res) {
             url: `${FRONTENDAPPURL}/employee?ClientId=${client.ClientId}&token=${generateLinkToken(client.ClientId)}`,
         }));
 
-        await sendEmployeeLinks(employeeEmail, clientLinks);
+        const adminEmail = req.user?.emails?.[0]?.value;
+        await sendEmployeeLinks(employeeEmail, clientLinks, adminEmail);
 
         res.status(200).json({ message: `Links sent to ${employeeEmail}` });
     } catch (error) {

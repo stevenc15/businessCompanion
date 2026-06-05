@@ -13,7 +13,7 @@ async function generateClientQR(clientId){
     if (!clientId){
         throw new Error('Client ID missing');
     }
-    const token = generateLinkToken(clientId, '7d');
+    const token = generateLinkToken(clientId, null);
     const frontendURL = FRONTENDAPPURL
     const qrLink = `${frontendURL}/employee?ClientId=${clientId}&token=${token}`;
     const qrCodeDataURL = await QRCode.toDataURL(qrLink);

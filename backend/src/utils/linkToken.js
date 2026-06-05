@@ -5,11 +5,8 @@
 const jwt = require('jsonwebtoken');
 
 function generateLinkToken(clientId, expiresIn = '24h') {
-    return jwt.sign(
-        { clientId },
-        process.env.LINK_SECRET,
-        { expiresIn }
-    );
+    const options = expiresIn ? { expiresIn } : {};
+    return jwt.sign({ clientId }, process.env.LINK_SECRET, options);
 }
 
 function verifyLinkToken(token) {
