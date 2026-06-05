@@ -9,6 +9,7 @@ const { FRONTENDAPPURL } = require('../config/appConfig');
 
 async function sendEmployeeLinks(toEmail, clientLinks, ccEmail) {
     const sentAt = new Date().toLocaleString('en-US', {
+        timeZone: 'America/New_York',
         weekday: 'long',
         year: 'numeric',
         month: 'long',

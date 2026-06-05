@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { API_URL } from '../../../config/api';
 import '../css/ClientDashboard.css';
 
-export default function SendLinksModal({ selectedClients, clients, setSendLinksModal }) {
+export default function SendLinksModal({ selectedClients, clients, setSendLinksModal, setSelectedClients }) {
     const [employees, setEmployees] = useState([]);
     const [employeeEmail, setEmployeeEmail] = useState('');
     const [status, setStatus] = useState('');
@@ -42,6 +42,10 @@ export default function SendLinksModal({ selectedClients, clients, setSendLinksM
         setSending(false);
         if (res.ok) {
             setStatus('success');
+            setTimeout(() => {
+                setSendLinksModal(false);
+                setSelectedClients(new Set());
+            }, 1500);
         } else {
             setStatus(data.error || 'Failed to send');
         }

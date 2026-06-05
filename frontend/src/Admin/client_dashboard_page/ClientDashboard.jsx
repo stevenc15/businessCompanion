@@ -193,6 +193,7 @@ function ClientDashboard() {
                     selectedClients={selectedClients}
                     clients={clients}
                     setSendLinksModal={setSendLinksModal}
+                    setSelectedClients={setSelectedClients}
                 />
             )}
 
