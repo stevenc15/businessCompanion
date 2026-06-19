@@ -10,6 +10,7 @@ import LogoutButton from './layout/logoutClientButton';
 import ReturnToActivities from './layout/backToActivities';
 import AddClientButton from './layout/addClientButton';
 import ManageEmployeesButton from './layout/manageEmployeesButton';
+import ActivityDatabaseButton from './layout/activityDatabaseButton';
 import ToEulaagreement from './layout/toEulaAgreementDocument';
 import HelpButton from './layout/helpButton';
 import { CLIENTFORMCONFIG } from '../add_client_page/config/clientForm'; 
@@ -75,6 +76,8 @@ function ClientDashboard() {
           <LogoutButton />  
 
           <ReturnToActivities />
+
+          <ActivityDatabaseButton />
 
           <ManageEmployeesButton />
 

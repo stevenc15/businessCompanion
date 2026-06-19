@@ -11,6 +11,7 @@ import changeForm from '../../../Employee/employee_form_page/services/changeForm
 import submitForm from '../../../Employee/employee_form_page/services/submitForm';
 import { CHECKLISTITEMS } from '../../../Employee/employee_form_page/config/checklistConfig';
 import { FORMDEFAULT } from '../../../Employee/employee_form_page/config/formDefault';
+import { API_URL } from '../../../config/api';
 
 export default function ActivityModal({ client, setActivityModal }) {
 
@@ -20,10 +21,32 @@ export default function ActivityModal({ client, setActivityModal }) {
         ClientName: client.ClientName,
         Address: client.Address,
     });
+    const [submitting, setSubmitting] = useState(false);
 
     function handleClose() {
         setFormData({ ...FORMDEFAULT, Community: client.Community, ClientName: client.ClientName, Address: client.Address });
         setActivityModal(false);
+    }
+
+    // The employee submission endpoint requires the same signed link token
+    // employees get emailed; mint a short-lived one for this client so the
+    // admin can submit through the same authenticated path.
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setSubmitting(true);
+        try {
+            const tokenRes = await fetch(`${API_URL}/admin/activities/getActivityToken?ClientId=${client.ClientId}`, {
+                credentials: 'include',
+            });
+            if (!tokenRes.ok) {
+                alert('Failed to authorize activity submission');
+                return;
+            }
+            const { token } = await tokenRes.json();
+            await submitForm(e, { ...formData, token }, (reset) => { setFormData(reset); setActivityModal(false); });
+        } finally {
+            setSubmitting(false);
+        }
     }
 
     return (
@@ -32,7 +55,7 @@ export default function ActivityModal({ client, setActivityModal }) {
 
                 <h2 className="form-title">Log Activity — {client.ClientName}</h2>
 
-                <form className="activity-form" onSubmit={(e) => submitForm(e, formData, (reset) => { setFormData(reset); setActivityModal(false); })}>
+                <form className="activity-form" onSubmit={handleSubmit}>
 
                     <div className="form-group">
                         <label htmlFor="EmployeeName">Your Name</label>
@@ -80,7 +103,9 @@ export default function ActivityModal({ client, setActivityModal }) {
                     />
 
                     <div className="form-actions">
-                        <button type="submit" className="submit-button">Submit Activity</button>
+                        <button type="submit" className="submit-button" disabled={submitting}>
+                            {submitting ? 'Submitting...' : 'Submit Activity'}
+                        </button>
                         <button type="button" className="back-button" onClick={handleClose}>Cancel</button>
                     </div>
 

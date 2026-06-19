@@ -1,0 +1,114 @@
+/* ActivityDatabase.css - extends the Client Dashboard's design system */
+@import '../../client_dashboard_page/css/ClientDashboard.css';
+
+.sort-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  background-color: var(--card-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
+}
+
+.sort-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+.sort-select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background-color: white;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+}
+
+.action-button-details {
+  background-color: #8b5cf6;
+  color: white;
+  border: 1px solid #8b5cf6;
+}
+
+.action-button-details:hover {
+  background-color: #7c3aed;
+  transform: translateY(-2px);
+}
+
+.action-button-process {
+  background-color: #38a169;
+  color: white;
+  border: 1px solid #38a169;
+}
+
+.action-button-process:hover {
+  background-color: #2f855a;
+  transform: translateY(-2px);
+}
+
+.action-button-unprocess {
+  background-color: #ed8936;
+  color: white;
+  border: 1px solid #ed8936;
+}
+
+.action-button-unprocess:hover {
+  background-color: #dd6b20;
+  transform: translateY(-2px);
+}
+
+.checklist-details-list {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+
+.checklist-details-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.checklist-mark {
+  font-weight: 700;
+  width: 1.5rem;
+  text-align: center;
+}
+
+.checklist-mark.checked {
+  color: var(--status-approved);
+}
+
+.checklist-mark.unchecked {
+  color: var(--revoke-button);
+}
+
+@media (max-width: 768px) {
+  .sort-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: 100%;
+  }
+}

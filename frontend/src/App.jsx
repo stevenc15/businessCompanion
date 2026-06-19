@@ -16,6 +16,8 @@ import AddClient from './Admin/add_client_page/AddClient';
 import EmployeeManagement from './Admin/employee_management_page/EmployeeManagement';
 import EndUserAgreement from './EndUserAgreement';
 import HelpPage from './Admin/help_page/HelpPage';
+import ActivityDatabase from './Admin/activity_database_page/ActivityDatabase';
+import ActivityForm from './Admin/activity_form_page/ActivityForm';
 
 function App() {
   return(
@@ -27,6 +29,8 @@ function App() {
         <Route path="/employeeManagement" element={<EmployeeManagement/>} />
         <Route path="/activityDashboard" element={<ActivityDashboard/>} />
         <Route path="/clientDashboard" element={<ClientDashboard/>} />
+        <Route path="/activityDatabase" element={<ActivityDatabase/>} /> {/* Activity database page, table view of the activities table */}
+        <Route path="/activityForm" element={<ActivityForm/>} /> {/* Edit form for a single activity record */}
         <Route path="/addClient" element={<AddClient/>} /> {/* Add client form for admin, will add to client dashboard*/}
         <Route path="/endUserAgreement" element={<EndUserAgreement/>} /> {/* End user agreement page */}
         <Route path="/adminHelp" element={<HelpPage/>} /> {/* Admin reference/help page */}
