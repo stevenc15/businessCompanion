@@ -2,6 +2,7 @@ const request = require('supertest');
 const app = require('../app');
 const { initializeTestDB } = require('./setupTestDB');
 const Client = require('../src/models/Client');
+const Activity = require('../src/models/Activity');
 
 // Mock employee auth middleware to pass through in tests
 jest.mock('../src/routes/Route_utils/requireEmployeeAuth', () => (req, res, next) => next());
@@ -78,11 +79,11 @@ describe('POST /employee/create-activities', () => {
     });
 });
 
-// ─── insert-activity (Google Sheet write) ─────────────────────────────────────
+// ─── insert-activity (writes to the activities table and the Google Sheet) ────
 
 describe('POST /employee/insert-activity', () => {
 
-    it('returns 200 when sheet write succeeds', async () => {
+    it('returns 200, saves the activity to the database, and writes to the sheet', async () => {
         const res = await request(app)
             .post('/employee/insert-activity')
             .send({
@@ -94,7 +95,12 @@ describe('POST /employee/insert-activity', () => {
                 token: 'test-token',
             });
         expect(res.statusCode).toBe(200);
-        expect(res.body.message).toBe('Submitted to Sheet successfully');
+        expect(res.body.message).toBe('Activity logged successfully');
+        expect(res.body.newActivity).toBeDefined();
+
+        const saved = await Activity.findOne({ where: { ClientName: 'Maria Lopez' } });
+        expect(saved).not.toBeNull();
+        expect(saved.EmployeeName).toBe('John Smith');
     });
 });
 

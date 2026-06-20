@@ -26,82 +26,44 @@ async function insertActivity(req, res) {
         return res.status(400).json({ message: 'invalid field values' });
     }
 
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('form data in controller: ', formData);
+    }
+
     try{
-        if (process.env.NODE_ENV !== 'production') {
-            console.log('form data in controller: ', formData);
+        const newActivity = await activityService.createActivity(formData);
+
+        try{
+            const sheets = await getSheetsClient();
+            const newRow = sheetService.createRow(formData);
+            await sheetService.addToSheet(newRow, sheets);
+        }catch(sheetErr){
+            console.error('Failed to write to sheet:', sheetErr);
         }
-        const sheets = await getSheetsClient();
-        const newRow = sheetService.createRow(formData);
-        await sheetService.addToSheet(newRow, sheets);
+
         res.set('Cache-Control', 'no-store');
-        res.status(200).json({ message: 'Submitted to Sheet successfully'});
+        res.status(200).json({ message: 'Activity logged successfully', newActivity});
     }catch(err){
         console.error(err);
-        res.status(500).json({ message: 'Failed to write to sheet'});
+        res.status(500).json({ message: 'Failed to log activity'});
     }
 }
 
 async function createActivity(req, res) {
     try{
-            const {
-                Community, 
-                ClientName, 
-                Address,  
-                Service, 
-                EmployeeName,
-                ReviewWeeklySchedule,
-                CheckMailbox,
-                ViewFrontOfTheHouse,
-                TurnOnMainWater,
-                BugsInsideOutsideFrontDoor,
-                Ceilings,
-                Floors, 
-                CloseClosets,
-                TurnToiletsOnOff,
-                GarageCeiling, 
-                GarageFloor,
-                AnyGarageFridge,
-                AcAirHandlerDrainLine,
-                TurnOnOffWaterHeaterInElectricalPanel,
-                TurnOnOffIceMachine,
-                ThermostatSetTo78ForClose72ForOpening,
-                ViewRearOfTheHouse,
-            } = req.body;    
+            const { Community, ClientName, Address, Service, EmployeeName } = req.body;
 
             if (!Community || !ClientName || !Address || !Service || !EmployeeName){
                 return res.status(400).json({message: 'missing required fields'});
             }
 
-                const newActivity = await activityService.createActivity(
-                    Community, 
-                    ClientName, 
-                    Address, 
-                    Service, 
-                    EmployeeName,
-                    ReviewWeeklySchedule,
-                    CheckMailbox,
-                    ViewFrontOfTheHouse,
-                    TurnOnMainWater,
-                    BugsInsideOutsideFrontDoor,
-                    Ceilings,
-                    Floors, 
-                    CloseClosets,
-                    TurnToiletsOnOff,
-                    GarageCeiling, 
-                    GarageFloor,
-                    AnyGarageFridge,
-                    AcAirHandlerDrainLine,
-                    TurnOnOffWaterHeaterInElectricalPanel,
-                    TurnOnOffIceMachine,
-                    ThermostatSetTo78ForClose72ForOpening,
-                    ViewRearOfTheHouse,
-                )
-            
+            const newActivity = await activityService.createActivity(req.body);
+
             res.status(200).json({message: 'successfully logged activity', newActivity});
         }catch(err){
             console.error(err);
             res.status(500).json({error: 'Failed to save activity'});
-        }     
+        }
 }
 
 async function getSingleClient(req, res){
