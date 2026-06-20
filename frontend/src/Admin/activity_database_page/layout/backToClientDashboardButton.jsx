@@ -11,7 +11,7 @@ export default function BackToClientDashboardButton() {
             className="go-back-button"
             onClick={() => navigate('/clientDashboard')}
         >
-            Go to Client Dashboard
+            Client Dashboard
         </button>
     );
 }

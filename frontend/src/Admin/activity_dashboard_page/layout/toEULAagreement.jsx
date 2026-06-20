@@ -8,13 +8,13 @@ export default function ToEULAagreement() {
     const navigate = useNavigate();
 
     return (
-        <button 
-            className="go-back-button"
+        <button
+            className="eula-button"
             onClick={() => {
                 navigate('/endUserAgreement');
             }}
         >
-            Go to EULA Agreement
+            EULA Agreement
         </button>
     )
 }

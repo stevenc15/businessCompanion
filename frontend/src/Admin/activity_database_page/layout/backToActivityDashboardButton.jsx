@@ -12,7 +12,7 @@ export default function BackToActivityDashboardButton() {
             style={{ backgroundColor: '#3182ce' }}
             onClick={() => navigate('/activityDashboard')}
         >
-            Go to Activity Dashboard
+            Activity Dashboard
         </button>
     );
 }

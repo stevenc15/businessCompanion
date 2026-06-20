@@ -9,6 +9,7 @@ import ActivityDatabaseHeader from './layout/activityDatabaseHeader';
 import LogoutButton from './layout/logoutButton';
 import BackToClientDashboardButton from './layout/backToClientDashboardButton';
 import BackToActivityDashboardButton from './layout/backToActivityDashboardButton';
+import HelpButton from './layout/helpButton';
 import ActivityDatabaseStats from './layout/activityDatabaseStats';
 import SortControls from './layout/sortControls';
 import TableHeader from './layout/tableHeader';
@@ -60,6 +61,8 @@ function ActivityDatabase() {
           <BackToClientDashboardButton />
 
           <BackToActivityDashboardButton />
+
+          <HelpButton />
 
         </div>
 

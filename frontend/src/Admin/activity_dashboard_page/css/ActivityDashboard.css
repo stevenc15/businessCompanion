@@ -137,7 +137,46 @@
   .add-button:hover {
     background-color: rgb(102, 223, 96);;
   }
-  
+
+  /* Help button — distinct pill/outline shape so it reads differently from
+     the solid rectangular navigation buttons */
+  .help-button {
+    background-color: transparent;
+    color: white;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    border-radius: 999px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 0.75rem;
+  }
+
+  .help-button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: white;
+  }
+
+  /* EULA button — deliberately muted/ghost styling since that page isn't
+     part of the admin workflow, just a required legal document link */
+  .eula-button {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.75);
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+    font-style: italic;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .eula-button:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: white;
+  }
+
   .dashboard-content {
     flex: 1;
     padding: 2rem;

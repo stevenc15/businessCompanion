@@ -3,7 +3,7 @@
  */
 
 import { useNavigate } from 'react-router-dom';
-import '../css/ClientDashboard.css';
+import '../css/ActivityDashboard.css';
 
 export default function HelpButton() {
     const navigate = useNavigate();

@@ -9,8 +9,7 @@ export default function ManageEmployeesButton() {
     const navigate = useNavigate();
     return (
         <button
-            className="go-back-button"
-            style={{ backgroundColor: '#3182ce', marginRight: '0.75rem' }}
+            className="add-button"
             onClick={() => navigate('/employeeManagement')}
         >
             Manage Employees
