@@ -16,7 +16,7 @@ export default function BackToClientDashboard() {
                 navigate('/clientDashboard');
             }}
         >
-            Go to Client Dashboard
+            Client Dashboard
         </button>
     )
 }

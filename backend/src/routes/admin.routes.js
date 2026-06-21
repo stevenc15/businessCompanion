@@ -93,4 +93,54 @@ router.post('/employees/deleteEmployee', requireAuth, adminController.deleteEmpl
 // POST /admin/email/sendLinks
 router.post('/email/sendLinks', requireAuth, adminController.sendLinks);
 
+// ----- Activity Database Routes -----
+
+// GET /admin/activities/getActivities
+// fetch all activity records from database
+router.get(
+    '/activities/getActivities',
+    requireAuth,
+    adminController.getAllActivities
+);
+
+// GET /admin/activities/getActivity
+// fetch a single activity record (used to prefill the edit form)
+router.get(
+    '/activities/getActivity',
+    requireAuth,
+    adminController.getActivity
+);
+
+// POST /admin/activities/editActivity
+// edit an activity record
+router.post(
+    '/activities/editActivity',
+    requireAuth,
+    adminController.editActivity
+);
+
+// POST /admin/activities/deleteActivity
+// delete an activity record
+router.post(
+    '/activities/deleteActivity',
+    requireAuth,
+    adminController.deleteActivity
+);
+
+// POST /admin/activities/toggleStatus
+// flip an activity's processed/pending status (QuickBooks integration placeholder)
+router.post(
+    '/activities/toggleStatus',
+    requireAuth,
+    adminController.toggleActivityStatus
+);
+
+// GET /admin/activities/getActivityToken
+// mint a short-lived link token so the admin can submit the Log Activity modal
+router.get(
+    '/activities/getActivityToken',
+    requireAuth,
+    adminController.getActivityToken
+);
+
 module.exports = router;

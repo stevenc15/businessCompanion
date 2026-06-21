@@ -13,6 +13,8 @@ import useGetSheet from './hooks/getSheet';
 import DashboardHeader from './layout/dashboardHeader';
 import LogoutButton from './layout/logoutButton';
 import BackToClientDashboard from './layout/backToClientDashboard';
+import ActivityDatabaseButton from './layout/activityDatabaseButton';
+import HelpButton from './layout/helpButton';
 import ToEULAagreement from './layout/toEULAagreement';
 import GoogleSheetDisplay from './layout/googleSheetDisplay';
 import SheetExport from './layout/sheetExport';
@@ -38,6 +40,10 @@ function ActivityDashboard () {
                 <LogoutButton />
 
                 <BackToClientDashboard />
+
+                <ActivityDatabaseButton />
+
+                <HelpButton />
 
                 <ToEULAagreement />
             </div>

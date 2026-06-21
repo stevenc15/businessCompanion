@@ -14,7 +14,7 @@ export default function ReturnToActivities() {
               navigate('/activityDashboard');
             }}
           >
-            Go back to Activity Dashboard
+            Activity Dashboard
           </button>
     )
 }

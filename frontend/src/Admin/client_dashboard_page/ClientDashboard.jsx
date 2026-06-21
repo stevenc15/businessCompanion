@@ -10,6 +10,7 @@ import LogoutButton from './layout/logoutClientButton';
 import ReturnToActivities from './layout/backToActivities';
 import AddClientButton from './layout/addClientButton';
 import ManageEmployeesButton from './layout/manageEmployeesButton';
+import ActivityDatabaseButton from './layout/activityDatabaseButton';
 import ToEulaagreement from './layout/toEulaAgreementDocument';
 import HelpButton from './layout/helpButton';
 import { CLIENTFORMCONFIG } from '../add_client_page/config/clientForm'; 
@@ -76,11 +77,9 @@ function ClientDashboard() {
 
           <ReturnToActivities />
 
-          <ManageEmployeesButton />
+          <ActivityDatabaseButton />
 
           <HelpButton />
-
-          <AddClientButton />
 
           <ToEulaagreement />
 
@@ -94,9 +93,14 @@ function ClientDashboard() {
         {/*Title CONTAINER*/}
         <div className="dashboard-title-section">
           <h2 className="dashboard-title"> Client Dashboard </h2> {/*title*/}
-          
+
+          <div className="title-actions">
+            <AddClientButton />
+            <ManageEmployeesButton />
+          </div>
+
           <DashboardStats clients={clients} query={query} setQuery={setQuery} />
-        </div> {/*end of title*/} 
+        </div> {/*end of title*/}
             
         {/*table of clients
         LAYOUT DATA TABLE ELEMENT

@@ -5,6 +5,7 @@
 const qrService = require('../services/qr.service');
 const clientService = require('../services/client.service');
 const sheetService = require('../services/sheet.service');
+const activityService = require('../services/activity.service');
 const Employee = require('../models/Employee');
 const { generateLinkToken } = require('../utils/linkToken');
 const { sendEmployeeLinks } = require('../services/email.service');
@@ -224,6 +225,125 @@ async function sendLinks(req, res) {
     }
 }
 
+// ----- Activity Database routes -----
+
+// getAllActivities - fetches all activity records from database
+async function getAllActivities(req, res) {
+    try{
+        const activities = await activityService.getAllActivities();
+        res.set('Cache-Control', 'no-store');
+        res.status(200).json(activities);
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Failed to retrieve activity data' });
+    }
+}
+
+// getActivity - fetches a single activity record (used to prefill the edit form)
+async function getActivity(req, res) {
+    try{
+        const { ActivityId } = req.query;
+
+        const activity = await activityService.getOneActivity(ActivityId);
+
+        if (!activity) {
+            return res.status(404).json({ error: 'Activity not found' });
+        }
+
+        res.set('Cache-Control', 'no-store');
+        res.status(200).json(activity);
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Failed to retrieve activity' });
+    }
+}
+
+// editActivity - edit an activity record's fields
+async function editActivity(req, res) {
+    try{
+        const { ActivityId, ...updates } = req.body;
+
+        const activity = await activityService.getOneActivity(ActivityId);
+
+        if (!activity) {
+            return res.status(404).json({ error: 'Activity not found' });
+        }
+
+        const updatedActivity = await activityService.editActivity(activity, updates);
+
+        res.status(200).json({ message: 'successful edit of activity', updatedActivity });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Failed to edit activity' });
+    }
+}
+
+// deleteActivity - deletes an activity record from the database
+async function deleteActivity(req, res) {
+    try{
+        const { ActivityId } = req.body;
+
+        const activity = await activityService.getOneActivity(ActivityId);
+
+        if (!activity) {
+            return res.status(404).json({ error: 'Activity not found' });
+        }
+
+        await activityService.deleteActivity(activity);
+
+        res.status(200).json({ message: 'successful deletion of activity' });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Failed to delete activity' });
+    }
+}
+
+// toggleActivityStatus - flips the Status flag (placeholder for QuickBooks processing state)
+async function toggleActivityStatus(req, res) {
+    try{
+        const { ActivityId } = req.body;
+
+        const activity = await activityService.getOneActivity(ActivityId);
+
+        if (!activity) {
+            return res.status(404).json({ error: 'Activity not found' });
+        }
+
+        const updatedActivity = await activityService.toggleActivityStatus(activity);
+
+        res.status(200).json({ message: 'status updated', updatedActivity });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Failed to update activity status' });
+    }
+}
+
+// getActivityToken - mints a short-lived link token so an admin can submit the
+// "Log Activity" modal through the same employee submission/auth path
+async function getActivityToken(req, res) {
+    try{
+        const { ClientId } = req.query;
+
+        if (!ClientId) {
+            return res.status(400).json({ error: 'ClientId is required' });
+        }
+
+        const client = await clientService.getOneClient(ClientId);
+
+        if (!client) {
+            return res.status(404).json({ error: 'Client not found' });
+        }
+
+        const token = generateLinkToken(client.ClientId, '15m');
+
+        res.set('Cache-Control', 'no-store');
+        res.status(200).json({ token });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: 'Failed to generate token' });
+    }
+}
+
 module.exports = {
     getSheet,
     exportSheet,
@@ -237,4 +357,10 @@ module.exports = {
     addEmployee,
     deleteEmployee,
     sendLinks,
+    getAllActivities,
+    getActivity,
+    editActivity,
+    deleteActivity,
+    toggleActivityStatus,
+    getActivityToken,
 }
