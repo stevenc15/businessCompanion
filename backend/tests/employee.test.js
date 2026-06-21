@@ -25,8 +25,26 @@ jest.mock('../src/services/utils/googleClient', () => ({
     getDriveClient: jest.fn().mockResolvedValue({}),
 }));
 
+// Mock email service so failure-notification tests don't hit the real Resend API
+jest.mock('../src/services/email.service', () => ({
+    sendEmployeeLinks: jest.fn().mockResolvedValue(),
+    notifyAdminsOfSubmissionFailure: jest.fn().mockResolvedValue(),
+}));
+
+const { getSheetsClient } = require('../src/services/utils/googleClient');
+const emailService = require('../src/services/email.service');
+const activityService = require('../src/services/activity.service');
+
 beforeEach(async () => {
     await initializeTestDB();
+    jest.clearAllMocks();
+    getSheetsClient.mockResolvedValue({
+        spreadsheets: {
+            values: {
+                append: jest.fn().mockResolvedValue({}),
+            },
+        },
+    });
 });
 
 // ─── create-activities ────────────────────────────────────────────────────────
@@ -83,24 +101,69 @@ describe('POST /employee/create-activities', () => {
 
 describe('POST /employee/insert-activity', () => {
 
+    const validBody = {
+        EmployeeName: 'John Smith',
+        Community: 'Sunset Villas',
+        ClientName: 'Maria Lopez',
+        Address: '1234 Palm Ave, Miami FL',
+        Service: 'Home Watch',
+        token: 'test-token',
+    };
+
     it('returns 200, saves the activity to the database, and writes to the sheet', async () => {
         const res = await request(app)
             .post('/employee/insert-activity')
-            .send({
-                EmployeeName: 'John Smith',
-                Community: 'Sunset Villas',
-                ClientName: 'Maria Lopez',
-                Address: '1234 Palm Ave, Miami FL',
-                Service: 'Home Watch',
-                token: 'test-token',
-            });
+            .send(validBody);
         expect(res.statusCode).toBe(200);
-        expect(res.body.message).toBe('Activity logged successfully');
+        expect(res.body.message).toBe('Activity logged successfully.');
+        expect(res.body.database).toEqual({ success: true, message: 'Saved to the database.' });
+        expect(res.body.sheet).toEqual({ success: true, message: 'Synced to the spreadsheet.' });
         expect(res.body.newActivity).toBeDefined();
+        expect(emailService.notifyAdminsOfSubmissionFailure).not.toHaveBeenCalled();
 
         const saved = await Activity.findOne({ where: { ClientName: 'Maria Lopez' } });
         expect(saved).not.toBeNull();
         expect(saved.EmployeeName).toBe('John Smith');
+    });
+
+    it('returns 200 but flags the sheet failure when the sheet write fails, and notifies admins', async () => {
+        getSheetsClient.mockRejectedValueOnce(new Error('Sheets API unavailable'));
+
+        const res = await request(app)
+            .post('/employee/insert-activity')
+            .send(validBody);
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body.database.success).toBe(true);
+        expect(res.body.sheet.success).toBe(false);
+        expect(res.body.message).toMatch(/spreadsheet sync failed/);
+        expect(emailService.notifyAdminsOfSubmissionFailure).toHaveBeenCalledTimes(1);
+        expect(emailService.notifyAdminsOfSubmissionFailure).toHaveBeenCalledWith(
+            expect.objectContaining({ dbSuccess: true, sheetSuccess: false })
+        );
+
+        const saved = await Activity.findOne({ where: { ClientName: 'Maria Lopez' } });
+        expect(saved).not.toBeNull();
+    });
+
+    it('returns 500 and asks for a resubmit when the database write fails, and notifies admins', async () => {
+        jest.spyOn(activityService, 'createActivity').mockRejectedValueOnce(new Error('DB unavailable'));
+
+        const res = await request(app)
+            .post('/employee/insert-activity')
+            .send(validBody);
+
+        expect(res.statusCode).toBe(500);
+        expect(res.body.database.success).toBe(false);
+        expect(res.body.sheet.success).toBe(true);
+        expect(res.body.message).toMatch(/please resubmit/i);
+        expect(emailService.notifyAdminsOfSubmissionFailure).toHaveBeenCalledTimes(1);
+        expect(emailService.notifyAdminsOfSubmissionFailure).toHaveBeenCalledWith(
+            expect.objectContaining({ dbSuccess: false, sheetSuccess: true })
+        );
+
+        const saved = await Activity.findOne({ where: { ClientName: 'Maria Lopez' } });
+        expect(saved).toBeNull();
     });
 });
 

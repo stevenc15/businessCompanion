@@ -21,5 +21,11 @@ export default async function submitForm(e, formData, setFormData) {
 
     const data = await res.json();
     alert(data.message || 'Submitted!');
-    setFormData(FORMDEFAULT);
+
+    // Only clear the form on success — on failure (e.g. the database write
+    // failed and a resubmit is needed) keep the entries so the user can
+    // just hit submit again instead of retyping everything.
+    if (res.ok) {
+      setFormData(FORMDEFAULT);
+    }
   };
